@@ -15,7 +15,7 @@ exports.getSubcategoryById = async (req, res) => {
   if(!req.params.subcategoryId) return response.error(res, 400)
   try {
     const subcategory = await Subcategory.findById(req.params.subcategoryId);
-    if(!subcategory) return response.error(res, 400, subcategory)
+    if(!subcategory) return response.error(res, 404)
     response.success(res, 200, subcategory)
   } catch (error) {
     response.error(res, 503)
@@ -45,7 +45,7 @@ exports.createSubcategory = async (req, res) => {
   
 }
 exports.updateSubcategoryById = (req, res) => {
-  if(!req.params.subcategoryId) return response.error(res, 400)
+  if(!req.params.subcategoryId || !req.body) return response.error(res, 400)
 
   try {
     Subcategory.findByIdAndUpdate(req.params.subcategoryId, req.body, {

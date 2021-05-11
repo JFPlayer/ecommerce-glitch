@@ -7,9 +7,9 @@ router.route('/')
   .get(controller.getProducts)
   .post(controller.createProduct)
 
-router.route('/:id')
-  .get(controller.getProduct)
-  .put(controller.updateProduct)
-  .delete(controller.deleteProduct)
+router.route('/:productId')
+  .get(controller.getProductById)
+  .put(controller.updateProductById)
+  .delete(controller.deleteProductById)
 
 module.exports = router

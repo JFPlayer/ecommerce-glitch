@@ -1,11 +1,9 @@
 const { Schema, model } = require('mongoose');
-const { nanoid } = require('nanoid');
+const generateSKU = require('../utils/generateSKU');
 
 const productSchema = new Schema({
   sku: {
     type: String,
-    unique: true,
-    default: nanoid(8).toUpperCase()
   },
   title: {
     type: String,
@@ -20,9 +18,9 @@ const productSchema = new Schema({
     ref: 'Category',
     required: true,
   },
-  subCategory: {
+  subcategory: {
     type: Schema.Types.ObjectId,
-    ref: 'SubCategory',
+    ref: 'Subcategory',
     required: true,
   },
   stock: {
@@ -35,10 +33,9 @@ const productSchema = new Schema({
   },
   discount: {
     type: Number,
-    required: true,
     default: 0
   },
-  rating: [{
+  rating: [{ //
     type: Number,
     min: 0,
     max:5,
@@ -50,7 +47,6 @@ const productSchema = new Schema({
   }],
   description: {
     type: String,
-    required: true
   },
   technicalDetails: [{
     title: String,

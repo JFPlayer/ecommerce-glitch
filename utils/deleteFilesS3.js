@@ -8,7 +8,7 @@ const s3 = new AWS.S3({
   }
 })
 
-const deleteFileS3 = async (arrayKey) => {
+const deleteFilesS3 = async (arrayKey) => {
   
   let toRemove = [];
   let notRemove = [];
@@ -42,4 +42,4 @@ const deleteFileS3 = async (arrayKey) => {
   }
 }
 
-module.exports = deleteFileS3;
+module.exports = deleteFilesS3;

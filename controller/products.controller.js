@@ -1,68 +1,97 @@
 const Product = require('../models/Product');
+const generateSKU = require('../utils/generateSKU');
+const response = require('../utils/response');
+const deleteFilesS3 = require('../utils/deleteFilesS3');
 
-const getProducts = (req, res) => {
-  res.json({route: "products"})
+exports.getProducts = async (req, res) => {
+  try{
+    const products = await Product.find();
+    response.success(res, 200, products)
+  } catch(error) {
+    response.error(res, 503)
+  }
 }
 
-const getProduct = (req, res) => {
-  res.json({route: "product"})
+exports.getProductById = async (req, res) => {
+  if(!req.params.productId) return response.error(res, 400);
+  try {
+    const product = await Product.findById(req.params.productId)
+    if(!product) return response.error(res, 404)
+    response.success(res, 200, product)
+  } catch (error) {
+    response.error(res, 503)
+  }
 }
 
-const createProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
   const {
-    title,
-    brand,
-    category,
-    subCategory,
-    stock,
-    price,
+    sku,
+    title,//
+    brand,//
+    category,//
+    subcategory,//
+    stock,//
+    price,////
     discount,
+    img,
     description,
     technicalDetails
   } = req.body;
-  
-  const imgURL = req.imgURL;
 
-  // const details = [{
-  //   title: "modelo",
-  //   content: "Thinkpad"
-  // },{
-  //   title: "memoria",
-  //   content: "8 GB DDR4"
-  // }]
+  if(![title, brand, category, subcategory, stock, price].every(field => field)) return response.error(res, 400);
 
-  const product = new Product({
+  const newProduct = new Product({
+    sku: sku || generateSKU(),
     title,
     brand,
-    // category,
-    // subCategory,
+    category,
+    subcategory,
     stock,
     price,
     discount,
-    imgURL,
+    img,
     description,
-    technicalDetails: details
+    technicalDetails
   })
-
-  const productSaved = await product.save()
-
-  res.json(productSaved)
-
+  try {
+    const savedProduct = await newProduct.save();
+    response.success(res, 201, savedProduct)
+  } catch (error) {
+    console.log(error)
+    response.error(res, 503)
+  }
 }
 
-const updateProduct = (req, res) => {
-  res.json({route: "update product"})
+exports.updateProductById = (req, res) => {
+  if(!req.params.productId || !req.body) return response.error(res, 400);
+  try {
+    Product.findByIdAndUpdate(req.params.productId, req.body, {
+      new: true
+    }, (error, doc) => {
+      if(error || !doc) return response.error(res, 400);
+      response.success(res, 200, doc);
+    })
+  } catch (error) {
+    response.error(res, 503)
+  }
 }
 
-const deleteProduct = (req, res) => {
-  res.json({route: "update product"})
+exports.deleteProductById = (req, res) => {
+  if(!req.params.productId) return response.error(res, 400);
+  try {
+    Product.findByIdAndRemove(req.params.productId, async (error, doc) => {
+      if(error || !doc) return response.error(res, 400);
+      if(doc.img && doc.img.length > 0) {
+        const keys = doc.img.map(img => img.key)
+        await deleteFilesS3(keys)
+      }
+      const data = {
+        product: doc._id,
+        message: 'Product deleted successfully'
+      }
+      response.success(res, 200, data)
+    })
+  } catch (error) {
+    response.error(res, 503)
+  }
 }
-
-
-module.exports = {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-};

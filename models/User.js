@@ -1,7 +1,8 @@
 const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt')
 
 const userSchema = new Schema({
-  firsName: {
+  firstName: {
     type: String,
     required: true,
   },
@@ -39,5 +40,14 @@ const userSchema = new Schema({
   timestamps: true,
   versionKey: false,
 })
+
+userSchema.pre('save', async function(next){
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+})
+
+userSchema.methods.isValidPassword = async function(password){
+  return bcrypt.compare(password, this.password)
+}
 
 module.exports = model('User', userSchema);

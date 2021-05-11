@@ -1,5 +1,5 @@
 const response = require('../utils/response');
-const deleteFileS3 = require('../utils/deleteFileS3');
+const deleteFilesS3 = require('../utils/deleteFilesS3');
 
 exports.uploadFile = (req, res) => {
   const URL = req.imgURL;
@@ -15,7 +15,7 @@ exports.uploadFile = (req, res) => {
 exports.deleteFileByKey = async (req, res) => {
   if(!req.params.key) return response.error(res, 400);
 
-  const { filesRemoved, filesNotRemoved } = await deleteFileS3([req.params.key]);
+  const { filesRemoved, filesNotRemoved } = await deleteFilesS3([req.params.key]);
   
   if(filesRemoved.length === 0) return response.error(res, 404);
 

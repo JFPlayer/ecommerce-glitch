@@ -6,10 +6,10 @@ const categorySchema = new Schema({
     required: true,
     unique: true,
   },
-  subCategories: [
+  subcategories: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'SubCategory'
+      ref: 'Subsategory'
     }
   ],
   img: {
