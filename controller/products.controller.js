@@ -15,7 +15,7 @@ exports.getProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
   if(!req.params.productId) return response.error(res, 400);
   try {
-    const product = await Product.findById(req.params.productId)
+    const product = await Product.findById(req.params.productId);
     if(!product) return response.error(res, 404)
     response.success(res, 200, product)
   } catch (error) {

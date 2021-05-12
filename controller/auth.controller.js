@@ -19,7 +19,6 @@ exports.signUp = async (req, res) => {
     email,
     password
   })
-
   try {
     const savedUser = await newUser.save();
     console.log(savedUser._id)
@@ -29,8 +28,7 @@ exports.signUp = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: true,
-      path: '/',
+      path: '/api/auth/refreshtoken',
       maxAge: 60*60*24*7*1000 // 7d
     })
 
@@ -40,89 +38,78 @@ exports.signUp = async (req, res) => {
   } catch (error) {
     response.error(res, 503)
   }
-
 }
 
-exports.signIn = (req, res) => {
+exports.signIn = async (req, res) => {
+  const { email, password } = req.body;
+  
+  if(!email || !password) return response.error(res, 400)
+  
+  try {
+    const user = await User.findOne({ email });
+    
+    if(!user) return response.error(res, 400, 'Email or password incorrect')
+    
+    const isMatch = await user.isValidPassword(password);
+    
+    if(!isMatch) return response.error(res, 400, 'Email or password incorrect')
+    
+    const accessToken = jwt.sign({id: user._id}, config.jwtAccessTokenSecret, { expiresIn: '11m' })
+    const refreshToken = jwt.sign({id: user._id}, config.jwtRefreshTokenSecret, { expiresIn: '7d' })
 
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      path: '/api/auth/refreshtoken',
+      maxAge: 60*60*24*7*1000 // 7d
+    })
+    const data = {
+      _id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      accessToken,
+    }
+    response.success(res, 201, data)
+  } catch (error) {
+    response.error(res, 503)
+  }
 }
-const a = {
-  "$__": {
-    "strictMode": true,
-    "inserting": true,
-    "getters": {},
-    "_id": "609a19dc9af35011b279ccc1",
-    "wasPopulated": false,
-    "activePaths": {
-      "paths": {
-        "password": "require",
-        "email": "require",
-        "lastName": "require",
-        "firstName": "require"
-      },
-      "states": {
-        "ignore": {},
-        "default": {},
-        "init": {},
-        "modify": {},
-        "require": {
-          "password": true,
-          "email": true,
-          "lastName": true,
-          "firstName": true
-        }
-      },
-      "stateNames": [
-        "require",
-        "modify",
-        "init",
-        "default",
-        "ignore"
-      ]
-    },
-    "pathsToScopes": {},
-    "cachedRequired": {},
-    "session": null,
-    "$setCalled": {},
-    "emitter": {
-      "_events": {},
-      "_eventsCount": 0,
-      "_maxListeners": 0
-    },
-    "$options": {
-      "defaults": true
-    },
-    "validating": null,
-    "backup": {
-      "activePaths": {
-        "modify": {
-          "firstName": true,
-          "lastName": true,
-          "email": true,
-          "createdAt": true,
-          "updatedAt": true,
-          "password": true
-        },
-        "default": {
-          "role": true,
-          "_id": true
-        }
-      }
-    },
-    "savedState": {}
-  },
-  "isNew": false,
-  "$locals": {},
-  "$op": null,
-  "_doc": {
-    "role": "user",
-    "_id": "609a19dc9af35011b279ccc1",
-    "firstName": "Joel",
-    "lastName": "Flores",
-    "email": "joelf.-@live.com",
-    "password": "$2b$10$HUYahxiw9zCTCWz7pEoxj.2ISqYxlWA/jFQ2zmYNZ2FpDCVttGuLC",
-    "createdAt": "2021-05-11T05:45:00.630Z",
-    "updatedAt": "2021-05-11T05:45:00.630Z"
-  },
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwOWExOWRjOWFmMzUwMTFiMjc5Y2NjMSIsImlhdCI6MTYyMDcxMTkwMCwiZXhwIjoxNjIwNzEyNTYwfQ.hsXT2qflHi_N_yBfC_uLt5hfSeor-BMDZIwXFc7IYAM"
+
+exports.signOut = (req, res) => {
+  try {
+    res.clearCookie('refreshToken', {
+      path: '/api/auth/refreshtoken'
+    })
+    response.success(res, 200)
+  } catch (error) {
+    response.error(res)
+  }
+}
+
+exports.refreshToken = (req, res) => {
+  try {
+    const rfToken = req.cookies.refreshToken;
+    if(!rfToken) return response.error(res, 400);
+
+    jwt.verify(rfToken, config.jwtRefreshTokenSecret, (error, user) => {
+      if(error) return response.error(res, 400);
+
+      const accessToken = jwt.sign({id: user.id}, config.jwtAccessTokenSecret, { expiresIn: '11m' })
+
+      response.success(res, 200, { accessToken })
+    })
+  } catch (error) {
+    response.error(res, 500)
+  }
+}
+
+exports.whoAmI = async (req, res) => {
+  try {
+    const userFound = await User.findById(req.userId, { password: 0 });
+    if(!userFound) return response.error(res, 404);
+    response.success(res, 200, userFound);
+  } catch (error) {
+    response.error(res, 500)
+  }
 }
