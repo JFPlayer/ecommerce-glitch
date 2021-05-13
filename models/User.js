@@ -20,9 +20,14 @@ const userSchema = new Schema({
     required: true,
   },
   phone: String,
-  adress: {
-    type: Schema.Types.ObjectId,
-    ref: 'Address',
+  address: {
+    city: String,
+    streetAddress: String,
+    ZIPCode: Number,
+    geolocation: {
+      lat: Number,
+      long: Number,
+    }
   },
   cart: {
     type: Schema.Types.ObjectId,

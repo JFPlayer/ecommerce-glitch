@@ -65,9 +65,7 @@ exports.createProduct = async (req, res) => {
 exports.updateProductById = (req, res) => {
   if(!req.params.productId || !req.body) return response.error(res, 400);
   try {
-    Product.findByIdAndUpdate(req.params.productId, req.body, {
-      new: true
-    }, (error, doc) => {
+    Product.findByIdAndUpdate(req.params.productId, req.body, { new: true }, (error, doc) => {
       if(error || !doc) return response.error(res, 400);
       response.success(res, 200, doc);
     })

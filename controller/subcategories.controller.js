@@ -62,7 +62,7 @@ exports.deleteSubcategoryById = (req, res) => {
   if(!req.params.subcategoryId) return response.error(res, 400)
   
   try {
-    Subcategory.findByIdAndRemove(req.params.subcategoryId, async(error, doc) => {
+    Subcategory.findByIdAndRemove(req.params.subcategoryId, (error, doc) => {
       if(error || !doc) return response.error(res, 400)
       const data = {
         subcategory: doc.title,
