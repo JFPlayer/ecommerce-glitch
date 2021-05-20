@@ -1,0 +1,50 @@
+@import './variables';
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: 'Play', sans-serif;
+    font-weight: 700;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: $color-bg;
+    background-image: url('../assets/noise.png');
+    background-blend-mode: color;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Play', sans-serif;
+}
+
+input {
+    font-family: 'Play', sans-serif;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+span {
+    color: $color-gray10;
+}
+
+.visible {
+    visibility: visible !important;
+}
