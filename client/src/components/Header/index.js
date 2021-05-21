@@ -13,12 +13,12 @@ import Slideout from '../Slideout'
 import CategoryMenu from '../CategoryMenu'
 import LoginBox from '../LoginBox'
 import SearchBar from "../SearchBar"
-import PanelCart from "../PanelCart"
+import PanelCLW from "../PanelCLW"
 
 const Header = () => {
 const [isCategoryMenuActive, setIsCategoryMenuActive] = useState(false)
 const [isLoginBoxActive, setIsLoginBoxActive] = useState(false)
-const [isPanelCartActive, setIsPanelCartActive] = useState(true)
+const [isPanelCLWActive, setIsPanelCLWActive] = useState(true)
 
   return (
     <>
@@ -46,7 +46,7 @@ const [isPanelCartActive, setIsPanelCartActive] = useState(true)
             </span>
           </div>
 
-          <div onClick={() => setIsPanelCartActive(!isPanelCartActive)}>
+          <div onClick={() => setIsPanelCLWActive(!isPanelCLWActive)}>
             <span className="header__title">
               <EmptyCartIcon className="header__icon cart-icon"/>
             </span>
@@ -71,10 +71,10 @@ const [isPanelCartActive, setIsPanelCartActive] = useState(true)
           />
         )}
 
-        {isPanelCartActive && (
+        {isPanelCLWActive && (
           <Slideout
-            toClose={() => setIsPanelCartActive(false)}
-            Component={PanelCart}
+            toClose={() => setIsPanelCLWActive(false)}
+            Component={PanelCLW}
           />
         )}
 

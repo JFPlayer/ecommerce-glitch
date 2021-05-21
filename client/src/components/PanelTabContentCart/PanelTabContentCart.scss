@@ -1,0 +1,41 @@
+@import '../../sass/variables';
+
+.tabs-content__cart-body {
+  flex-grow: 1;
+  overflow-y: scroll;
+  background-color: yellowgreen;
+}
+
+.tabs-content__cart-footer {
+  padding: 10px;
+}
+
+.cart-footer__summary {
+  font-weight: normal;
+}
+
+.cart-footer__summary :nth-child(3) {
+  font-weight: bold;
+}
+
+.cart-footer__summary-row {
+  height: 30px;
+  font-size: $fsize-medium;
+  line-height: 30px;
+  border-top: solid 1px red;
+}
+
+.cart-footer__summary-row :nth-child(1) {
+  float:left;
+}
+
+.cart-footer__summary-row :nth-child(2) {
+  float:right;
+}
+
+.cart-footer__actions {
+  width: 100%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 3fr;
+}
