@@ -1,0 +1,39 @@
+@import '../../sass/variables';
+
+.panel-cart {
+  background-color: red;
+  border: solid 10px blue;
+  width: 400px;
+  height: 100%;
+  position: fixed;
+  right: 0;
+}
+
+.panel-cart__container {
+  background-color: red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-cart__tabs {
+  height: 45px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  
+}
+
+.panel-cart__tabs--title {
+  border:solid 2px blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  font-size: $fsize-medium;
+}
+
+.panel-cart__icon {
+  height: 20px;
+  margin: 0 8px;
+}

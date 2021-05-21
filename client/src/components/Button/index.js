@@ -2,11 +2,14 @@ import React from 'react'
 
 import './Button.scss'
 
-const Button = ({ children, disabled, primary, onClick }) => {
+const Button = ({ children, type, disabled, primary, onClick, logo}) => {
+
   return (
     <button 
-      className="button button--primary"
-      type="button"
+      className={
+        `button ${primary ? 'button--primary' : ''} ${disabled ? 'button--disabled' : ''} ${logo ? `button--${logo}` : ''}`
+      }
+      type={type || 'button'}
       onClick={onClick}
       disabled={disabled}
     >

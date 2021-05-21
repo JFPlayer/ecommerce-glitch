@@ -7,14 +7,13 @@ const InputText = ({
   labelText,
   name,
   required,
-  register,
-  watch,
-  error,
+  showError,
+  useForm
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   
   const handleBlur = () => {
-    if (!watch(name)) setIsFocus(false);
+    if (!useForm.watch(name)) setIsFocus(false);
   };
 
   return (
@@ -27,7 +26,7 @@ const InputText = ({
           {labelText}
         </label>
         <input
-          {...register(name, { required: required })}
+          {...useForm.register(name, { required: required })}
           className="input-text__field"
           id={name}
           type={type}
@@ -35,9 +34,11 @@ const InputText = ({
           onBlur={handleBlur}
         />
       </div>
-      <span className={`input-text__error ${error[name] ? "visible" : ""}`}>
-        * requerido
-      </span>
+      {showError && (
+        <span className={`input-text__error ${useForm.errors[name] ? "visible" : ""}`}>
+          * requerido
+        </span>
+      )}
     </div>
   );
 };

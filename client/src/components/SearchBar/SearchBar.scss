@@ -1,0 +1,47 @@
+@import '../../sass/variables';
+
+.search-bar {
+  width: 100%;
+}
+
+.search-bar__box {
+  background-color: $color-black;
+  padding: 5px;
+  border-radius: 4px;
+  height: 35px;
+  position: relative;
+  display: flex;
+}
+
+.search-bar__field {
+  flex-grow: 1;
+  margin-left: 5px;
+  font-size: $fsize-medium;
+  color: $color-gray10;
+}
+
+.search-bar__button {
+  width: 16px;
+  margin: 5px;
+  opacity: 0.5;
+}
+
+.search-bar__box::before {
+  content: "";
+  border-radius: 4px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  z-index: -10;
+}
+
+.search-bar__box:focus-within:before{
+  background: linear-gradient(90deg, $color-blue, $color-pink);
+}
+
+.search-bar__box:focus-within .search-bar__button{
+  opacity: 1;
+}
+

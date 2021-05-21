@@ -4,242 +4,80 @@ import { Link } from "react-router-dom";
 import "./Header.scss";
 import Logo from "../../assets/logo.svg";
 import ArrowIcon from "../../assets/arrowIcon.svg";
-import SearchIcon from "../../assets/searchIcon.svg";
 import UserIcon from "../../assets/userIcon.svg";
 import EmptyCartIcon from "../../assets/emptyCartIcon.svg";
 import FilledCartIcon from "../../assets/filledCartIcon.svg";
 import MenuIcon from "../../assets/menuIcon.svg";
 
+import Slideout from '../Slideout'
+import CategoryMenu from '../CategoryMenu'
 import LoginBox from '../LoginBox'
-
-const initialState = [
-  {
-    title: "Gaming",
-    subcategories: [
-      {
-        title: "Notebooks",
-        url: "",
-      },
-      {
-        title: "Monitores",
-        url: "",
-      },
-      {
-        title: "Teclados",
-        url: "",
-      },
-      {
-        title: "Mouse",
-        url: "",
-      },
-      {
-        title: "Auriculares",
-        url: "",
-      },
-      {
-        title: "Sillas gamer",
-        url: "",
-      },
-    ]
-  },
-  {
-    title: "Informatica",
-    subcategories: [
-      {
-        title: "Notebook",
-        url: "",
-      },
-      {
-        title: "Tablets",
-        url: "",
-      },
-      {
-        title: "Impresoras",
-        url: "",
-      },
-      {
-        title: "Monitores",
-        url: "",
-      },
-      {
-        title: "Teclados",
-        url: "",
-      },
-      {
-        title: "Mouse",
-        url: "",
-      },
-      {
-        title: "Camaras web",
-        url: "",
-      },
-      {
-        title: "Procesadores",
-        url: "",
-      },
-      {
-        title: "Placas de video",
-        url: "",
-      },
-      {
-        title: "HDD y SDD",
-        url: "",
-      },
-      {
-        title: "Memorias",
-        url: "",
-      },
-      {
-        title: "Gabinetes",
-        url: "",
-      },
-    ]
-  },
-  {
-    title: "Consolas y Videojuegos",
-    subcategories: [
-      {
-        title: "Playstation 4",
-        url: "",
-      },
-      {
-        title: "Playstation 5",
-        url: "",
-      },
-      {
-        title: "Nintendo",
-        url: "",
-      },
-      {
-        title: "Xbox",
-        url: "",
-      },
-      {
-        title: "Juegos",
-        url: "",
-      },
-      {
-        title: "Accesorios",
-        url: "",
-      },
-      {
-        title: "Gift card",
-        url: "",
-      },
-    ]
-  },
-  {
-    title: "Celulares",
-    subcategories: [
-      {
-        title: "Celulares y Smartphones",
-        url: "",
-      },
-      {
-        title: "Smartwatch",
-        url: "",
-      },
-      {
-        title: "Cargadores",
-        url: "",
-      },
-      {
-        title: "Baterias externas",
-        url: "",
-      },
-      {
-        title: "Accesorios",
-        url: "",
-      },
-    ]
-  },
-]
+import SearchBar from "../SearchBar"
+import PanelCart from "../PanelCart"
 
 const Header = () => {
 const [isCategoryMenuActive, setIsCategoryMenuActive] = useState(false)
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("hola");
-  };
+const [isLoginBoxActive, setIsLoginBoxActive] = useState(false)
+const [isPanelCartActive, setIsPanelCartActive] = useState(true)
 
   return (
     <>
       <header className="header">
-        <nav className="navbar-container">
+        <nav className="header__navbar">
 
-          <Link to="/" className="logo">
+          <Link to="/" className="header__logo">
             <Logo />
           </Link>
 
-          <div className="menu" onClick={() => setIsCategoryMenuActive(!isCategoryMenuActive)}>
-            <span className="menu-title">
+          <div onClick={() => setIsCategoryMenuActive(!isCategoryMenuActive)}>
+            <span className="header__title">
               Categorias
-              <ArrowIcon />
+              <ArrowIcon className="header__icon" />
             </span>
-            <button className="menu-button"><MenuIcon/></button>
+            {/* <button className="header__categories-button"><MenuIcon/></button> */}
           </div>
 
-          <div className="search">
-            <form className="search__field" onSubmit={handleSubmit}>
-              <input type="text" />
-              <button>
-                <SearchIcon />
-              </button>
-            </form>
-          </div>
+          <SearchBar/>
 
-          <div className="account">
-            <span className="account-title">
+          <div onClick={() => setIsLoginBoxActive(!isLoginBoxActive)}>
+            <span className="header__title">
               Iniciar sesión
-              <UserIcon />
+              <UserIcon className="header__icon login-icon" />
             </span>
           </div>
 
-          <div className="cart">
-            <span>
-              <EmptyCartIcon />
+          <div onClick={() => setIsPanelCartActive(!isPanelCartActive)}>
+            <span className="header__title">
+              <EmptyCartIcon className="header__icon cart-icon"/>
             </span>
           </div>
 
         </nav>
         </header>
-
-        {isCategoryMenuActive &&
-          (<div className="slideout" style={{top: '80px'}} onClick={() => setIsCategoryMenuActive(false)}>
-            <div className="slideout__category-menu" onClick={e => e.stopPropagation()}>
-              <nav className="category-menu">
-                {initialState.map(category => (
-                  <div className="category-menu__list">
-                    <Link className="category-menu__list-title">
-                      {category.title}
-                    </Link>
-                    <ul>
-                      {category.subcategories.map(subcategories => (
-                        <Link>
-                          <li>
-                            <span className="category-menu__list-item">
-                              {subcategories.title}
-                            </span>
-                          </li>
-                        </Link>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </nav>
-            </div>
-          </div>)
-        }
-
-        <div className="slideout" style={{top: '80px'}}>
-          <div className="slideout__login-container">
-            <div className="login-grid">
-              <LoginBox/>
-            </div>
-          </div>
-        </div>
         
+        {isCategoryMenuActive && (
+          <Slideout 
+            top="80px" 
+            toClose={() => setIsCategoryMenuActive(false)}
+            Component= {CategoryMenu}
+          />
+        )}
+
+        {isLoginBoxActive && (
+          <Slideout 
+            top="80px" 
+            toClose={() => setIsLoginBoxActive(false)}
+            Component={LoginBox}
+          />
+        )}
+
+        {isPanelCartActive && (
+          <Slideout
+            toClose={() => setIsPanelCartActive(false)}
+            Component={PanelCart}
+          />
+        )}
+
     </>
   );
 };

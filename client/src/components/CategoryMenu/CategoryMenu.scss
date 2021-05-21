@@ -1,0 +1,36 @@
+@import '../../sass/variables';
+
+.category-menu {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: $color-gray80;
+}
+
+.category-menu__container {
+  width: 1100px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.category-menu__list {
+  margin: 20px 0;
+}
+
+.category-menu__list-title {
+  font-size: $fsize-large;
+  color: $color-green;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.category-menu__list-item {
+  font-size: $fsize-medium;
+  font-weight: normal;
+  line-height: 3rem;
+  color: $color-gray10;
+}
+
+.category-menu__list-item:hover {
+  border-bottom: solid 2px $color-blue;
+}

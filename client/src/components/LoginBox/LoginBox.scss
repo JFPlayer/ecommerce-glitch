@@ -1,5 +1,19 @@
 @import '../../sass/variables';
 
+.login__flex {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login__grid-container{
+  width: 1100px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 2fr 5fr 2fr 1fr;
+  column-gap: 30px;
+}
+
 .login__grid {
   grid-column: 4 / 4;
   width: 250px;
@@ -22,7 +36,7 @@
   top: -7px;
   background-color: $color-gray80;
   transform: rotate(45deg);
-  border: solid 2px $color-gray10;
+  border: solid 2px $color-gray30;
   border-bottom: transparent;
   border-right: transparent;
 }
@@ -32,3 +46,17 @@
   margin: 10px 0;
 }
 
+.login__info {
+  font-size: $fsize-small;
+  font-weight: normal;
+  line-height: 30px;
+  text-align: center;
+}
+
+.login__socialmedia-buttons {
+  display: flex;
+}
+
+.login__socialmedia-buttons > :first-child{
+  margin-right: 20px;
+}
