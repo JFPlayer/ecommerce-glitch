@@ -11,11 +11,7 @@ import LogoFacebook from '../../assets/logoFacebook.svg'
 const LoginBox = ({ toClose }) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm()
 
-  const useFormObject = {
-    register,
-    errors,
-    watch
-  }
+  const useFormObject = { register, errors, watch }
 
   const onSubmit = data => {
     console.log(data)

@@ -1,0 +1,136 @@
+@import '../../sass/variables';
+
+.home__section {
+  margin-top: 40px;
+}
+
+.home__section.banner {
+  background-color: $color-gray80;
+}
+
+.home__container {
+  margin: 0 auto;
+  width: 1200px;
+  // background-color: red;
+  display: flex;
+}
+
+.home__container.space-around {
+  justify-content: space-around;
+}
+
+.home__container.center {
+  justify-content: center;
+}
+
+.home__container.flex-start {
+  justify-content: flex-start;
+}
+
+.banner-info__item {
+  padding: 20px 0;
+  display: flex;
+  // align-items: center;
+}
+
+.banner-info__item-icon {
+  height: 60px;
+  width: 60px;
+  margin-right: 15px;
+  position: relative;
+  
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 30%;
+    color: $color-gray10;
+    z-index: 10;
+  }
+}
+
+.banner-info__item-icon::before,
+.banner-info__item-icon::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: $color-black;
+  border: solid 1px $color-gray10;
+}
+
+.banner-info__item-icon::before {
+  left: -5px;
+  bottom: -5px;
+}
+
+.banner-info__item-description {
+  line-height: 30px;
+  color: $color-gray10;
+
+  span {
+    font-weight: normal;
+    font-size: $fsize-small;
+  }
+}
+
+.categories__item-image {
+  padding: 15px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.categories__item-title {
+  margin-top: 15px;
+  text-align: center;
+  font-size: $fsize-xlarge;
+  color: $color-gray10;
+}
+
+.home__section.hot-sale {
+  background-color: $color-green;
+}
+
+.hot-sale__title {
+  height: 36px;
+  background-color: $color-gray10;
+  position: relative;
+  margin-right: 36px;
+  
+  span {
+    color: $color-gray80;
+    font-size: $fsize-xlarge;
+    line-height: 36px;
+    margin-left: 10px;
+  }
+}
+
+.hot-sale__title::after {
+  content: '';
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0;
+  right: -36px;
+  border: solid 18px $color-gray10;
+  border-top: solid 18px transparent;
+  border-right: solid 18px transparent;
+  // background-color: turquoise;
+}
+
+.hot-sale__icon {
+  width: 36px;
+  height: 36px;
+  padding: 5px;
+  color: $color-gray10
+}
+
+.hot-sale__count-down {
+  line-height: 36px;
+  font-size: $fsize-xlarge;
+  color: $color-gray10;
+}

@@ -1,0 +1,21 @@
+@import '../../../sass/variables';
+
+.tabs-content__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-content__cart-body {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+// .tabs-content__cart-body::-webkit-scrollbar {
+//   display: none;
+// }
+
+.tabs-content__cart-footer {
+  padding: 10px;
+}
+

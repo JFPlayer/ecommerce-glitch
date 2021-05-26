@@ -1,0 +1,28 @@
+@import '../../sass/variables';
+
+.home-list__container {
+  width: 1200px;
+  margin: 0 auto 50px auto;
+}
+
+.home-list__title {
+  width: fit-content;
+  text-transform: uppercase;
+  font-size: $fsize-xlarge;
+  color: $color-gray10;
+  position: relative;
+}
+
+.home-list__title::before {
+  content: '# ';
+}
+
+.home-list__title::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(to right, $color-pink, $color-blue);
+}

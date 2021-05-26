@@ -1,0 +1,136 @@
+@import '../../sass/variables';
+
+.product-catalog {
+  position: relative;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.product-catalog::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: -1000;
+  background-color: $color-black;
+}
+.product-catalog::after {
+  content: '';
+  position: absolute;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  top: 3px;
+  left: 3px;
+  background-color: $color-black;
+  z-index: -900;
+}
+
+.product-catalog:hover::before {
+  background-image: linear-gradient(to bottom, $color-pink, $color-violet);
+
+}
+
+.product-catalog__image {
+  width: 100%;
+  position: relative;
+  background-color: $color-gray10;
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.product-catalog__image:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
+
+.product-catalog__price-off {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  background-color: $color-green;
+  color: $color-gray10;
+  font-size: $fsize-medium;
+}
+
+.product-catalog__favorite {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  color: $color-red;
+  margin: 0 8px 8px 0;
+
+  svg {
+    width: 100%;
+  }
+}
+
+.product-catalog__description {
+  padding: 0 10px;
+}
+
+.product-catalog__brand {
+  font-size: $fsize-large;
+  text-transform: uppercase;
+  line-height: 36px;
+}
+
+.product-catalog__title {
+  height: calc(2.5 * 1.7rem);
+  display: flex;
+  align-items: center;
+  span {
+    max-height: calc(2.5 * 1.7rem);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: $fsize-large;
+    font-weight: normal;
+    overflow: hidden;
+  }
+}
+
+.product-catalog__rating {
+  height: 20px;
+  font-size: $fsize-medium;
+  font-weight: normal;
+  margin: 5px 0;
+}
+
+.rating-stars {
+  display: inline-block;
+  margin-right: 5px;
+  color: $color-yellow;
+
+  svg {
+    vertical-align: middle;
+    width: 20px;
+  }
+}
+
+.product-catalog__price {
+  font-size: $fsize-xlarge;
+  height: $fsize-xlarge;
+  margin-bottom: 15px;
+  color: $color-gray10;
+}
+
+.product-catalog__price--off {
+  float: left;
+  color: $color-gray30;
+  text-decoration: line-through;
+}
+
+.product-catalog__price--total {
+  float: right;
+}

@@ -1,17 +1,8 @@
-@import '../../sass/variables';
-
-.tabs-content__cart-body {
-  flex-grow: 1;
-  overflow-y: scroll;
-  background-color: yellowgreen;
-}
-
-.tabs-content__cart-footer {
-  padding: 10px;
-}
+@import '../../../sass/variables';
 
 .cart-footer__summary {
   font-weight: normal;
+  color: $color-gray10;
 }
 
 .cart-footer__summary :nth-child(3) {
@@ -22,7 +13,7 @@
   height: 30px;
   font-size: $fsize-medium;
   line-height: 30px;
-  border-top: solid 1px red;
+  border-top: solid 1px $color-gray30;
 }
 
 .cart-footer__summary-row :nth-child(1) {
@@ -35,6 +26,7 @@
 
 .cart-footer__actions {
   width: 100%;
+  margin-top: 10px;
   display: grid;
   gap: 5px;
   grid-template-columns: 1fr 3fr;

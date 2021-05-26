@@ -18,7 +18,7 @@ import PanelCLW from "../PanelCLW"
 const Header = () => {
 const [isCategoryMenuActive, setIsCategoryMenuActive] = useState(false)
 const [isLoginBoxActive, setIsLoginBoxActive] = useState(false)
-const [isPanelCLWActive, setIsPanelCLWActive] = useState(true)
+const [isPanelCLWActive, setIsPanelCLWActive] = useState(false)
 
   return (
     <>

@@ -13,9 +13,20 @@ html {
 }
 
 body {
+  background-color: rgb(236, 236, 236);
   background-color: $color-bg;
   background-image: url('../assets/noise.png');
   background-blend-mode: color;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
 }
 
 ul {

@@ -31,6 +31,7 @@ module.exports = {
       },
       {
         test: /\.(s*)css$/,
+        sideEffects: true,
         use: [
           {
             loader: MiniCssExtractPlugin.loader
@@ -61,8 +62,9 @@ module.exports = {
   ],
   devServer: {
     compress: true,
-    contentBase: path.join(__dirname, "dist"),
+    // contentBase: path.join(__dirname, "dist"),
     port: 3005,
     open: true,
+    historyApiFallback: true,
   }
 }

@@ -1,0 +1,57 @@
+@import '../../sass/variables';
+
+.banner-brands {
+  background-color: $color-gray80;
+  height: 70px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-brands::before, 
+.banner-brands::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 10%;
+  top: 0;
+  z-index: 10;
+  background-image: linear-gradient(to right,$color-black,rgba(255,255,255,0));
+}
+
+.banner-brands::after {
+  background-image: linear-gradient(to left,$color-black,rgba(255,255,255,0));
+  right: 0;
+}
+
+.banner-brands__content {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  animation: scrolling 40s linear infinite;
+}
+
+.banner-brands__logo {
+  height: 75%;
+  width: 150px;
+  filter: grayscale(1) brightness(2.5);
+  opacity: .5;
+  margin-right: 50px;
+  text-align: center;
+  transition: .2s;
+}
+
+ .banner-brands__logo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.banner-brands__content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrolling {
+  0% {transform: translateX(0);}
+  100% {transform: translateX(-50%);}
+}
