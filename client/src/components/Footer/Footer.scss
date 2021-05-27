@@ -2,13 +2,38 @@
 
 .footer {
   margin-top: 30px;
-  background-color: $color-black;
 }
 
 .footer__main {
   width: 62.5%;
   margin: 0 auto;
   // border: solid 1px red;
+}
+
+.banner-mp {
+  background-color: $color-gray80;
+  margin-bottom: 50px;
+  height: 40px;
+}
+
+.banner-mp__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $fsize-medium;
+  font-weight: normal;
+  color: $color-gray30;
+  // height: 40px;
+  svg {
+    height: 40px;
+    width: 160px;
+    padding: 5px;
+  }
+}
+
+.footer__container {
+  background-color: $color-black;
+  
 }
 
 .footer__section-first {
