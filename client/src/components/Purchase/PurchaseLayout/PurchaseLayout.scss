@@ -1,0 +1,45 @@
+@import '../../../sass/variables';
+
+.purchase-process__body {
+  background-color: $color-gray10;
+}
+
+.purchase-process__container {
+  min-height: 100vh;
+  width: 62.5%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.purchase-process__header {
+  // border: solid 1px green;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 30px 0;
+}
+
+.purchase-process__logo {
+  height: 60px;
+  margin-left: 15px;
+}
+
+.purchase-process__main {
+  border: solid 1px red;
+  flex: 1;
+}
+
+.purchase-process__footer {
+  border-top: solid 2px $color-gray30;
+  padding-top: 15px;
+  margin-top: 30px;
+}
+
+.purchase-process__footer-copyright {
+  margin: 15px;
+  font-size: $fsize-small;
+  font-weight: normal;
+  color: $color-gray80;
+}

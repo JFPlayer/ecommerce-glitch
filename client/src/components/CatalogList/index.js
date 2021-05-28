@@ -2,7 +2,7 @@ import React from 'react'
 
 import './CatalogList.scss'
 
-import ProductListCatalog from '../ProductListCatalog'
+import ProductCatalog from '../ProductCatalog'
 
 const arr = [0,1,2,3,4,5,6,7,8,9]
 
@@ -10,7 +10,7 @@ const CatalogList = () => {
   return (
     <div className="catalog-list">
       {arr.map(() => (
-        <ProductListCatalog/>
+        <ProductCatalog/>
       ))}  
     </div>
   )

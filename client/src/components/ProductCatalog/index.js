@@ -1,12 +1,12 @@
 import React from 'react'
 
-import './ProductListCatalog.scss'
+import './ProductCatalog.scss'
 import { FaHeart } from 'react-icons/fa'
 import { AiFillStar } from 'react-icons/ai'
 
 import notebook from '../../assets/notebook.png'
 
-const ProductListCatalog = () => {
+const ProductCatalog = () => {
   return (
     <div className="product-catalog">
       <div className="product-catalog__image">
@@ -52,4 +52,4 @@ const ProductListCatalog = () => {
   )
 }
 
-export default ProductListCatalog
+export default ProductCatalog

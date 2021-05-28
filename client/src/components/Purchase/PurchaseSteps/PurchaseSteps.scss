@@ -1,0 +1,50 @@
+@import '../../../sass/variables';
+
+.steps {
+  display: flex;
+  align-items: center;
+}
+
+.steps__item {
+  font-size: $fsize-medium;
+  font-weight: normal;
+  color: $color-gray30
+}
+
+.steps__item > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.steps__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $color-gray30;
+  color: $color-gray10;
+  font-size: $fsize-large;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 10px;
+  svg {
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+  }
+}
+
+.steps__item.active {
+  color: $color-gray80;
+  font-weight: bold;
+}
+
+.steps__item.active .steps__icon {
+  background-color: $color-gray80;
+}
+
+.steps__line {
+  width: 30px;
+  height: 2px;
+  margin: 0 10px;
+  background-color: $color-gray30;
+}

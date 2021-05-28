@@ -5,7 +5,7 @@ import './Footer.scss'
 import { AiOutlineMail, AiOutlineFacebook, AiOutlineYoutube, AiOutlineLink } from 'react-icons/ai'
 import { FaInstagram,  } from 'react-icons/fa'
 
-import LogoMP from '../../assets/logoMP.svg'
+import LogoMP from '../../assets/logoMP-gray.svg'
 
 import FooterSlider from '../FooterSlider'
 import InputText from '../InputText'
