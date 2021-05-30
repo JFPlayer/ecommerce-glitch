@@ -11,7 +11,12 @@
     font-weight: normal;
     color: $color-gray10;
     text-transform: capitalize;
+    margin-left: 5px;
   }
+}
+
+.checkbox__container.light label {
+  color: $color-gray80;
 }
 
 .checkbox {
@@ -22,7 +27,7 @@
   padding: 2px;
   border: solid 2px $color-violet;
   border-radius: 4px;
-  background-color: $color-gray10;
+  background-color: $color-white;
   
   input {
     position: absolute;

@@ -1,0 +1,56 @@
+@import '../../../sass/variables';
+
+.product-purchase-summary {
+  height: 80px;
+  border-bottom: solid 2px $color-gray10;
+  display: flex;
+  padding: 5px;
+}
+
+.product-purchase-summary__image {
+  height: 100%;
+  width: 80px;
+  margin-right: 10px;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.product-purchase-summary__description {
+  width: calc(100% - 90px);
+  height: 100%;
+  position: relative;
+}
+
+.product-purchase-summary__title {
+  font-size: $fsize-medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 30px;
+}
+
+.product-purchase-summary__section {
+  font-size: $fsize-small;
+  font-weight: normal;
+  color: $color-gray80;
+  height: max-content;
+  
+  .pps-item {
+    position: absolute;
+  }
+
+  .pps-item.left {
+    left: 0;
+    bottom: 0;
+    text-align: left;
+  }
+  
+  .pps-item.right {
+    right: 0;
+    bottom: 0;
+    text-align: right;
+  }
+}
+

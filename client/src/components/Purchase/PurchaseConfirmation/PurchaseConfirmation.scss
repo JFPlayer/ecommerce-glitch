@@ -1,0 +1,43 @@
+@import '../../../sass/variables';
+
+.purchase-confirmation__items {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.purchase-confirmation__item-section {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 30px;
+  
+  &:nth-of-type(odd) {
+    border-right: solid 2px $color-gray10;
+  }
+}
+
+.purchase__title.confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    width: min-content;
+    padding: 0 10px;
+  }
+}
+
+.purchase-confirmation__item-info {
+  font-size: $fsize-medium;
+
+}
+
+.purchase-confirmation__item-info-title {
+  color: $color-gray80;
+}
+
+.purchase-confirmation__item-info-content {
+  font-weight: normal;
+  line-height: $fsize-xlarge;
+  color: $color-gray80;
+}

@@ -1,0 +1,67 @@
+@import '../../../sass/variables';
+
+.purchase-summary {
+  width: 350px;
+  margin-left: 10px;
+}
+
+.purchase-summary__container {
+  border-radius: 5px;
+  background-color: $color-white;
+  padding: 10px;
+}
+
+.purchase-summary__drop-down-button {
+  display: none;
+  line-height: 30px;
+  text-align: center;
+  font-size: $fsize-medium;
+  border: solid 2px $color-violet;
+  border-radius: 5px;
+  color: $color-violet;
+  
+  svg {
+    margin-left: 5px;
+    vertical-align: middle;
+    width: 15px;
+  }
+}
+
+.purchase-summary__drop-down-list {
+  // max-height: 0; para usar en media queries
+  overflow: hidden;
+  transition: .3s;
+}
+
+.purchase-summary__container.active 
+.purchase-summary__drop-down-list {
+  margin-top: 10px;
+  max-height: none;
+}
+
+.purchase-summary__price {
+  position: relative;
+  height: 30px;
+  font-size: $fsize-medium;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.purchase-summary__price.total {
+  margin-top: 0;
+  border-top: solid 1px $color-gray30;
+}
+
+.ps-item {
+  position: absolute;
+  line-height: 30px;
+}
+
+.ps-item.left {
+  left: 0;
+}
+
+.ps-item.right {
+  right: 0;
+  
+}

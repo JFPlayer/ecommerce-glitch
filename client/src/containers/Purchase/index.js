@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './Purchase.scss'
 
@@ -7,11 +7,22 @@ import PurchaseCart from '../../components/Purchase/PurchaseCart'
 import PurchaseDataUser from '../../components/Purchase/PurchaseDataUser'
 import PurchasePay from '../../components/Purchase/PurchasePay'
 import PurchaseConfirmation from '../../components/Purchase/PurchaseConfirmation'
+import PurchaseSummary from '../../components/Purchase/PurchaseSummary'
+
+const steps = [
+  <PurchaseCart/>,
+  <PurchaseDataUser/>,
+  <PurchasePay/>,
+  <PurchaseConfirmation/>
+]
 
 const Purchase = () => {
+  const [currentStep, setCurrentStep] = useState(3)
+
   return (
     <PurchaseLayout>
-      <PurchaseCart/>
+      {steps[currentStep] || steps[0]}
+      {currentStep !== 0 && currentStep < steps.length && <PurchaseSummary/>}
     </PurchaseLayout>
   )
 }

@@ -1,13 +1,52 @@
 @import '../../../sass/variables';
 
 .purchase-cart {
-  
+  width: 100%;
 }
 
 .purchase-cart__list {
   
 }
 
-.purchase-cart__actions {
+.purchase-cart__list-price {
+  background-color: $color-white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  height: 120px;
+  display: flex;
+  justify-content: flex-end;
+}
 
+.purchase-cart__list-price-container {
+  margin-right: 50px;
+  width: 170px;
+  // border: solid 1px red;
+  bottom: 0;
+  line-height: 30px;
+}
+
+.purchase-cart__list-subtotal {
+  height: 70%;
+  font-size: $fsize-medium;
+  font-weight: normal;
+}
+
+.purchase-cart__list-total {
+  border-top: solid 2px $color-violet;
+  font-size: $fsize-large;
+  color: $color-violet;
+}
+
+.list-name {
+  float: left;
+}
+
+.list-value {
+  float: right;
+}
+
+.purchase-cart__actions {
+  width: 25%;
+  min-width: 180px;
 }

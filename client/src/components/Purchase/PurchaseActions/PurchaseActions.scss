@@ -1,0 +1,15 @@
+@import '../../../sass/variables';
+
+.purchase__actions {
+  margin: 30px auto 0 auto;
+  text-align: center;
+  line-height: 40px;
+  font-size: $fsize-medium;
+}
+
+.purchase__actions-back {
+  color: $color-gray80;
+  svg {
+    vertical-align: sub;
+  }
+}

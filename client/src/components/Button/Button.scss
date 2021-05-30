@@ -13,19 +13,25 @@
   
 }
 
-.button--primary {
+.button.light {
+  background-color: transparent;
+  border: solid 2px $color-violet;
+  color: $color-violet;
+}
+
+.button.primary {
   background-color: $color-violet;
   border: none;
 }
 
-.button--google {
-  background-color: white;
+.button.google {
+  background-color: $color-gray10;
   color: $color-gray80
 }
 
-.button--facebook {
+.button.facebook {
   background-color: #1b77f2;
-  color: white;
+  color: $color-gray10;
 }
 
 .button svg {
@@ -34,7 +40,7 @@
   vertical-align: middle;
 }
 
-.button--disabled {
+.button.disabled {
   background-color: $color-gray30;
   color: $color-gray80;
   border: none;
@@ -44,6 +50,6 @@
   filter: brightness(1.2);
 }
 
-.button--disabled:hover {
+.button.disabled:hover {
   filter: brightness(1);
 }

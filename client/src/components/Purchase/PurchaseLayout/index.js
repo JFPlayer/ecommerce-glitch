@@ -34,7 +34,7 @@ const PurchaseLayout = ({ children }) => {
           <br/>
           Copyright 2021 | Todos los derechos reservados Glitch.com 
           <br/>
-          Av. Corrientes 1234 | Capital Federal | Argentina
+          Av. Calle Falsa 1234 | Capital Federal | Argentina
           </div>
         </div>
       </div>

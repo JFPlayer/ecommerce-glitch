@@ -1,0 +1,50 @@
+@import '../../../sass/variables';
+
+.purchase-section {
+  // border: solid 1px blue;
+  background-color: $color-white;
+  border-radius: 5px;
+  flex: 1;
+  height: max-content; // importante- media queries
+  padding: 20px;
+}
+
+.purchase__title {
+  font-size: $fsize-xlarge;
+  color: $color-violet;
+  line-height: 50px;
+}
+
+.purchase-data-user__form {
+  margin-bottom: 20px;
+}
+
+.purchase-data-user__email {
+  font-size: $fsize-medium;
+  font-weight: normal;
+  line-height: 30px;
+}
+
+.purchase-data-user__info-personal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // grid-template-rows: auto auto;
+  column-gap: 20px;
+}
+
+.purchase-data-user__info-address {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+}
+
+.purchase-data-user__info-address :nth-child(1),
+.purchase-data-user__info-address :nth-child(4),
+.purchase-data-user__info-address :nth-child(5),
+.purchase-data-user__info-address :nth-child(7) {
+  grid-column: span 2;
+}
+
+.purchase-data-user__info-address :nth-child(7) {
+  grid-row: 4/ span 1;
+}

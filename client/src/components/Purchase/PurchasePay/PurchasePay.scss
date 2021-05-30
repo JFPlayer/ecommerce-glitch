@@ -1,0 +1,19 @@
+@import '../../../sass/variables';
+
+.purchase-pay__option {
+  height: 80px;
+  border-bottom: solid 2px $color-gray10;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.purchase-pay__option-logos {
+  height: 40%;
+
+  > * {
+    margin-left: 10px;
+    
+  }
+}

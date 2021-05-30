@@ -7,8 +7,10 @@ const InputText = ({
   labelText,
   name,
   required,
+  light,
   showError,
-  useForm
+  useForm,
+  className
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   
@@ -17,7 +19,7 @@ const InputText = ({
   };
 
   return (
-    <div className="input-text">
+    <div className={`input-text ${className} ${light && 'light'} ${useForm.errors[name] && 'error'}`}>
       <div className="input-text__container">
         <label
           className={` input-text__label ${isFocus ? "focus" : ""}`}
@@ -35,7 +37,7 @@ const InputText = ({
         />
       </div>
       {showError && (
-        <span className={`input-text__error ${useForm.errors[name] ? "visible" : ""}`}>
+        <span className={`input-text__error ${useForm.errors[name] && "visible"}`}>
           * requerido
         </span>
       )}
