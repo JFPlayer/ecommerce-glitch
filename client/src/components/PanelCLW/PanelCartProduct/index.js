@@ -6,14 +6,16 @@ import './PanelCartProduct.scss'
 import image from '../../../assets/notebook.png'
 import TrashIcon from '../../../assets/trashIcon.svg'
 
+import ButtonRemove from '../../ButtonRemove'
+
 const PanelCartProduct = () => {
   return (
     <div className="panel-cart-product">
       
       <div className="panel-cart-product__count">
-        <button className="panel-cart-product__count-button">+</button>
-        <span className="panel-cart-product__count-value">2</span>
-        <button className="panel-cart-product__count-button">-</button>
+        <button>+</button>
+        <span>2</span>
+        <button>-</button>
       </div>
 
       <Link to='' className="panel-cart-product__description">
@@ -33,9 +35,7 @@ const PanelCartProduct = () => {
       </Link>
 
       <div className="panel-cart-product__remove">
-        <button>
-          <TrashIcon/>
-        </button>
+        <ButtonRemove/>
       </div>
       
     </div>

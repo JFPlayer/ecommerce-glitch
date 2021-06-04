@@ -1,0 +1,70 @@
+@import '../../../sass/variables';
+
+.image-up {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  
+  img {
+    background-color: $color-white;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &.new {
+    border: dashed 2px $color-gray30;
+  }
+}
+
+.image-up__btn {
+  position: absolute;
+  top: 0;
+  
+  
+  &.main {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background-color: $color-white;
+    opacity: 0;
+    font-weight: bold;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+  
+  &.remove {
+    background-color: $color-white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    right: 0;
+    color: $color-red;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.new-image__box {
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: $fsize-medium;
+  color: $color-gray10;
+
+  input {
+    display: none;
+  }
+}

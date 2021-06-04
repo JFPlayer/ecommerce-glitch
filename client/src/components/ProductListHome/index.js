@@ -6,7 +6,7 @@ import Carousel from '../Carousel'
 
 const ProductListHome = ({ title }) => {
   return (
-    <div className="home-list__container">
+    <div className="home-list">
       {title && (
         <div className="home-list__title">
           {title}

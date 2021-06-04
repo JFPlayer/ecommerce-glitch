@@ -1,0 +1,21 @@
+@import '../../../sass/variables';
+
+.user-pc {
+  border: solid 1px green;
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+}
+
+.user-pc__filter {
+  margin-right: 15px;
+  
+  > :first-child {
+    margin-bottom: 15px;
+    width: 200px;
+  }
+}
+
+// .user-pc__catalog {
+//   width: 100%;
+// }

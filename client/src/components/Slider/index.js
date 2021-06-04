@@ -22,31 +22,30 @@ const Slider = () => {
   // const [swiper, setSwiper] = useState({})
 
   return (
-    <>
-    <Swiper
-      className="slider__container"
-      slidesPerView={1}
-      loop
-      autoplay={{
-        "delay": 3500,
-        "disableOnInteraction": false
-      }}
-      pagination={{clickable: true}}
-      navigation={true}
-      // onSlideChange={() => console.log('slide change')}
-      // onSwiper={(swiper) => setSwiper(swiper)}
-      // onTransitionStart={() => console.log('start')}
-      // onTransitionEnd={() => console.log('End')}
-      effect="fade"
-    >
-      {banners.map(banner => (
-        <SwiperSlide>
-          <img src={banner} alt=""/>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-    {/* <button onClick={() => console.log(swiper.slideTo(2,2000))}>boton</button> */}
-    </>
+    <div className="slider-swiper">
+      <Swiper
+        className="slider-swiper__container"
+        slidesPerView={1}
+        loop
+        autoplay={{
+          "delay": 3500,
+          "disableOnInteraction": false
+        }}
+        pagination={{clickable: true}}
+        navigation={true}
+        // onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => setSwiper(swiper)}
+        // onTransitionStart={() => console.log('start')}
+        // onTransitionEnd={() => console.log('End')}
+        effect="fade"
+      >
+        {banners.map(banner => (
+          <SwiperSlide>
+            <img src={banner} alt=""/>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   )
 }
 

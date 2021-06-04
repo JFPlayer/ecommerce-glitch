@@ -1,0 +1,45 @@
+@import '../../../sass/variables';
+
+.user-nav {
+  border: solid 1px blue;
+  width: 200px;
+  height: max-content;
+  margin-right: 15px;
+  background-color: $color-gray80;
+}
+
+.user-nav__greeting, 
+.user-nav__page-item {
+  font-size: $fsize-medium;
+  font-weight: normal;
+}
+
+.user-nav__greeting {
+  text-align: center;
+  color: $color-gray10;
+  line-height: 50px;
+}
+
+.user-nav__page-item {
+  line-height: 30px;
+  display: block;
+  background-color: $color-gray30;
+  color: $color-gray80;
+  padding: 0 5px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 10px;
+  
+  &.active {
+    background-color: $color-violet;
+    color: $color-gray10;
+  }
+  
+  &:hover {
+    filter: brightness(1.2);
+  }
+  &.active:hover {
+    cursor: default;
+    filter: brightness(1);
+  }
+}

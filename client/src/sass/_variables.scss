@@ -9,9 +9,78 @@ $color-pink: #ea1f72;
 $color-violet: #5e3381;
 $color-blue: #5ec9f1;
 $color-red: #ea4b4b;
-$color-green: #56f514;
+$color-green: #62e22b;
 $color-yellow: #ffcc00;
+
 $fsize-small: 1.2rem;
 $fsize-medium: 1.4rem;
 $fsize-large: 1.7rem;
 $fsize-xlarge: 2rem;
+
+$margin-small: 5px;
+$margin-medium: 10px;
+
+$padding-small: 5px;
+
+$border-radius: 5px;
+
+// @mixin mqMobile {
+//   @media only screen and (min-width: 480px) {
+//     @content;
+//   }
+// }
+
+@mixin mqTablet {
+  @media screen and (min-width: 480px){
+    @content;
+  }
+}
+
+@mixin mqDesktop {
+  @media screen and (min-width: 800px) {
+    @content;
+  }
+}
+
+@mixin mqDesktopLarge {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin border($color: red) {
+  border: solid 1px rgba($color: $color, $alpha: .5);
+}
+
+@mixin gradientBorder ($direction, $color1, $color2, $bg: $color-black) {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+  }
+
+  > :first-child,
+  &::before {
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    position: absolute;
+  }
+
+  &::before {
+    z-index: -1;
+    background-color: $bg;
+  }
+
+  &::after {
+    z-index: -2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient($direction, $color1, $color2);
+  }
+}

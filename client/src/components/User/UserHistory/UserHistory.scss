@@ -1,0 +1,17 @@
+@import '../../../sass/variables';
+
+.user-history__list-container {
+  border-bottom: solid 1px $color-gray30;
+  
+  
+  &:last-child {
+    border-bottom:none;
+  }
+}
+
+.user-history__list-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}

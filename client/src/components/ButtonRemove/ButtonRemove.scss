@@ -1,0 +1,22 @@
+@import '../../sass/variables';
+
+.button-remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: .2s;
+  color: $color-red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  svg {
+    width: 50%;
+    height: 50%;
+  }
+
+  &:hover {
+    background-color: $color-red;
+    color: $color-gray10;
+  }
+}

@@ -1,0 +1,74 @@
+@import '../../../sass/variables';
+
+.user-dl {
+  width: 100%;
+  margin-top: 10px;
+  border: solid 2px $color-gray10;
+  position: relative;
+  padding: 8px;
+}
+
+.user-dl__title {
+  background-color: $color-gray80;
+  color: $color-green;
+  padding: 0 5px;
+  margin-left: -5px;
+  font-size: $fsize-small;
+  font-weight: normal;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+}
+
+.user-dl__list {
+  overflow-y: auto;
+  // min-height: 30px;
+  height: 80px;
+}
+
+.user-dl__row {
+  background-color: rgba($color: $color-white, $alpha: .05);
+  border-bottom: solid 1px $color-gray30;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  font-size: $fsize-medium;
+  font-weight: normal;
+  color: $color-gray10;
+}
+
+.user-dl__row-item {
+  flex: 1;
+  padding: 0 10px;
+
+  input {
+    width: 100%;
+    color: $color-gray10;
+  }
+  &.right {
+    border-left: solid 1px $color-gray30;
+  }
+}
+
+.user-dl__row-btn {
+  width: 30px;
+  height: 100%;
+  color: $color-red;
+  opacity: .4;
+  
+  
+  svg {
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+  }
+  
+  &.new {
+    color: $color-gray10;
+    opacity: .5;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

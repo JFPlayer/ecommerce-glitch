@@ -1,47 +1,83 @@
 @import '../../sass/variables';
 
 .search-bar {
-  width: 100%;
-}
+  @include gradientBorder( to right, $color-blue, $color-pink);
+  
+  margin: 0 auto;
 
-.search-bar__box {
-  background-color: $color-black;
-  padding: 5px;
-  border-radius: 4px;
+  width: 34px;
+  
+  // min-width: 100px;
+  // width: 100%;
   height: 35px;
-  position: relative;
-  display: flex;
+  
+  transition: .3s;
+  
+  
+  &::after {
+    opacity: 0;
+  }
+  &:focus-within:after {
+    opacity: 1;
+  }
+  &::before {
+    opacity: 0;
+  }
+  
+  &.active {
+    width: 98%;
+    &::before {
+      opacity: 1;
+    }
+    .search-bar__btn {
+      transform: scale(1);
+      margin-left: $margin-small;
+    }
+  }
+  
+  @include mqDesktop {
+    width: 100%;
+    &::before {
+      opacity: 1;
+    }
+    .search-bar__btn {
+      transform: scale(1);
+      margin-left: $margin-small;
+    }
+  }
 }
 
-.search-bar__field {
-  flex-grow: 1;
-  margin-left: 5px;
+.search-bar__content {
+  width: 100%;
+  display: flex;
+  padding: 5px;
+}
+
+.search-bar__input {
+  overflow: hidden;
+  // max-width: 0;
+
+  // min-width: 50px;
+  flex: 1;
   font-size: $fsize-medium;
   color: $color-gray10;
+
 }
 
-.search-bar__button {
-  width: 16px;
-  margin: 5px;
-  opacity: 0.5;
-}
+.search-bar__btn {
+  // margin-left: $margin-small;
 
-.search-bar__box::before {
-  content: "";
-  border-radius: 4px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  z-index: -10;
-}
-
-.search-bar__box:focus-within:before{
-  background: linear-gradient(90deg, $color-blue, $color-pink);
-}
-
-.search-bar__box:focus-within .search-bar__button{
+  height: 100%;
+  color: $color-gray10;
   opacity: 1;
+  
+  //
+  transform: scale(1.6);
+  //
+
+  svg {
+    height: 100%;
+    width: 18px;
+  }
 }
 

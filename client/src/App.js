@@ -6,6 +6,7 @@ import Home from './containers/Home'
 import Category from './containers/Category'
 import Product from './containers/Product'
 import Purchase from './containers/Purchase'
+import User from './containers/User'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route exact path="/categories/:id" component={Category} />
           <Route exact path="/products/:id" component={Product} />
           <Route exact path="/purchase-process" component={Purchase} />
+          <Route path="/user" component={User} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </Layout>

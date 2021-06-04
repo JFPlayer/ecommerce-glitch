@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 import './SearchBar.scss'
-import SearchIcon from "../../assets/searchIcon.svg";
+import { BiSearch } from 'react-icons/bi';
 
 
-const SearchBar = () => {
+const SearchBar = ({ className='', isFocus }) => {
+
   const [inputValue, setInputValue] = useState('')
 
   const handleChange = event => {
@@ -17,17 +18,17 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="search-bar">
-      <form className="search-bar__box" onSubmit={handleSubmit}>
+    <div className={`search-bar ${className} ${isFocus ? 'active' : ''}`}>
+      <form className="search-bar__content" onSubmit={handleSubmit}>
         <input
-          className="search-bar__field"
+          className="search-bar__input"
           type="text" 
-          name="search" 
+          name="search"
           value={inputValue}
           onChange={handleChange}
         />
-        <button className="search-bar__button">
-          <SearchIcon/>
+        <button className="search-bar__btn">
+          <BiSearch/>
         </button>
       </form>
     </div>

@@ -10,7 +10,7 @@
   background-color: $color-gray80;
   border: solid 2px $color-gray10;
   border-radius: 5px;
-  
+  padding: 0 10px;
 }
 
 .button.light {
@@ -36,7 +36,8 @@
 
 .button svg {
   height: 60%;
-  margin: 0 5px;
+  width: 100%;
+  min-width: 30px;
   vertical-align: middle;
 }
 

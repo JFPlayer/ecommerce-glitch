@@ -19,20 +19,24 @@ const logos = [Logo1,Logo2,Logo3,Logo4,Logo5,Logo6,Logo7,Logo8,Logo9,Logo10,]
 const FooterSlider = () => {
   return (
     <div className="banner-brands">
-      <div className="banner-brands__content">
-        {logos.map(Logo => (
-          <div className="banner-brands__logo">
-            <Logo/>
-          </div>
-        ))}
-        {logos.map(Logo => (
-          <div className="banner-brands__logo">
-            <Logo/>
-          </div>
-        ))}
+      <div className="banner-brands__container">
+        <div className="banner-brands__content">
+          {[...logos].map((Logo, index) => (
+            <div key={index} className="banner-brands__logo">
+              <Logo/>
+            </div>
+          ))}
+        </div>
+        <div className="banner-brands__content">
+          {[...logos].map((Logo, index) => (
+            <div key={index} className="banner-brands__logo">
+              <Logo/>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default React.memo(FooterSlider);
+export default FooterSlider;

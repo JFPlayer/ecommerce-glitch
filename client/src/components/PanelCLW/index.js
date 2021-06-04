@@ -1,40 +1,82 @@
 import React, { useState } from 'react'
 
 import './PanelCLW.scss'
-import EmptyCartIcon from '../../assets/emptyCartIcon.svg'
-import HeartIcon from '../../assets/heartIcon.svg'
+import { FaHeart } from 'react-icons/fa'
+import { RiShoppingCartFill } from "react-icons/ri";
 
-import PanelTabContent from './PanelTabContent'
+import PanelCartProduct from './PanelCartProduct'
+import PanelWishListProduct from './PanelWishListProduct'
+import Button from '../Button'
 
 const PanelCLW = ({ toClose }) => {
-  const [isSelected, setIsSelected] = useState('cart')
+  const [isSelectedCart, setIsSelectedCart] = useState(true)
 
   return (
     <div className="panel-clw" onClick={e => e.stopPropagation()}>
-      <div className="panel-clw__container">
-        <div className="panel-clw__tabs-header">
-          <div className="panel-clw__tabs-titles">
-            <button className="panel-clw__tabs-title" onClick={() => setIsSelected('cart')} >
-              <EmptyCartIcon className="panel-clw__icon"/>
-              <span>Carrito</span>
-            </button>
 
-            <button className="panel-clw__tabs-title" onClick={() => setIsSelected('wl')}>
-              <HeartIcon className="panel-clw__icon"/>
-              <span>Favoritos</span>
-            </button>
-          </div>
-
-          <div className={`selected-tab `}>
-            <div className={`${isSelected==='cart' ? '': 'right'}`}></div>
-          </div>
+      <div className="panel-clw__header">
+        <div className="panel-clw__tabs">
+          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(true)}>
+            <FaHeart/>
+            Favoritos
+          </button>
+          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(false)} >
+            <RiShoppingCartFill/>
+            Carrito
+          </button>
         </div>
-
-        <div className="panel-clw__tabs-content">
-          <PanelTabContent selected= {isSelected}/>
-        </div>
-
+        <div className={`panel-clw__tabs-line ${!isSelectedCart ? 'right' : ''}`}></div>
       </div>
+
+      <div className="panel-clw__body">
+        {isSelectedCart ?
+          <>
+            {[...new Array(7)].map(() => (
+              <PanelCartProduct/>
+            ))}
+          </>
+        :
+          <>
+            {[...new Array(7)].map(() => (
+              <PanelWishListProduct/>
+            ))}
+          </>
+        }
+      </div>
+
+      <div className="panel-clw__footer">
+        {isSelectedCart ?
+          <>
+            <div className="panel-footer__summary">
+              <div className="panel-footer__summary-row">
+                <span>Subtotal</span>
+                <span>$ 80.500</span>
+              </div>
+              <div className="panel-footer__summary-row">
+                <span>Descuento</span>
+                <span>- $ 5.500</span>
+              </div>
+              <div className="panel-footer__summary-row">
+                <span>Total</span>
+                <span>$ 75.000</span>
+              </div>
+            </div>
+
+            <div className="panel-footer__actions">
+              <Button onClick={toClose} >Cerrar</Button>
+              <Button primary>Ir al carrito</Button>
+            </div>
+          </>
+
+        :
+
+          <div className="panel-footer__actions">
+            <Button onClick={toClose} >Cerrar</Button>
+            <Button primary>Agregar al carrito</Button>
+          </div>
+        }
+      </div>
+
     </div>
   )
 }

@@ -10,14 +10,24 @@ const Carousel = () => {
   return (
     <Swiper
       className="carousel__container"
-      slidesPerView={5}
-      spaceBetween={14}
+      slidesPerView={2}
+      spaceBetween={15}
       loop
       autoplay={{
         "delay": 3500,
         "disableOnInteraction": false
       }}
       navigation={true}
+      breakpoints={{
+        "480": {
+          "slidesPerView": 3,
+          "spaceBetween": 15
+        },
+        "800": {
+          "slidesPerView": 5,
+          "spaceBetween": 15
+        }
+      }}
     >
       <SwiperSlide>
         <ProductCarousel/>

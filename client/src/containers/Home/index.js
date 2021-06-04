@@ -1,8 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+import './Home.scss'
 import { FaCreditCard, FaTruck } from 'react-icons/fa'
 import { BsArrowRepeat, BsClockHistory } from 'react-icons/bs'
 
-import './Home.scss'
+import HotSale from '../../assets/hotSale.svg'
+
 import categories1 from '../../assets/categories_1.png'
 import categories2 from '../../assets/categories_2.png'
 import categories3 from '../../assets/categories_3.png'
@@ -15,83 +19,99 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <div className="home__section banner">
-        <div className="home__container space-around">
-          <div className="banner-info__item">
-            <div className="banner-info__item-icon">
-              <FaCreditCard/>
+
+      <div className="home__info">
+        <div className="home__info-container">
+
+          <div className="home__info-item-container">
+
+            <div className="home__info-item">
+              <div className="home__info-icon">
+                <FaCreditCard/>
+              </div>
+              <div className="home__info-description">
+                <p>HASTA 6 CUOTAS SIN INTERES</p>
+                <span>En todos los productos</span>
+              </div>
             </div>
-            <div className="banner-info__item-description">
-              <h2>HASTA 6 CUOTAS SIN INTERES</h2>
-              <span>En todos los productos</span>
+            
+          </div>
+          <div className="home__info-item-container">
+            <div className="home__info-item">
+              <div className="home__info-icon">
+                <BsArrowRepeat/>
+              </div>
+              <div className="home__info-description">
+                <p>DEVOLUCIONES GRATUITAS</p>
+                <span>Hasta 30 dias después de recibir la compra</span>
+              </div>
             </div>
           </div>
-          <div className="banner-info__item">
-            <div className="banner-info__item-icon">
-              <BsArrowRepeat/>
-            </div>
-            <div className="banner-info__item-description">
-              <h2>DEVOLUCIONES GRATUITAS</h2>
-              <span>Hasta 30 dias después de recibir la compra</span>
-            </div>
-          </div>
-          <div className="banner-info__item">
-            <div className="banner-info__item-icon">
-              <FaTruck/>
-            </div>
-            <div className="banner-info__item-description">
-              <h2>ENVIO GRATIS A TODO EL PAÍS</h2>
-              <span>En compras superiores a los $6.000</span>
+          <div className="home__info-item-container">
+            <div className="home__info-item">
+              <div className="home__info-icon">
+                <FaTruck/>
+              </div>
+              <div className="home__info-description">
+                <p>ENVIO GRATIS A TODO EL PAÍS</p>
+                <span>En compras superiores a los $6.000</span>
+              </div>
             </div>
           </div>
+          
         </div>
       </div>
 
-      <div className="home__section">
-        <div className="home__container center">
-          <div className="categories__item">
-            <div className="categories__item-image">
+
+      <div className="home__categories">
+        <div className="home__categories-container">
+
+          <Link to="/" className="home__categories-item">
+            <div className="home__categories-item-image">
               <img src={categories1} alt=""/>
             </div>
-            <div className="categories__item-title">
+            <div className="home__categories-item-title">
               Notebooks
             </div>
-          </div>
-          <div className="categories__item">
-            <div className="categories__item-image">
+          </Link>
+          <Link to="/" className="home__categories-item">
+            <div className="home__categories-item-image">
               <img src={categories2} alt=""/>
             </div>
-            <div className="categories__item-title">
+            <div className="home__categories-item-title">
               Accesorios
             </div>
-          </div>
-          <div className="categories__item">
-            <div className="categories__item-image">
+          </Link>
+          <Link to="/" className="home__categories-item">
+            <div className="home__categories-item-image">
               <img src={categories3} alt=""/>
             </div>
-            <div className="categories__item-title">
+            <div className="home__categories-item-title">
               Monitores
             </div>
-          </div>
-          <div className="categories__item">
-            <div className="categories__item-image">
+          </Link>
+          <Link to="/" className="home__categories-item">
+            <div className="home__categories-item-image">
               <img src={categories4} alt=""/>
             </div>
-            <div className="categories__item-title">
+            <div className="home__categories-item-title">
               Consolas
             </div>
-          </div>
+          </Link>
+
         </div>
       </div>
 
-      <div className="home__section hot-sale">
-        <div className="home__container flex-start">
-          <div className="hot-sale__title">
-            <span>HOT SALE</span>
+      <div className="home__hot-sale">
+        <div className="home__hot-sale-container">
+          <div className="home__hot-sale-title">
+            <HotSale/>
           </div>
-          <BsClockHistory className="hot-sale__icon"/>
-          <div className="hot-sale__count-down">
-            2 d 13 : 25 : 40
+          <div className="home__hot-sale-count-down">
+            <BsClockHistory/>
+            <span className="home__hot-sale-count-down-value">
+              2 d 13 : 25 : 40
+            </span>
           </div>
         </div>
       </div>

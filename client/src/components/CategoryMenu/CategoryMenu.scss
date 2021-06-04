@@ -1,36 +1,99 @@
 @import '../../sass/variables';
 
 .category-menu {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  height: 100%;
   background-color: $color-gray80;
+
+  @include mqDesktop {
+    height: fit-content;
+    
+    .category-menu__container {
+      width: 90%;
+      display: flex;
+      justify-content: space-evenly;
+      padding: 15px 0;
+    }
+
+    .category-menu__list-container {
+      display: none;
+    }
+  
+    .category-menu__list-container--desktop {
+      display: block;
+    }
+  
+  }
+  @include mqDesktopLarge {
+    .category-menu__container {
+      max-width: 1200px;
+    }
+  }
 }
 
 .category-menu__container {
-  width: 1100px;
-  display: flex;
-  justify-content: space-evenly;
+  background-color: inherit;
+  position: relative;
+  height: 100%;
+  margin: 0 auto;
+
 }
 
-.category-menu__list {
-  margin: 20px 0;
-}
+.category-menu__list-container {
+  background-color: inherit;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 
-.category-menu__list-title {
-  font-size: $fsize-large;
-  color: $color-green;
-  display: block;
-  margin-bottom: 10px;
+  &.subcategory {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    animation: to-right .3s forwards;
+  }
 }
 
 .category-menu__list-item {
+  height: 60px;
+  // display: block;
+  border-bottom: solid 1px $color-black;
+  padding: 0 15px;
   font-size: $fsize-medium;
-  font-weight: normal;
-  line-height: 3rem;
   color: $color-gray10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
 }
 
-.category-menu__list-item:hover {
-  border-bottom: solid 2px $color-blue;
+@keyframes to-right {
+  100% {
+    right: 0;
+  }
+}
+
+.category-menu__list-container--desktop {
+  display: none;
+}
+
+.category-menu__list-item--desktop {
+  display: block;
+  width: fit-content;
+  font-size: $fsize-medium;
+  line-height: 28px;
+  color: $color-gray10;
+  border-bottom: solid 1px transparent;
+  
+  &.title {
+    font-size: $fsize-large;
+    font-weight: bold;
+    color: $color-green;
+    margin-bottom: 5px;
+    border: none;
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+    transform-origin: center left;
+    border-bottom: solid 1px $color-green;
+  }
 }

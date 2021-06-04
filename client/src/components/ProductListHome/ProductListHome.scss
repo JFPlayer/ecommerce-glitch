@@ -1,28 +1,36 @@
 @import '../../sass/variables';
 
-.home-list__container {
-  width: 1200px;
-  margin: 0 auto 50px auto;
+.home-list {
+  // width: 1200px;
+  margin: 0 auto 50px auto; 
+  padding: 0 15px;
+
+  @include mqDesktop {
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+  }
 }
 
 .home-list__title {
-  width: fit-content;
+  width: max-content;
   text-transform: uppercase;
   font-size: $fsize-xlarge;
   color: $color-gray10;
   position: relative;
-}
+  margin-bottom: 20px;
 
-.home-list__title::before {
-  content: '# ';
-}
+  &::before {
+    content: '# ';
+  }
 
-.home-list__title::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: -5px;
-  left: 0;
-  background: linear-gradient(to right, $color-pink, $color-blue);
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(to right, $color-pink, $color-blue);
+  }
 }

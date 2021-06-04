@@ -1,82 +1,117 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./Header.scss";
-import Logo from "../../assets/logo.svg";
-import ArrowIcon from "../../assets/arrowIcon.svg";
-import UserIcon from "../../assets/userIcon.svg";
-import EmptyCartIcon from "../../assets/emptyCartIcon.svg";
-import FilledCartIcon from "../../assets/filledCartIcon.svg";
-import MenuIcon from "../../assets/menuIcon.svg";
+import { IoIosArrowDown } from "react-icons/io";
+import { HiMenuAlt1 } from "react-icons/hi";
+import { BiUser } from "react-icons/bi";
+import { RiShoppingCart2Line, RiShoppingCartFill } from "react-icons/ri";
+import { MdClose } from 'react-icons/md'
 
-import Slideout from '../Slideout'
-import CategoryMenu from '../CategoryMenu'
-import LoginBox from '../LoginBox'
-import SearchBar from "../SearchBar"
-import PanelCLW from "../PanelCLW"
+
+import Logo from "../../assets/logo.svg";
+import LogoSmall from "../../assets/logo-small.svg";
+
+
+import { getCenter } from '../../utils'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
+
+import CategoryMenu from "../CategoryMenu";
+import LoginBox from "../LoginBox";
+import SearchBar from "../SearchBar";
+import PanelCLW from "../PanelCLW";
 
 const Header = () => {
-const [isCategoryMenuActive, setIsCategoryMenuActive] = useState(false)
-const [isLoginBoxActive, setIsLoginBoxActive] = useState(false)
-const [isPanelCLWActive, setIsPanelCLWActive] = useState(false)
+  const isDesktop = useMediaQuery("(min-width: 800px)")
+
+  const refLoginTitle = useRef()
+
+  const [slideOutOpen, setSlideOutOpen] = useState('');
+  const [positionXLogin, setPositionXLogin] = useState(0)
+  const [onFocusSearchBar, setOnFocusSearchBar] = useState(false)
 
   return (
     <>
       <header className="header">
-        <nav className="header__navbar">
-
+        <nav className={`header__navbar ${(!isDesktop && onFocusSearchBar) ? 'search-active' : ''}`}>
+          
           <Link to="/" className="header__logo">
-            <Logo />
+            {isDesktop ? <Logo/> : <LogoSmall/>}
           </Link>
 
-          <div onClick={() => setIsCategoryMenuActive(!isCategoryMenuActive)}>
-            <span className="header__title">
+          <div
+            onClick={() => setSlideOutOpen(slideOutOpen ? '' : 'category')}
+            className="header__title"
+          >
+            {slideOutOpen !== 'category' ? 
+              <HiMenuAlt1 className="btn"/>
+            :
+              <MdClose className="btn"/>
+            }
+            <span className="txt">
               Categorias
-              <ArrowIcon className="header__icon" />
+              <IoIosArrowDown/>
             </span>
-            {/* <button className="header__categories-button"><MenuIcon/></button> */}
           </div>
 
-          <SearchBar/>
+          <div 
+            onClick={() => setOnFocusSearchBar(true)}
+            onBlur={() => setOnFocusSearchBar(false)}
+            className='header__search'
+          >
+            <SearchBar isFocus={!isDesktop ? onFocusSearchBar : ''}/>
+            <div className="header__search-btn"></div>
+          </div>
 
-          <div onClick={() => setIsLoginBoxActive(!isLoginBoxActive)}>
-            <span className="header__title">
+          <div
+            ref={refLoginTitle}
+            onClick={() => {
+              setSlideOutOpen(slideOutOpen ? '' : 'login-box')
+              setPositionXLogin(getCenter(refLoginTitle).x)
+            }}
+            className="header__title"
+          >
+            <BiUser className="btn"/>
+            <span className="txt">
               Iniciar sesión
-              <UserIcon className="header__icon login-icon" />
+              <BiUser />
             </span>
           </div>
 
-          <div onClick={() => setIsPanelCLWActive(!isPanelCLWActive)}>
-            <span className="header__title">
-              <EmptyCartIcon className="header__icon cart-icon"/>
-            </span>
+          <div
+            onClick={() => setSlideOutOpen(slideOutOpen ? '' : 'panelclw')}
+            className="header__title"
+          >
+            <RiShoppingCart2Line />
           </div>
-
         </nav>
-        </header>
-        
-        {isCategoryMenuActive && (
-          <Slideout 
-            top="80px" 
-            toClose={() => setIsCategoryMenuActive(false)}
-            Component= {CategoryMenu}
-          />
-        )}
-
-        {isLoginBoxActive && (
-          <Slideout 
-            top="80px" 
-            toClose={() => setIsLoginBoxActive(false)}
-            Component={LoginBox}
-          />
-        )}
-
-        {isPanelCLWActive && (
-          <Slideout
-            toClose={() => setIsPanelCLWActive(false)}
-            Component={PanelCLW}
-          />
-        )}
+      </header>
+      
+      {slideOutOpen && (
+        <div 
+          className={`slideout ${slideOutOpen}`}
+          onClick={() => {
+            setSlideOutOpen('')
+          }}
+        >
+          {slideOutOpen === 'category' && (
+            <CategoryMenu
+            toClose={() => setSlideOutOpen('')}
+            />
+          )}
+          {slideOutOpen === 'login-box' && (
+            <LoginBox
+            positionX={positionXLogin}
+            toClose={() => setSlideOutOpen('')}
+            />
+          )}
+          {slideOutOpen === 'panelclw' && (
+            <PanelCLW
+            toClose={() => setSlideOutOpen('')}
+            />
+          )}
+        </div>
+      )}
 
     </>
   );

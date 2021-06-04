@@ -1,0 +1,50 @@
+@import '../../../sass/variables';
+
+.product-uh__container {
+  border: solid 1px $color-black;
+  padding: 5px;
+  height: 80px;
+  
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.product-uh__image {
+  // width: 100px;
+  height: 100%;
+  width: fit-content;
+  max-width: 80px;
+  background-color: $color-gray10;
+  
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.product-uh__description {
+  height: 100%;
+  width: calc(100% - 80px - 10px);
+  font-size: $fsize-medium;
+  text-overflow: ellipsis;
+  // white-space: nowrap;
+  color: $color-gray10;
+  font-weight: normal;
+  font-size: $fsize-small;
+  position: relative;
+  margin-left: 10px;
+}
+
+.product-uh__title {
+  font-weight: bold;
+  font-size: $fsize-medium;
+  color: $color-gray10;
+}
+
+.product-uh__sku-quantity {
+  position: absolute;
+  bottom: 0;
+}

@@ -1,7 +1,15 @@
 @import '../../sass/variables';
 
 .carousel__container {
-  // width: 1200px;
-  margin: 15px 0;
-  padding: 5px;
+  
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: scale(.7);
+    
+    @include mqDesktop {
+      transform: scale(.85);
+      
+    }
+  }
 }

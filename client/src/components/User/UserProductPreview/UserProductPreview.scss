@@ -1,0 +1,136 @@
+@import '../../../sass/variables';
+
+.user-products__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.user-products__images {
+  border: solid 1px red;
+  
+}
+
+.user-products__image-preview,
+.user-products__image-thumbs-item {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  & > :first-child {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+  }
+}
+
+.user-products__image-thumbs {
+  border: solid 1px blue;
+  padding: 15px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.user-products__image-thumbs-item {
+  border: solid 1px green;
+}
+
+.user-products__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-products__form-fields {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+
+  :nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  :nth-child(2),
+  :nth-child(3),
+  :nth-child(7),
+  :nth-child(8) {
+    grid-column: span 3;
+  }
+
+  :nth-child(4),
+  :nth-child(5),
+  :nth-child(6) {
+    grid-column: span 2;
+  }
+
+  :nth-child(9),
+  :nth-child(10) {
+    grid-column: 1 / -1;
+    height: 100px;
+  }
+}
+
+.user-products__select {
+  display: inline-block;
+  font-size: $fsize-medium;
+  color: $color-green;
+
+  select {
+    width: 100%;
+    height: 32px;
+    margin-top: 10px;
+    border: solid 2px $color-gray10;
+    color:$color-gray10;
+    font: bold $fsize-medium 'Play';
+    outline: none;
+    background-color: transparent;
+    box-shadow: none;
+
+    & > * {
+      appearance: none;
+      background-color: $color-gray80;
+    }
+    &:focus{ 
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.user-products__rating {
+  margin: 15px 0;
+  font-weight: normal;
+  font-size: $fsize-medium;
+}
+
+.user-products__rating-title {
+  color: $color-green;
+}
+
+.user-products__rating-stars {
+  display: inline-block;
+  color: $color-yellow;
+  margin-right: 5px;
+  
+  svg {
+    vertical-align: bottom;
+    width: 15px;
+  }
+}
+
+.user-products__form-actions {
+  display: flex;
+  justify-content: space-evenly;
+
+  button {
+    width: 100px;
+  }
+}

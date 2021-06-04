@@ -2,9 +2,21 @@
 
 .banner-brands {
   background-color: $color-gray80;
-  height: 70px;
+  height: 60px;
+  width: 100%;
   overflow: hidden;
   position: relative;
+  // white-space: nowrap;
+
+  &:hover {
+    .banner-brands__content {
+      animation-play-state: paused;
+    }
+  }
+
+  @include mqDesktop {
+    height: 70px;
+  }
 }
 
 .banner-brands::before, 
@@ -15,43 +27,58 @@
   width: 10%;
   top: 0;
   z-index: 10;
-  background-image: linear-gradient(to right,$color-black,rgba(255,255,255,0));
+  background-image: linear-gradient(to right,$color-black,rgba(0,0,0,0));
 }
 
 .banner-brands::after {
-  background-image: linear-gradient(to left,$color-black,rgba(255,255,255,0));
+  background-image: linear-gradient(to left,$color-black,rgba(0,0,0,0));
   right: 0;
+}
+
+.banner-brands__container {
+  height: 100%;
+  display: flex;
+  width: max-content;
+
+  // ancho de 'banner-brands__content' 1440px
+  @media only screen and (min-width: 1440px) {
+    width: 100%;
+  }
 }
 
 .banner-brands__content {
   width: fit-content;
   height: 100%;
   display: flex;
-  white-space: nowrap;
   align-items: center;
   animation: scrolling 40s linear infinite;
+  
+  // ancho de 'banner-brands__content' 1440px
+  @media only screen and (min-width: 1440px) {
+    min-width: 100%;
+    justify-content: space-evenly;
+  }
 }
 
 .banner-brands__logo {
-  height: 75%;
-  width: 150px;
+  height: 80%;
+  padding: 0 30px;
   filter: grayscale(1) brightness(2.5);
   opacity: .5;
-  margin-right: 50px;
-  text-align: center;
   transition: .2s;
+
+
+  svg {
+    height: 100%;
+    object-fit: contain;
+  }
 }
 
- .banner-brands__logo:hover {
+.banner-brands__logo:hover {
   filter: grayscale(0);
   opacity: 1;
 }
 
-.banner-brands__content:hover {
-  animation-play-state: paused;
-}
-
 @keyframes scrolling {
-  0% {transform: translateX(0);}
-  100% {transform: translateX(-50%);}
+  100% {transform: translateX(-100%);}
 }

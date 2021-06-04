@@ -1,70 +1,99 @@
 @import '../../sass/variables';
 
 .footer {
-  margin-top: 30px;
-}
-
-.footer__main {
-  width: 62.5%;
-  margin: 0 auto;
-  // border: solid 1px red;
-}
-
-.banner-mp {
-  background-color: $color-gray80;
-  margin-bottom: 50px;
-  height: 40px;
-}
-
-.banner-mp__content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: $fsize-medium;
-  font-weight: normal;
-  color: $color-gray30;
-  // height: 40px;
-  svg {
-    height: 40px;
-    width: 160px;
-    padding: 5px;
-  }
-}
-
-.footer__container {
-  background-color: $color-black;
   
 }
 
-.footer__section-first {
-  border-bottom: solid 1px $color-gray30;
-  padding: 30px 0 30px 0;
-  display: flex;
-  justify-content: space-around;
+.footer__banner-ml {
+  background-color: $color-gray80;
+  height: 40px;
+  margin-bottom: 30px;
 }
 
-.footer__section {
+.footer__banner-ml-content {
+  padding: 7px 15px;
+  margin: 0 auto;
+  width: fit-content;
+  height: 100%;
+  font-size: $fsize-medium;
+  color: $color-gray30;
   display: flex;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  
+  svg {
+    height: 100%;
+    width: 150px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+  .extra {
+    display: none;
+  }
+
+  @include mqDesktop {
+    .extra {
+      display: inline;
+    }
+  }
+}
+
+.footer__main {
+  margin-top: 30px;
+  background-color: $color-gray80;
+}
+
+.footer__main-container {
+  margin: 0 auto;
+  padding: 15px;
+
+  @include mqTablet {
+    max-width: 800px;
+  }
+}
+
+.footer__section-social {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
   font-size: $fsize-medium;
-  font-weight: normal;
   color: $color-gray30;
+  
+  @include mqDesktop {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
-.footer__social-icon {
-  width: 25px;
-  height: 25px;
-  margin-left: 8px;
+.footer__item {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:first-child {
+    border-bottom: solid 1px $color-gray30;
+
+    @include mqDesktop {
+      border: none;
+    }
+  }
 }
 
-.footer__section-icon {
-  width: 40px;
-  height: 40px;
-  background-color: $color-black;
+.footer__item-section {
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.footer__item-icon {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  // background-color: $color-black;
   border: solid 1px $color-gray30;
-  margin: 0 8px;
-
+  margin-right: 5px;
+  vertical-align: middle;
+  
   svg {
     width: 100%;
     height: 100%;
@@ -72,32 +101,59 @@
   }
 }
 
-.footer__newsletter-form {
-  display: flex;
-  align-items: center;
-  margin: 0 8px;
-  .input-text {
-    margin-top: 0;
-    .input-text__container {
-      border:solid 1px $color-gray30;
+.footer__social-icon {
+  
+  a {
+    color: $color-gray30;
+    margin-right: 10px;
+    white-space: nowrap;
+    &:last-child {
+      margin: 0;
     }
   }
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    margin-right: 5px;
+  }
+}
 
+.footer__social-link {
+  display: none;
+
+  @include mqTablet {
+    display: inline;
+  }
+}
+
+.footer__newsletter {
+  border: solid 1px $color-gray30;
+  height: 34px;
+  max-width: 235px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  
+  input {
+    flex-grow: 1;
+    min-width: 0;
+    color: $color-gray30;
+    margin: 0 5px;
+  }
   button {
-    height: 35px;
+    height: 100%;
+    flex-basis: content;
     background-color: $color-gray30;
     padding: 5px;
     font-weight: bold;
+    font-size: $fsize-small;
   }
 }
 
 .footer__copyright {
-  padding: 30px 0 30px 0;
-  text-align: center;
-  width: 80%;
-  margin: 0 auto;
-  font-size: $fsize-medium;
-  font-weight: normal;
   color: $color-gray30;
-  // background-color: green;
+  font-size: $fsize-small;
+  text-align: center;
 }
