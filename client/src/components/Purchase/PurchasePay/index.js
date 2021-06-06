@@ -7,6 +7,7 @@ import LogoVisa from '../../../assets/visa.svg'
 import LogoMastercard from '../../../assets/mastercard.svg'
 
 import Checkbox from '../../Checkbox'
+import PurchaseActions from '../PurchaseActions'
 
 const purchasePayOption = [
   {
@@ -26,29 +27,28 @@ const PurchasePay = () => {
   const form = { register, watch, errors }
 
   return (
-    <div className="purchase-section">
-      <div className="purchase__title">
-        Metodos de pago
-      </div>
-      {purchasePayOption.map(option => (
-        <div className="purchase-pay__option">
-          <Checkbox
-            light
-            useForm={form}
-            labelText={option.title}
-            name={option.name}
-          />
-          <span className="purchase-pay__option-logos">
-            {option.image}
-            {/* {option.image.map(image => (
-              <span className="purchase-pay__option-logo">
-                {image}
-              </span>
-            ))} */}
-          </span>
+    <>
+      <div className="purchase-pay">
+        <div className="purchase-pay__title">
+          Metodos de pago
         </div>
-      ))}
-    </div>
+        {purchasePayOption.map(option => (
+          <div className="purchase-pay__option">
+            <Checkbox
+              light
+              useForm={form}
+              labelText={option.title}
+              name={option.name}
+            />
+            <span className="purchase-pay__option-logos">
+              {option.image}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <PurchaseActions className="purchase-du__actions"/>
+    </>
   )
 }
 

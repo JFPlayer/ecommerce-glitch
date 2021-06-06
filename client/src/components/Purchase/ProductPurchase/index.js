@@ -1,7 +1,8 @@
 import React from 'react'
 
 import './ProductPurchase.scss'
-import { FaTrashAlt } from 'react-icons/fa'
+
+import ButtonRemove from '../../ButtonRemove'
 
 import notebook from '../../../assets/notebook.png'
 
@@ -19,49 +20,43 @@ const ProductPurchase = () => {
             SKU: 2004271186157P
         </div>
       </div>
+
       <div className="product-purchase__section">
-        <div className="product-purchase__quantity">
-          <div className="item-left">
+        <div className="product-purchase__row">
+          <div className="product-purchase__row-item">
             Cantidad
           </div>
-          <div className="product-purchase__quantity-control">
-            <div className="product-purchase__quantity-item">
-              -
-            </div>
-            <div className="product-purchase__quantity-item value">
-              5
-            </div>
-            <div className="product-purchase__quantity-item">
-              +
-            </div>
+          <div className="product-purchase__row-item">
+            <button className="product-purchase__quantity">-</button>
+            <span className="product-purchase__quantity">5</span>
+            <button className="product-purchase__quantity">+</button>
+          </div>
+        </div>
+        
+        <div className="product-purchase__row">
+          <div className="product-purchase__row-item">
+            Precio unidad:
+          </div>
+          <div className="product-purchase__row-item">
+            $ 90.000
           </div>
         </div>
 
-        <div className="product-purchase__price">
-          <div className="item-left">
-            <div className="product-purchase__price-unid">
-              Precio unidad:
-            </div>
-            <div className="product-purchase__price-total">
+        <div className="product-purchase__row">
+          <div className="product-purchase__row-item">
+            <span className="product-purchase__price-total">
               Precio Total:
-            </div>
+            </span>
           </div>
-          <div className="item-right">
-            <div className="product-purchase__price-unid">
+          <div className="product-purchase__row-item">
+            <span className="product-purchase__price-total">
               $ 90.000
-            </div>
-            <div className="product-purchase__price-total">
-              $ 90.000
-            </div>
+            </span>
           </div>
-
         </div>
+
       </div>
-      <div className="product-purchase__remove">
-        <button>
-          <FaTrashAlt/>
-        </button>
-      </div>
+      <ButtonRemove/>
     </div>
   )
 }

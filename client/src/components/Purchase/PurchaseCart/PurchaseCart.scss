@@ -2,51 +2,63 @@
 
 .purchase-cart {
   width: 100%;
+
+  @include mqDesktop {
+    grid-column: span 2;
+  }
 }
 
 .purchase-cart__list {
   
 }
 
-.purchase-cart__list-price {
+.purchase-cart__summary {
   background-color: $color-white;
   border-radius: 5px;
-  margin-bottom: 5px;
   padding: 10px;
-  height: 120px;
+  height: 100px;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
-.purchase-cart__list-price-container {
-  margin-right: 50px;
-  width: 170px;
-  // border: solid 1px red;
-  bottom: 0;
-  line-height: 30px;
+.purchase-cart__summary-container {
+  flex-basis: 150px;
+  margin-right: 40px;
+  
+  @include mqTablet {
+    flex-basis: 180px;
+  }
 }
 
-.purchase-cart__list-subtotal {
-  height: 70%;
-  font-size: $fsize-medium;
-  font-weight: normal;
+.purchase-cart__row {
+  line-height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: $fsize-small;
+  
+  &.total {
+    border-top: solid 2px $color-violet;
+  }
+  
+  @include mqDesktop {
+    font-size: $fsize-medium;
+  }
 }
 
-.purchase-cart__list-total {
-  border-top: solid 2px $color-violet;
-  font-size: $fsize-large;
+.purchase-cart__total {
   color: $color-violet;
-}
-
-.list-name {
-  float: left;
-}
-
-.list-value {
-  float: right;
+  font-weight: bold;
+  font-size: $fsize-medium;
+  
+  @include mqTablet {
+    font-size: $fsize-large;
+  }
 }
 
 .purchase-cart__actions {
-  width: 25%;
-  min-width: 180px;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 300px;
 }

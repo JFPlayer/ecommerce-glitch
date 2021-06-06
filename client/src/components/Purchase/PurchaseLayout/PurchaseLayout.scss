@@ -6,30 +6,51 @@
 
 .purchase-process__container {
   min-height: 100vh;
-  width: 62.5%;
+  padding: 0 15px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  @include mqTablet {
+    width: 90%;
+    padding: 0;
+    max-width: 1200px;
+  }
 }
 
 .purchase-process__header {
   // border: solid 1px green;
-  height: 80px;
+  height: 70px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 10px 0 30px 0;
+  align-items: center;
+  // align-items: center;
+  // margin: 10px 0 30px 0;
 }
 
 .purchase-process__logo {
   height: 60px;
-  margin-left: 15px;
+  padding: 10px 0;
+  width: min-content;
+  
+  svg {
+    height: 100%;
+    // width: 100%;
+  }
 }
 
 .purchase-process__main {
-  border: solid 1px red;
   flex: 1;
-  display: flex;
+
+  display: grid;
+  // flex-direction: column;
+  grid-template-columns: 100%;
+  gap: 10px;
+  
+  @include mqDesktop {
+    grid-template-columns: auto 300px;
+    
+  }
 }
 
 .purchase-process__footer {
@@ -39,8 +60,7 @@
 }
 
 .purchase-process__footer-copyright {
-  margin: 15px;
+  margin: 15px 0;
   font-size: $fsize-small;
-  font-weight: normal;
   color: $color-gray80;
 }

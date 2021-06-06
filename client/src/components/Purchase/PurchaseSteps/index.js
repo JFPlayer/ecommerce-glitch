@@ -19,17 +19,17 @@ const PurchaseSteps = ({ stepActive }) => {
         <>
         <Link>
           <div className={`steps__item ${stepActive >= index && 'active'}`}>
-            <div className="steps__icon">
+            <span className="steps__icon">
               {icon}
-            </div>
-            <div className="steps__title">
+            </span>
+            <span className="steps__title">
               {name}
-            </div>
+            </span>
           </div>
         </Link>
-          {index !== arr.length - 1 &&
-          <div className="steps__line"></div>
-          }
+        <div className="steps__line"></div>
+          {/* {index !== arr.length - 1 &&
+          } */}
         </>
       ))}
     </div>

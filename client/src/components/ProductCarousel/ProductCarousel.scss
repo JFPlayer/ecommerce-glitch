@@ -3,7 +3,7 @@
 .product-carousel {
   width: calc((100vw - 45px)/ 2);
   position: relative;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
   
   &::before, 
   &::after {
@@ -50,7 +50,7 @@
   left: 2px;
   width: calc( 100% - 4px );
   height: calc( 100% - 4px );
-  padding: 10px;
+  padding: 5px;
 
 }
 
@@ -116,7 +116,7 @@
 }
 
 .product-carousel__price-section {
-  // margin: 15px auto;
+  margin: 15px auto;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;

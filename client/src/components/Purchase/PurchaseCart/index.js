@@ -14,32 +14,43 @@ const PurchaseCart = () => {
         <ProductPurchase/>
         <ProductPurchase/>
         <ProductPurchase/>
-        <div className="purchase-cart__list-price">
-          <div className="purchase-cart__list-price-container">
-            <div className="purchase-cart__list-subtotal">
-              <div className="list-name">
-                Subtotal
-                <br/>
+
+        <div className="purchase-cart__summary">
+          <div className="purchase-cart__summary-container">
+            <div className="purchase-cart__row">
+              <div className="purchase-cart__row-item">
                 Subtotal
               </div>
-              <div className="list-value">
-                $ 90.000
-                <br/>
+              <div className="purchase-cart__row-item">
                 $ 90.000
               </div>
             </div>
-            <div className="purchase-cart__list-total">
-              <div className="list-name">
-                Total
+            <div className="purchase-cart__row">
+              <div className="purchase-cart__row-item">
+                Envio
               </div>
-              <div className="list-value">
-                $ 90.000
+              <div className="purchase-cart__row-item">
+                $ 0
+              </div>
+            </div>
+            <div className="purchase-cart__row total">
+              <div className="purchase-cart__row-item">
+                <span className="purchase-cart__total">
+                  Total
+                </span>
+              </div>
+              <div className="purchase-cart__row-item">
+                <span className="purchase-cart__total">
+                  $ 90.000
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <PurchaseActions className="purchase-cart__actions"/>
+      <div className="purchase-cart__actions">
+        <PurchaseActions/>
+      </div>
     </div>
   )
 }

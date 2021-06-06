@@ -14,30 +14,28 @@ const ProductPreview = () => {
 
 
   return (
-    <div className="product-images">
-      <div className="product-images__thumbs">
+    <div className="product-preview__container">
+      <div className="product-preview__thumbs">
         {arr.map((item, index) => (
-          <div className="product-images__thumb-item" onClick={() => swiper?.slideTo(index)}>
+          <div className="product-preview__thumb-item" onClick={() => swiper?.slideTo(index)}>
             <img src={item} alt=""/>
           </div>
         ))}
       </div>
-      <div className="product-images__slider">
+
+      <div className="product-preview__slider">
         <Swiper
-          className="product-images__swiper"
+          className="product-preview__swiper"
           navigation={true}
           slidesPerView={1}
           onSwiper={setSwiper}
         >
           {arr.map((item) => (
-            <SwiperSlide>
-              <div className="product-images__main">
-                <img src={item} alt=""/>
-              </div>
+            <SwiperSlide className="product-preview__swiper-img">
+              <img src={item} alt=""/>
             </SwiperSlide>
           ))}
         </Swiper>
-
       </div>
     </div>
   )

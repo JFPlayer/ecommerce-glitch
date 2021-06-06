@@ -39,8 +39,8 @@ const Slider = () => {
         // onTransitionEnd={() => console.log('End')}
         effect="fade"
       >
-        {banners.map(banner => (
-          <SwiperSlide>
+        {banners.map((banner, index) => (
+          <SwiperSlide key={index}>
             <img src={banner} alt=""/>
           </SwiperSlide>
         ))}

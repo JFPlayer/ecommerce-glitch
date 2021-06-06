@@ -1,5 +1,19 @@
 @import '../../../sass/variables';
 
+.purchase-pay {
+  // width: 100%;
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.purchase-pay__title {
+  font-size: $fsize-xlarge;
+  font-weight: bold;
+  color: $color-violet;
+  line-height: 50px;
+}
+
 .purchase-pay__option {
   height: 80px;
   border-bottom: solid 2px $color-gray10;
@@ -10,10 +24,14 @@
 }
 
 .purchase-pay__option-logos {
-  height: 40%;
+  height: 35%;
+
+  svg {
+    display: inline-block;
+    height: 100%;
+  }
 
   > * {
     margin-left: 10px;
-    
   }
 }

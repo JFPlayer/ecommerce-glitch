@@ -8,28 +8,37 @@
 .steps__item {
   font-size: $fsize-medium;
   font-weight: normal;
-  color: $color-gray30
+  color: $color-gray30;
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
-.steps__item > * {
-  display: inline-block;
-  vertical-align: middle;
-}
 
 .steps__icon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   background-color: $color-gray30;
   color: $color-gray10;
   font-size: $fsize-large;
-  line-height: 30px;
+  line-height: 25px;
   text-align: center;
-  margin-right: 10px;
   svg {
     width: 100%;
     height: 100%;
-    padding: 20%;
+    padding: 25%;
+  }
+}
+
+.steps__title {
+  margin-left: 10px;
+  display: none;
+
+  @include mqDesktop {
+    display: inline;
   }
 }
 
@@ -43,8 +52,12 @@
 }
 
 .steps__line {
-  width: 30px;
+  width: 25px;
   height: 2px;
   margin: 0 10px;
   background-color: $color-gray30;
+
+  &:last-child {
+    display: none;
+  }
 }

@@ -1,23 +1,29 @@
 @import '../../sass/variables';
 
-.product-images {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-.product-images__thumbs {
+.product-preview__container {
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
+  gap: 10px;
+
+  @include mqTablet {
+    flex-direction: row;
+  }
 }
 
-.product-images__thumb-item {
-  // border: solid 1px red;
+.product-preview__thumbs {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  
+  @include mqTablet {
+    flex-direction: column;
+  }
+}
+
+.product-preview__thumb-item {
   width: 50px;
   height: 50px;
-  padding: 2px;
-  margin-bottom: 10px;
   background-color: $color-gray10;
   cursor: pointer;
 
@@ -26,56 +32,39 @@
     height: 100%;
     object-fit: contain;
   }
-}
-
-.product-images__thumb-item:hover {
-  border: solid 2px $color-green;
-}
-
-.product-images__slider {
-  flex: 1;
-  position: relative;
-
-}
-
-.product-images__slider {
-  width: 100%;
-  position: relative;
-}
-
-.product-images__slider:after {
-  content: '';
-  display: block;
-  padding-bottom: 100%;
-}
-
-.product-images__swiper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.product-images__main {
-  // border: solid 2px yellow;
-  // position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: $color-gray10;
-  position: relative;
-  
-  
-  img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    padding: 10px;
-    object-fit: contain;
+  &:hover {
+    border: solid 2px $color-green;
   }
 }
 
-// .product-images__main:after {
-//   content: '';
-//   display: block;
-//   padding-bottom: 100%;
-// }
+.product-preview__slider {
+  width: 100%;
+  position: relative;
 
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+}
+
+.product-preview__swiper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: scale(.7);
+  }
+}
+
+.product-preview__swiper-img {
+  background-color: $color-gray10;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}

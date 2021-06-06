@@ -8,107 +8,81 @@
   margin-bottom: 10px;
   padding: 10px;
   display: flex;
-  height: 120px;
+  gap: 10px;
+  align-items: center;
+  height: 100px;
 }
 
 .product-purchase__image {
-  margin-right: 15px;
-  height: 100%;
+  height: 60px;
+  width: 60px;
+
   img {
     height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
 .product-purchase__description {
   flex: 1;
-  font-size: $fsize-large;
   color: $color-gray80;
 }
 
+.product-purchase__title {
+  font-size: $fsize-small;
+  
+  @include mqTablet {
+    font-size: $fsize-medium;
+  }
+  @include mqDesktop {
+    font-size: $fsize-large;
+  }
+}
+
 .product-purchase__cod {
-  font-size: $fsize-medium;
-  font-weight: normal;
-  line-height: 50px;
+  font-size: $fsize-small;
+  display: none;
+
+  @include mqTablet {
+    display: block;
+  }
 }
 
 .product-purchase__section {
-  width: 170px;
-  font-weight: normal;
+  flex-basis: 150px;
+  
+  @include mqTablet {
+    flex-basis: 180px;
+  }
+}
+
+.product-purchase__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-purchase__row-item {
+  font-size: $fsize-small;
+  white-space: nowrap;
+  
+  @include mqDesktop {
+    font-size: $fsize-medium;
+  }
 }
 
 .product-purchase__quantity {
-  height: 50%;
-  // line-height: 30px;
-  font-size: $fsize-medium;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-purchase__quantity-control {
-  display: flex;
-}
-
-.product-purchase__quantity-item {
-  width: 30px;
-  line-height: 30px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
   text-align: center;
-  font-size: $fsize-xlarge;
-  font-weight: bold;
-  user-select: none;
-  cursor: pointer;
   border: solid 1px $color-gray30;
-}
-
-.product-purchase__quantity-item.value {
-  font-size: $fsize-medium;
-  font-weight: normal;
-  // border: solid 2px $color-gray30;
-  border-left: transparent;
-  border-right: transparent;
-  cursor: default;
-}
-
-.product-purchase__price {
-  // line-height: 30px;
-  height: 50%;
-  margin-top: 0px;
-  font-size: $fsize-medium;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: $fsize-xlarge;
-}
-
-.item-left {
-  text-align: left;
-}
-
-.item-right {
-  text-align: right;
+  vertical-align: middle;
 }
 
 .product-purchase__price-total {
-  font-weight: bold;
   color: $color-violet;
-}
-
-.product-purchase__remove {
-  width: 40px;
-  margin: auto;
-  margin-left: 10px;
-  padding: 5px;
-  button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    // padding: 6px;
-    transition: .2s;
-    color: $color-red;
-  }
-
-  button:hover {
-    background-color: $color-red;
-    color: $color-gray10;
-  }
+  font-weight: bold;
 }

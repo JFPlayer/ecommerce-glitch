@@ -1,25 +1,28 @@
 @import '../../sass/variables';
 
-.filter-box__title {
+.filter-box {
   border-top: solid 1px $color-gray10;
+}
+
+.filter-box__title {
   font-size: $fsize-large;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: $color-gray10;
   
   svg {
     transition: .2s;
     height: 25px;
     width: 25px;
-    color: $color-gray10;
   }
 }
 
 .filter-box__content {
   // border: solid 1px red;
   max-height: 0;
-  transition: max-height .3s;
+  transition:  .3s;
   overflow-y: scroll;
 }
 
@@ -30,7 +33,7 @@
 }
 .filter-box.open .filter-box__content {
   max-height: 150px;
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
 }
 
 .filter-box__item {

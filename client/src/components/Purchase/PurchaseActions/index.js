@@ -14,6 +14,7 @@ const PurchaseActions = ({ className }) => {
       >
         Continuar con la compra
       </Button>
+      
       <Link to="/" className="purchase__actions-back">
         <IoIosArrowBack/>
         Agregar mas productos

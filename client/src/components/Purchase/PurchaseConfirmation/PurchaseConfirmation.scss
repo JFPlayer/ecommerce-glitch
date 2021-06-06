@@ -1,43 +1,72 @@
 @import '../../../sass/variables';
 
-.purchase-confirmation__items {
-  display: flex;
-  flex-wrap: wrap;
-
+.purchase-confirmation {
+  background-color: $color-white;
+  border-radius: 5px;
+  padding: 15px;
 }
 
-.purchase-confirmation__item-section {
-  width: 50%;
-  padding: 10px;
-  margin-bottom: 30px;
-  
-  &:nth-of-type(odd) {
-    border-right: solid 2px $color-gray10;
+.purchase-confirmation__title {
+  font-size: $fsize-xlarge;
+  font-weight: bold;
+  color: $color-violet;
+  line-height: 50px;
+}
+
+.purchase-confirmation__resume {
+  display: flex;
+  flex-direction: column;
+
+  @include mqDesktop {
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
-.purchase__title.confirmation {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.purchase-confirmation__item {
+  // background-color: red;
+  padding: 15px 0;
+  
+  &:nth-of-type(odd) {
+    border-bottom: solid 2px $color-gray10;
+  }
+  
+  @include mqDesktop {
+    width: 50%;
 
+    &:nth-of-type(odd) {
+      border: none;
+      border-right: solid 2px $color-gray10;
+      padding-right: 15px;
+    }
+    &:nth-of-type(even) {
+      padding-left: 15px;
+    }
+  }
+}
+
+.purchase__confirmation__item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $fsize-large;
+  font-weight: bold;
+  color: $color-violet;
+  
   button {
     width: min-content;
-    padding: 0 10px;
   }
 }
 
 .purchase-confirmation__item-info {
-  font-size: $fsize-medium;
-
 }
 
-.purchase-confirmation__item-info-title {
+.purchase__confirmation__item-subtitle {
+  font-size: $fsize-medium;
   color: $color-gray80;
 }
 
 .purchase-confirmation__item-info-content {
-  font-weight: normal;
-  line-height: $fsize-xlarge;
   color: $color-gray80;
+  font-size: $fsize-medium;
 }

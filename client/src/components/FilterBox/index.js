@@ -8,8 +8,7 @@ import Checkbox from '../Checkbox'
 
 const marcas = ['samsung', 'xiaomi', 'apple', 'motorola', 'lg', 'alcatel']
 
-const FilterBox = (props) => {
-  const { children, title } = props
+const FilterBox = ({ children, title }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, watch } = useForm()
@@ -20,24 +19,26 @@ const FilterBox = (props) => {
 
   return (
     <div className={`filter-box ${isOpen ? 'open' : ''}`}>
+
       <div className="filter-box__title" onClick={() => setIsOpen(!isOpen)}>
-        <span>
-          {title}
-        </span>
+        {title}
         <IoIosArrowDown/>
       </div>
-      <div className='filter-box__content'>
-        {marcas.map(item => (
-          <div className="filter-box__item">
-            <Checkbox
-              useForm={form}
-              labelText={item}
-              name={item}
-            />
-          </div>
-        ))}
 
-        {children}
+      <div className='filter-box__content'>
+        {!children ? 
+          marcas.map(item => (
+            <div className="filter-box__item">
+              <Checkbox
+                useForm={form}
+                labelText={item}
+                name={item}
+              />
+            </div>
+          ))
+        :
+          (children)
+        }
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Layout from './containers/Layout'
 import Home from './containers/Home'
-import Category from './containers/Category'
+import Catalog from './containers/Catalog'
 import Product from './containers/Product'
 import Purchase from './containers/Purchase'
 import User from './containers/User'
@@ -14,7 +14,7 @@ const App = () => {
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/categories/:id" component={Category} />
+          <Route exact path="/categories/:id" component={Catalog} />
           <Route exact path="/products/:id" component={Product} />
           <Route exact path="/purchase-process" component={Purchase} />
           <Route path="/user" component={User} />
