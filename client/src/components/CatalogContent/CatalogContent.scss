@@ -1,0 +1,156 @@
+@import '../../sass/variables';
+
+.catalog__container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  @include mqDesktop {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.catalog__filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 auto;
+  width: 100%;
+  // padding: 0 15px;
+
+  @include mqDesktop {
+    min-width: 200px;
+    flex-basis: 200px;
+
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+.filter__btn {
+  background-color: $color-gray80;
+  border-radius: 5px;
+  color: $color-gray10;
+  font-size: $fsize-medium;
+  font-weight: bold;
+  
+  svg {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+  }
+  @include mqDesktop {
+    display: none;
+  }
+}
+
+.filter__container {
+  background-color: $color-gray80;
+  
+  border-radius: 5px;
+  grid-row-start: 2;
+  grid-column: span 2;
+  height: 0;
+  overflow: hidden;
+  transition: .2s;
+  padding: 0 10px;
+  
+  &.active {
+    height: unset;
+    padding: 10px;
+  }
+  
+  @include mqDesktop {
+    height: unset;
+    padding: 10px;
+  }
+}
+
+.filter__title {
+  display: none;
+  font-size: $fsize-large;
+  color: $color-gray10;
+  margin-bottom: 10px;
+
+  svg {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  @include mqDesktop {
+    display: block;
+  }
+}
+
+.filter__action {
+  margin-top: 10px;
+}
+
+.order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $fsize-small;
+  font-weight: normal;
+  color: $color-gray10;
+  background-color: $color-gray80;
+  // padding: 0 10px;
+  height: 40px;
+  border-radius: 5px;
+  
+  select {
+    margin-left: 0px;
+    border: none;
+    background-color: transparent;
+    color:$color-gray10;
+    outline: none;
+    font: bold $fsize-medium 'Play';
+    box-shadow: none;
+    * {
+      appearance: none;
+      background-color: $color-gray80;
+    }
+    &:focus{ 
+      outline: none;
+      box-shadow: none;
+      border: none;
+    }
+  }
+}
+
+.catalog__list {
+  flex-grow: 1;
+}
+
+.catalog__pagination {
+  margin: 30px auto 60px auto;
+  width: max-content;
+}
+
+.catalog__pagination-item {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: $color-gray80;
+  color: $color-gray10;
+  border: solid 1px $color-black;
+  font-size: $fsize-medium;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 40px;
+  text-align: center;
+
+  &.current {
+    background-color: $color-violet;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+  }
+}
+

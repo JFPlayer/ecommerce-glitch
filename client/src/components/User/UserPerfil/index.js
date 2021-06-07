@@ -1,172 +1,149 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React from "react";
+import { useForm } from "react-hook-form";
 
-import './UserPerfil.scss'
+import "./UserPerfil.scss";
 
-import InputText from '../../InputText'
-import Button from '../../Button'
+import InputText from "../../InputText";
+import Button from "../../Button";
 
 const UserPerfil = () => {
-  const { handleSubmit, register, watch, formState: {errors} } = useForm()
-  const form = { register, watch, errors }
-  
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const form = { register, watch, errors };
+
+  const onSubmit = data => {
+    console.log(data)
+  }
 
   return (
-    <main className="user__section">
-      <div className="user__container">
-        <div className="user__title">
-          Perfil
-        </div>
-        <div className="user__content">
-
-          <div className="user__inner-title">
-            Datos de contacto
-          </div>
+    <div className="user-perfil">
+      <div className="user__section">
+        <div className="user__title">Datos de contacto</div>
+        <div className="user__section-content">
           <form 
             className="user-perfil__form perfil"
+            onSubmit={handleSubmit(onSubmit)}
           >
             <InputText
               useForm={form}
               labelText="Nombre"
               name="firstName"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Apellido"
               name="lastName"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="DNI"
-              name="DNI"
+              name="dni"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Telefono/Celular"
               name="phone"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Email"
               name="email"
               required
-              showError
             />
-            <Button
-            >
-              Cancelar
-            </Button>
-            <Button
-              primary
-            >
-              Guardar
-            </Button>
+            <div className="user-perfil__actions">
+              <Button>Cancelar</Button>
+              <Button primary>Guardar</Button>
+            </div>
           </form>
+        </div>
+      </div>
 
-          <div className="user__inner-title">
-            Dirección
-          </div>
-          <form 
-            className="user-perfil__form address"
-          >
+      <div className="user__section">
+        <div className="user__title">Dirección</div>
+        <div className="user__section-content">
+          <form className="user-perfil__form address">
             <InputText
               useForm={form}
               labelText="Calle"
               name="street"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Número"
               name="num"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Piso o Dpto"
               name="dpto"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Provincia"
               name="province"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Ciudad"
               name="city"
               required
-              showError
             />
             <InputText
               useForm={form}
               labelText="Código Postal"
               name="zipCode"
               required
-              showError
+              // showError
             />
-            <Button
-            >
-              Cancelar
-            </Button>
-            <Button
-              primary
-            >
-              Guardar
-            </Button>
+            <div className="user-perfil__actions">
+              <Button>Cancelar</Button>
+              <Button primary>Guardar</Button>
+            </div>
           </form>
+        </div>
+      </div>
 
-          <div className="user__inner-title">
-            Dirección
-          </div>
-          <form 
-            className="user-perfil__form password"
-          >
+      <div className="user__section">
+        <div className="user__title">Dirección</div>
+        <div className="user__section-content">
+          <form className="user-perfil__form password">
             <InputText
               useForm={form}
               labelText="Nueva contraseña"
               name="newPassword"
               type="password"
               required
-              showError
-              />
+            />
             <InputText
               useForm={form}
               labelText="Confirmar contraseña"
               name="confirmNewPassword"
               type="password"
               required
-              showError
             />
-            <Button
-            >
-              Cancelar
-            </Button>
-            <Button
-              primary
-            >
-              Guardar
-            </Button>
+            <div className="user-perfil__actions">
+              <Button>Cancelar</Button>
+              <Button primary>Guardar</Button>
+            </div>
           </form>
-          
         </div>
       </div>
-    </main>
-  )
-}
+      
+    </div>
+  );
+};
 
-export default UserPerfil
+export default UserPerfil;

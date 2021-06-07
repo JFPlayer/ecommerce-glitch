@@ -6,10 +6,6 @@ import { FaTrashAlt } from 'react-icons/fa'
 import { BiCloudUpload } from 'react-icons/bi'
 import { TiDelete } from 'react-icons/ti'
 
-
-// import InputFile from '../../InputFile'
-import Button from '../../Button'
-
 import banner from '../../../assets/banner1.png'
 
 
@@ -17,19 +13,13 @@ const BannerUserAds = () => {
   
   return (
     <div className="banner-ua">
+      <img src={banner} alt=""/>
       <div className="banner-ua__title">
         Titulo
       </div>
-      <div className="banner-ua__content">
-        <div className="banner-ua__image">
-          <img src={banner} alt=""/>
-        </div>
-        <div className="banner-ua__btn">
-          <button className="btn-remove">
-            <FaTrashAlt/>
-          </button>
-        </div>
-      </div>
+      <button className="banner-ua__btn-remove">
+        <TiDelete/>
+      </button>
     </div>
   )
 }
@@ -44,7 +34,7 @@ export const BannerUserAdsNew = ({ placeholder }) => {
   return (
     <form className="banner-ua new-banner" onSubmit={handleSubmit(onSubmit)}>
       <label className="new-banner__box">
-        Nuevo Banner
+        {placeholder}
         <input 
           {...register('bannerImage')}
           className="input-file__input"
@@ -63,28 +53,20 @@ export const BannerUserAdsNew = ({ placeholder }) => {
               placeholder={placeholder}
             />
           </div>
-          <div className="banner-ua__content">
-            <div className="banner-ua__image">
-              <div className="input-file__image-container">
-                <img src={URL.createObjectURL(watch('bannerImage')[0])} alt="nuevo banner"/>
-                <button 
-                  className="input-file__image-btn"
-                  onClick={() => setValue('bannerImage', null)}
-                >
-                  <TiDelete/>
-                </button>
-              </div>
-            </div>
+          
+          <img src={URL.createObjectURL(watch('bannerImage')[0])} alt="Nuevo banner"/>
+          
+          <button 
+            className="banner-ua__btn-remove"
+            onClick={() => setValue('bannerImage', null)}
+          >
+            <TiDelete/>
+          </button>
 
-            <div className="banner-ua__btn">
-              <Button
-                type="submit"
-                primary
-              >
-                <BiCloudUpload/>
-              </Button>
-            </div>
-          </div>
+          <button className="banner-ua__btn-upload">
+            <BiCloudUpload/>
+          </button>
+
         </div>
       )}
     </form>

@@ -1,69 +1,55 @@
 @import '../../sass/variables';
 
 .user {
-  border: solid 1px red;
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 15px;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  @include mqTablet {
+    padding: 15px 0;
+    width: 90%;
+  }
 }
 
 .user__section {
   background-color: $color-gray80;
   padding: 15px;
-  width: calc(100% - 215px);
 }
 
-.user__container {
-  // border: solid 1px red;
+.user__section-content {
+  position: relative;
+  
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 0 !important;
+  }
+  
+  > * {
+    z-index: 1;
+    position: relative;
+    padding: 15px;
+  }
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, $color-pink, $color-violet);
+  }
+  
+  &::after {
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background-color: $color-gray80;
+  }
 }
 
 .user__title {
   color: $color-gray10;
   font-size: $fsize-xlarge;
   line-height: 40px;
-  margin-bottom: 10px;
-}
-
-.user__inner-title {
-  color: $color-gray10;
-  font-size: $fsize-medium;
-  font-weight: normal;
-  line-height: 40px;
-}
-
-.user__content {
-  // border: solid 2px $color-pink;
-  padding: 15px;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 30px;
-
-  > * {
-    z-index: 2;
-    position: relative;
-  }
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-
-  }
-  &::after {
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    background-color: $color-gray80;
-  }
-  
-  &::before {
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    top: -2px;
-    left: -2px;
-    background-image: linear-gradient(to bottom, $color-pink, $color-violet);
-  }
 }

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import './PanelCartProduct.scss'
 
 import image from '../../../assets/notebook.png'
-import TrashIcon from '../../../assets/trashIcon.svg'
 
 import ButtonRemove from '../../ButtonRemove'
 

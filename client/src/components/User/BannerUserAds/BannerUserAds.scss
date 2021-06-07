@@ -2,22 +2,34 @@
 
 .banner-ua {
   border: solid 2px $color-gray30;
-  height: 120px;
-  padding: 10px;
-  overflow: hidden;
+  height: 90px;
   background-color: $color-gray80;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   
   &.new-banner {
     border: dashed 2px $color-gray30;
-    position: relative;
   }
 }
 
 .banner-ua__title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0 5px;
   font-size: $fsize-medium;
+  font-weight: bold;
   color: $color-gray10;
-  line-height: 20px;
+  background-color: rgba($color: $color-black, $alpha: .8);
+  line-height: 25px;
+  height: 25px;
   width: 100%;
+  white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   
@@ -28,47 +40,30 @@
   }
 }
 
-.banner-ua__content {
-  height: calc(100% - 20px);
-  display: flex;
-  align-items: center;
-}
-
-.banner-ua__image {
-  flex: 1;
-  height: 100%;
-  
-  img {
-    height: 100%;
-    object-fit: contain;
-  }
-}
-
-.banner-ua__btn {
-  margin-left: 5px;
-}
-
-.btn-remove {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  transition: .2s;
+.banner-ua__btn-remove {
+  position: absolute;
+  top: 0;
+  right: 0;
   color: $color-red;
+  width: 25px;
+  height: 25px;
   
-  &:hover {
-    background-color: $color-red;
-    color: $color-gray10;
+  svg {
+    width: 100%;
+    height: 100%;
   }
 }
 
 .new-banner__box {
   display: block;
-  cursor: pointer;
-  text-align: center;
-  line-height: 96px;
+  height: 100%;
   font-size: $fsize-medium;
   font-weight: normal;
   color: $color-gray10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
   input {
     display: none;
@@ -76,45 +71,26 @@
 }
 
 .new-banner__fields-container {
-  background-color: inherit;
+  background-color: $color-gray80;
   width: 100%;
   height: 100%;
-  padding: 10px;
   top: 0;
   left: 0;
   position: absolute;
 }
 
-.input-file__image-container {
-  background-color: inherit;
-  position: relative;
-  width: 100%;
-  height: 100%;
+.banner-ua__btn-upload {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px;
+  color: $color-gray10;
   
-  img {
+  svg {
+    filter: drop-shadow(0px 0px 10px $color-black);
     width: 100%;
     height: 100%;
-    object-fit: contain;
-  }
-}
-
-.input-file__image-btn {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  background-color: rgba(255,255,255,.7);
-  color: $color-red;
-  transition: .2s;
-
-  svg {
-    height: 40px;
-    width: 40px;
-  }
-  
-  &:hover {
-    opacity: 1;
   }
 }

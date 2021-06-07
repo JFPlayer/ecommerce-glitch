@@ -12,10 +12,10 @@ const ImageUserProducts = () => {
   return (
     <div className="image-up">
       <img src={banner} alt=""/>
-      <button className="image-up__btn main">
+      <button className="image-up__btn-main">
         Principal
       </button>
-      <button className="image-up__btn remove">
+      <button className="image-up__btn-remove">
         <TiDelete/>
       </button>
     </div>
@@ -34,13 +34,15 @@ export const ImageUserProductsNew = () => {
           accept=".png, .jpeg, .jpg"
         />
       </label>
-      {/* <img src={banner} alt=""/>
-      <button className="image-up__btn main">
-        Principal
-      </button>
-      <button className="image-up__btn remove">
-        <TiDelete/>
-      </button> */}
+      {/* <div className="new-image__container">
+        <img src={banner} alt=""/>
+        <button className="image-up__btn-main">
+          Principal
+        </button>
+        <button className="image-up__btn-remove">
+          <TiDelete/>
+        </button>
+      </div> */}
     </div>
   )
 }

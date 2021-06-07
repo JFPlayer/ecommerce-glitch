@@ -7,16 +7,14 @@ import { BannerUserAdsNew } from '../BannerUserAds'
 
 const UserAds = () => {
   return (
-    <div className="user__section">
-      <div className="user__container">
+    <div className="user-ads">
+
+      <div className="user__section">
         <div className="user__title">
-          Anuncios
+          Slider (pagina principal)
         </div>
-        <div className="user__content">
-          <div className="user__inner-title">
-            Slider
-          </div>
-          <div className="user-ads__list-container">
+        <div className="user__section-content">
+          <div className="user-ads__list">
             <BannerUserAdsNew placeholder="Nuevo Slider"/>
             <BannerUserAds/>
             <BannerUserAds/>
@@ -24,14 +22,15 @@ const UserAds = () => {
             <BannerUserAds/>
           </div>
         </div>
+      </div>
 
-        <div className="user__content">
-          <div className="user__inner-title">
-            Banner por categoria
-          </div>
-          <div className="user-ads__list-container">
+      <div className="user__section">
+        <div className="user__title">
+          Banner (por categoria)
+        </div>
+        <div className="user__section-content">
+          <div className="user-ads__list">
             <BannerUserAdsNew placeholder="Nuevo Banner"/>
-            <BannerUserAds/>
             <BannerUserAds/>
             <BannerUserAds/>
             <BannerUserAds/>
@@ -39,6 +38,7 @@ const UserAds = () => {
           </div>
         </div>
       </div>
+
     </div>
   )
 }

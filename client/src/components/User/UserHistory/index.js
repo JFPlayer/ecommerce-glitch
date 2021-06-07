@@ -6,42 +6,34 @@ import ProductUserHistory from '../ProductUserHistory'
 
 const UserHistory = () => {
   return (
-    <main className="user__section">
-      <div className="user__container">
+    <div className="user__history">
+      <div className="user__section">
         <div className="user__title">
           Compras realizadas
         </div>
-        <div className="user__content">
+        <div className="user__section-content">
 
-          <div className="user-history__list-container">
-            <div className="user__inner-title">
-              30/05/2021
-            </div>
-            <div className="user-history__list-items">
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-            </div>
-          </div>
-          
-          <div className="user-history__list-container">
-            <div className="user__inner-title">
-              30/05/2021
-            </div>
-            <div className="user-history__list-items">
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-              <ProductUserHistory/>
-            </div>
+          <div className="user-history__list">
+
+            {[...new Array(3)].map(() => 
+              <div className="user-history__item">
+                <div className="user-history__title">
+                  30/05/2021
+                </div>
+                <div className="user-history__item-container">
+                  <ProductUserHistory/>
+                  <ProductUserHistory/>
+                  <ProductUserHistory/>
+                </div>
+              </div>
+            )}
+
+
           </div>
 
         </div>
       </div>
-    </main>
+    </div>
       
   )
 }

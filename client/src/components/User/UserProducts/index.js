@@ -3,16 +3,19 @@ import React, { useState } from 'react'
 import './UserProducts.scss'
 
 import UserProductPreview from '../UserProductPreview'
-import UserProductCatalog from '../UserProductCatalog'
+import CatalogContent from '../../CatalogContent'
 
 const UserProducts = () => {
   
 
   return (
-    <>
+    <div className="user-product">
       <UserProductPreview/>
-      <UserProductCatalog/>
-    </>
+
+      <div className="user-product__catalog">
+        <CatalogContent/>
+      </div>
+    </div>
   )
 }
 

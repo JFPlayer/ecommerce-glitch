@@ -17,7 +17,7 @@ const steps = [
 ]
 
 const Purchase = () => {
-  const [currentStep, setCurrentStep] = useState(4)
+  const [currentStep, setCurrentStep] = useState(1)
 
   return (
     <PurchaseLayout>

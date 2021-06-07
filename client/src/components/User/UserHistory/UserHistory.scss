@@ -1,17 +1,53 @@
 @import '../../../sass/variables';
 
-.user-history__list-container {
-  border-bottom: solid 1px $color-gray30;
-  
-  
+.user-history {
+
+}
+
+.user-history__list {
+
+}
+
+.user-history__title {
+  font-size: $fsize-medium;
+  color: $color-gray10;
+  line-height: 30px;
+}
+
+.user-history__item {
+  padding-bottom: 15px;
+  border-bottom: solid 2px $color-gray30;
+
   &:last-child {
-    border-bottom:none;
+    border: none;
   }
 }
 
-.user-history__list-items {
+.user-history__item-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 15px;
+  gap: 10px;
+
+  @include mqDesktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mqDesktopLarge {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
+
+// .user-history__list-container {
+//   border-bottom: solid 1px $color-gray30;
+  
+  
+//   &:last-child {
+//     border-bottom:none;
+//   }
+// }
+
+// .user-history__list-items {
+//   display: grid;
+//   grid-template-columns: repeat(3, 1fr);
+//   gap: 15px;
+//   margin-bottom: 15px;
+// }

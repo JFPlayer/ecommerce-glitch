@@ -1,0 +1,11 @@
+@import '../../../sass/variables';
+
+.user-product {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.user-product__catalog {
+  width: 100%;
+}

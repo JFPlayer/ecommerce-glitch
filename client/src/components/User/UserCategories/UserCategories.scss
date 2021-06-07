@@ -1,0 +1,83 @@
+@import '../../../sass/variables';
+
+.user-categories {
+
+}
+
+.user-categories__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @include mqDesktop {
+    flex-direction: row;
+  }
+}
+
+.user-categories__section {
+  flex-grow: 1;
+  padding-bottom: 15px;
+  border-bottom: solid 2px $color-gray30;
+  
+  &:last-child {
+    border: none;
+    padding: 0;
+  }
+
+  @include mqDesktop {
+    border: none;
+  }
+}
+
+.user-categories__title {
+  font-size: $fsize-large;
+  color: $color-gray10;
+  line-height: 30px;
+}
+
+.user-categories__list {
+
+}
+
+.user-categories__row {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-black;
+  padding-left: 10px;
+  gap: 10px;
+  border: solid 1px $color-gray30;
+  font-size: $fsize-medium;
+  color: $color-gray10;
+  
+  &:nth-child(even) {
+    border-top: none;
+  }
+  
+  input {
+    font-size: $fsize-medium;
+    color: $color-gray10;
+  }
+  
+  > *:first-child {
+    flex-grow: 1;
+  }
+  
+  > *:last-child {
+    flex-basis: 10%;
+    border-radius: 0;
+    height: 28px;
+  }
+  &:hover {
+    background-color: $color-gray80;
+  }
+}
+
+.user-categories__row-title {
+}
+
+.user-categories__btn-remove {
+  background-color: $color-red;
+  border: none;
+}

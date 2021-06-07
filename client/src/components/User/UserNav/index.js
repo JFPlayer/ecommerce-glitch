@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import './UserNav.scss'
@@ -13,10 +13,6 @@ const list = {
       name: 'Perfil',
       link: '/user',
     },
-    {
-      name: 'Cerrar sesión',
-      link: '/user/logout',
-    },
   ],
   admin: [
     {
@@ -28,40 +24,36 @@ const list = {
       link: '/user/categories',
     },
     {
-      name: 'Subcategorias',
-      link: '/user/subcategories',
-    },
-    {
-      name: 'productos',
+      name: 'Productos',
       link: '/user/products',
     },
     {
       name: 'Perfil',
       link: '/user',
     },
-    {
-      name: 'Cerrar sesión',
-      link: '/user/logout',
-    },
   ],
 }
 
 const UserNav = ({ typeUser='user'}) => {
+  const [currentPage, setCurrentPage] = useState(0)
+
   return (
     <nav className="user-nav">
-      <div className="user-nav__greeting">
+      {/* <div className="user-nav__greeting">
         Hola Admin!
+      </div> */}
+      <div className="user-nav__list">
+        {list[typeUser].map(route => (
+          <Link 
+            className={`user-nav__list-item ${''}`}
+            to={route.link}
+            key={route.name} 
+          >
+            {route.name}
+          </Link>
+        ))}
+        <button className="user-nav__list-item">Cerrar sesión</button>
       </div>
-
-      {list[typeUser].map(route => (
-        <Link 
-          className={`user-nav__page-item ${''}`}
-          to={route.link}
-          key={route.name} 
-        >
-          {route.name}
-        </Link>
-      ))}
     </nav>
   )
 }

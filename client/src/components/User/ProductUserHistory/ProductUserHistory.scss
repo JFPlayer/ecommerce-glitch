@@ -1,7 +1,8 @@
 @import '../../../sass/variables';
 
 .product-uh__container {
-  border: solid 1px $color-black;
+  background-color: $color-black;
+  border-radius: 5px;
   padding: 5px;
   height: 80px;
   

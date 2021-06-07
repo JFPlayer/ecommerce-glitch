@@ -1,55 +1,85 @@
 @import '../../../sass/variables';
 
+.user-pp {
+
+}
+
+.user-pp__container {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 15px;
+  
+  @include mqDesktop {
+    grid-template-columns: auto 40%;
+  }
+}
+
 .user-products__container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
 
-.user-products__images {
+.user-pp__images {
   border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   
+  @include mqTablet {
+    flex-direction: row-reverse;
+  }
 }
 
-.user-products__image-preview,
-.user-products__image-thumbs-item {
-  position: relative;
-  width: 100%;
+.user-pp__image-preview-container {
+  
+  @include mqTablet {
+    flex-grow: 1;
+  }
+}
 
+.user-pp__image-preview {
+  position: relative;
+  background-color: $color-gray10;
+  
   &::before {
     content: '';
     display: block;
     padding-bottom: 100%;
   }
-  & > :first-child {
+  img {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
+  
 }
 
-.user-products__image-thumbs {
+.user-pp__image-thumbs {
   border: solid 1px blue;
   padding: 15px;
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  
+  @include mqTablet {
+    grid-template-columns: 100%;
+    width: 80px;
+    padding: 0;
+  }
 }
 
-.user-products__image-thumbs-item {
-  border: solid 1px green;
-}
+.user-pp__form {
 
-.user-products__form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.user-products__form-fields {
+.user-pp__form-fields {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 15px;
@@ -74,11 +104,11 @@
   :nth-child(9),
   :nth-child(10) {
     grid-column: 1 / -1;
-    height: 100px;
+    height: 120px;
   }
 }
 
-.user-products__select {
+.user-pp__select {
   display: inline-block;
   font-size: $fsize-medium;
   color: $color-green;
@@ -105,17 +135,17 @@
   }
 }
 
-.user-products__rating {
+.user-pp__rating {
   margin: 15px 0;
-  font-weight: normal;
   font-size: $fsize-medium;
 }
 
-.user-products__rating-title {
+.user-pp__rating-title {
   color: $color-green;
+  line-height: 20px;
 }
 
-.user-products__rating-stars {
+.user-pp__rating-stars {
   display: inline-block;
   color: $color-yellow;
   margin-right: 5px;
@@ -126,11 +156,15 @@
   }
 }
 
-.user-products__form-actions {
-  display: flex;
-  justify-content: space-evenly;
+.user-pp__rating-stars-title {
+  color: $color-gray10;
+}
 
-  button {
-    width: 100px;
+.user-pp__form-actions {
+  display: flex;
+  justify-content: space-around;
+
+  > * {
+    flex-basis: 100px;
   }
 }
