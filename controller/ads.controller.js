@@ -23,6 +23,7 @@ exports.createBanner = async (req, res) => {
 exports.getBanners = async (req, res) => {
   try {
     const banners = await Banner.find();
+    console.log('entro')
     response.success(res, 200, banners)
   } catch (error) {
     response.error(res, 503)

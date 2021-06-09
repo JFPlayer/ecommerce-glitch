@@ -5,7 +5,7 @@ const deleteFilesS3 = require('../utils/deleteFilesS3');
 
 exports.getCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().populate('subcategories');
     response.success(res, 200, categories)
   } catch (error) {
     response.error(res, 503)
@@ -15,7 +15,7 @@ exports.getCategories = async (req, res) => {
 exports.getCategoryById = async (req, res) => {
   if(!req.params.categoryId) return response.error(res, 400);
   try {
-    const category = await Category.findById(req.params.categoryId);
+    const category = await Category.findById(req.params.categoryId)
     if(!category) return response.error(res, 404)
     response.success(res, 200, category)
   } catch (error) {
@@ -24,17 +24,17 @@ exports.getCategoryById = async (req, res) => {
 }
 
 exports.createCategory = async (req, res) => {
-  const { title, subCategories, img } = req.body;
+  const { title, subcategories, img } = req.body;
 
   if(!title) return response.error(res, 400)
 
-  let subCategoriesFound = [];
-  if(subCategories && subCategories.length > 0){
-    subCategoriesFound = await Subcategory.find({title: { $in: subCategories }})
-  }
+  // let subcategoriesFound = [];
+  // if(subcategories && subcategories.length > 0){
+  //   subcategoriesFound = await Subcategory.find({_id: { $in: subcategories }})
+  // }
   const newCategory = new Category({
     title,
-    subCategories: subCategoriesFound.map(subcategory => subcategory._id),
+    // subcategories: subcategoriesFound.map(subcategory => subcategory._id),
     img,
   })
 
@@ -68,11 +68,16 @@ exports.deleteCategoryById = (req, res) => {
     Category.findByIdAndRemove(req.params.categoryId, async(error, doc) => {
       if(error || !doc) return response.error(res, 400)
       if(doc.img.key) await deleteFilesS3([doc.img.key])
-      const data = {
-        category: doc.title,
-        message: 'Category deleted successfully'
-      }
-      response.success(res, 200, data)
+      const subcategoriesDeleted = doc.subcategories.map(subcategoryId => Subcategory.deleteOne({_id: subcategoryId}))
+      Promise.all(subcategoriesDeleted)
+        .then(() => {
+
+          const data = {
+            category: doc.title,
+            message: 'Category deleted successfully'
+          }
+          response.success(res, 200, data)
+        })
     })
   } catch (error) {
     response.error(res, 503)

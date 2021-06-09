@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import Layout from './containers/Layout'
 import Home from './containers/Home'
@@ -8,7 +9,15 @@ import Product from './containers/Product'
 import Purchase from './containers/Purchase'
 import User from './containers/User'
 
+import { getCategories } from './redux/categoriesDucks'
+
 const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [])
+
   return (
     <BrowserRouter>
       <Layout>

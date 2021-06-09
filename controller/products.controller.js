@@ -1,5 +1,4 @@
 const Product = require('../models/Product');
-const generateSKU = require('../utils/generateSKU');
 const response = require('../utils/response');
 const deleteFilesS3 = require('../utils/deleteFilesS3');
 
@@ -31,7 +30,7 @@ exports.createProduct = async (req, res) => {
     category,//
     subcategory,//
     stock,//
-    price,////
+    price,//
     discount,
     img,
     description,
@@ -41,7 +40,7 @@ exports.createProduct = async (req, res) => {
   if(![title, brand, category, subcategory, stock, price].every(field => field)) return response.error(res, 400);
 
   const newProduct = new Product({
-    sku: sku || generateSKU(),
+    sku,
     title,
     brand,
     category,

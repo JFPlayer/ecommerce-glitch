@@ -15,7 +15,6 @@
 }
 
 .user-categories__section {
-  flex-grow: 1;
   padding-bottom: 15px;
   border-bottom: solid 2px $color-gray30;
   
@@ -26,6 +25,7 @@
 
   @include mqDesktop {
     border: none;
+    flex-basis: 50%;
   }
 }
 
@@ -33,6 +33,7 @@
   font-size: $fsize-large;
   color: $color-gray10;
   line-height: 30px;
+  text-transform: capitalize;
 }
 
 .user-categories__list {
@@ -75,6 +76,7 @@
 }
 
 .user-categories__row-title {
+  text-transform: capitalize;
 }
 
 .user-categories__btn-remove {

@@ -63,10 +63,13 @@ module.exports = {
   ],
   devServer: {
     compress: true,
-    // contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, "dist"),
     port: 9000,
     publicPath: '/',
-    open: true,
+    open: false,
     historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
   }
 }

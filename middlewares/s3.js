@@ -22,12 +22,12 @@ exports.uploadFile = (req, res, next) => {
     Bucket: config.awsBucket,
     Key: `${nanoid()}.${fileExt}`,
     Body: req.file.buffer,
-    ACL: "public-read",
+    // ACL: "public-read",
   }
   s3.upload(params, (error, data) => {
     if(error) return response.error(res, 503)
 
-    req.imgURL = data.Location;
+    req.imgURL = `https://dnvvz2e7ybok6.cloudfront.net/${data.Key}`;
     req.imgKey = data.Key;
     next()
   })

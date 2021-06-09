@@ -105,8 +105,8 @@ const UserProductPreview = () => {
                     useForm={form}
                   />
                 </div>
-                {[...new Array(5)].map(() => (
-                  <div className="user-pp__image-thumbs-item">
+                {[...new Array(5)].map((_, index) => (
+                  <div className="user-pp__image-thumbs-item" key={index}>
                     <ImageUserProducts/>
                   </div>
                 ))}
@@ -148,18 +148,18 @@ const UserProductPreview = () => {
                 />
 
                 <div className="user-pp__select">
-                  <select name="orderBy" id="" onChange={handleChangeSelect}>
+                  <select name="orderBy" onChange={handleChangeSelect}>
                     <option value=''>Categoria</option>
                     {categories.map(({ title, cod }) => (
-                      <option value={cod}>{title}</option>
+                      <option value={cod} key={title}>{title}</option>
                     ))}
                   </select>
                 </div>
                 <div className="user-pp__select">
-                  <select name="orderBy" id="">
+                  <select name="orderBy">
                     <option value=''>Subcategoria</option>
                     {categories[selectedCategory]?.subcategories.map(({ title, cod }) => (
-                      <option value={cod}>{title}</option>
+                      <option value={cod} key={title}>{title}</option>
                     ))}
                   </select>
                 </div>
@@ -177,8 +177,8 @@ const UserProductPreview = () => {
                   Calificaciones
                 </div>
                 <div className="user-pp__rating-stars">
-                  {[0,1,2,3,4].map(() => (
-                    <AiFillStar/>
+                  {[0,1,2,3,4].map((_, index) => (
+                    <AiFillStar key={index}/>
                   ))}
                 </div>
                 <span className="user-pp__rating-stars-title">

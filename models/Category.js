@@ -9,7 +9,7 @@ const categorySchema = new Schema({
   subcategories: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Subsategory'
+      ref: 'Subcategory'
     }
   ],
   img: {

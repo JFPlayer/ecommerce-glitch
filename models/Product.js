@@ -57,4 +57,9 @@ const productSchema = new Schema({
   versionKey: false,
 })
 
+productSchema.pre('save', async function(next) {
+  if(!this.sku) this.sku = generateSKU()
+  next()
+})
+
 module.exports = model('Product', productSchema )

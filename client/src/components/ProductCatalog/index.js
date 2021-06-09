@@ -32,8 +32,8 @@ const ProductCatalog = () => {
           </div>
           <div className="product-catalog__rating">
             <div className="rating-stars">
-              {[0,1,2,3,4].map(() => (
-                <AiFillStar/>
+              {[0,1,2,3,4].map((_, index) => (
+                <AiFillStar key={index}/>
               ))}
             </div>
             <span>

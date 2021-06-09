@@ -28,7 +28,7 @@ const FilterBox = ({ children, title }) => {
       <div className='filter-box__content'>
         {!children ? 
           marcas.map(item => (
-            <div className="filter-box__item">
+            <div className="filter-box__item" key={item}>
               <Checkbox
                 useForm={form}
                 labelText={item}

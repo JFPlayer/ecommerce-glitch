@@ -66,7 +66,7 @@ const CatalogContent = () => {
             <FiRewind/>
           </div>
           {[...new Array(5)].map((_, index) => 
-            <div className="catalog__pagination-item">
+            <div className="catalog__pagination-item" key={index}>
               {index +1}
             </div>
           )}

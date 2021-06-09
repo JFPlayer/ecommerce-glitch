@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import axios from 'axios'
+// import axios from '../../../utils/axiosInstance'
 
 import './UserAds.scss'
 
@@ -6,6 +8,12 @@ import BannerUserAds from '../BannerUserAds'
 import { BannerUserAdsNew } from '../BannerUserAds'
 
 const UserAds = () => {
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/api/ads/banners')
+  //     .then((response) => console.log(response.data))
+  //     .catch(() => console.log('asdasd'))
+  // }, [])
+
   return (
     <div className="user-ads">
 
