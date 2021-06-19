@@ -1,13 +1,13 @@
 const { Schema, model } = require('mongoose');
 
 const bannerSchema = new Schema({
-  title: {
+  URL: {
     type: String,
-    required: true,
+    required: true
   },
-  img: {
-    URL: String,
-    key: String,
+  key: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: true,

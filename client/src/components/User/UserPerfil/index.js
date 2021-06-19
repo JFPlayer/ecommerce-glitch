@@ -1,67 +1,149 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from 'react-redux'
 
 import "./UserPerfil.scss";
 
 import InputText from "../../InputText";
 import Button from "../../Button";
 
+import { updatePerfil, updateAddress, updatePassword } from '../../../redux/userDucks'
+
 const UserPerfil = () => {
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   const {
-    handleSubmit,
-    register,
-    watch,
-    formState: { errors },
+    handleSubmit: handleSubmitPerfil,
+    register: registerPerfil,
+    watch: watchPerfil,
+    formState: formStatePerfil,
+    reset: resetPerfil
   } = useForm();
+  
+  const {
+    handleSubmit: handleSubmitAddress,
+    register: registerAddress,
+    watch: watchAddress,
+    formState: formStateAddress,
+    reset: resetAddress
+  } = useForm();
+  
+  const {
+    handleSubmit: handleSubmitPassword,
+    register: registerPassword,
+    watch: watchPassword,
+    formState: formStatePassword,
+    reset: resetPassword
+  } = useForm();
+  
+  const formPerfil = { 
+    register: registerPerfil, 
+    watch: watchPerfil, 
+    errors : formStatePerfil.errors 
+  };
+  
+  const formAddress = { 
+    register: registerAddress, 
+    watch: watchAddress, 
+    errors : formStateAddress.errors 
+  };
+  
+    const formPassword = { 
+      register: registerPassword, 
+      watch: watchPassword, 
+      errors : formStatePassword.errors 
+    };
+  
+  const onSubmitPerfil = (data) => {
+    dispatch(updatePerfil(data))
+  };
+  
+  const onSubmitAddress = (data) => {
+    dispatch(updateAddress(data))
+  };
+  
+  const onSubmitPassword = (data) => {
+    if(data.newPassword === data.confirmNewPassword) {
+      dispatch(updatePassword(data.newPassword))
+    }
+    resetPassword({})
+  };
 
-  const form = { register, watch, errors };
+  useEffect(() => {
+    resetPerfil({
+      firstName: user.userFirstName,
+      lastName: user.userLastName,
+      DNI: user.userDNI,
+      phone: user.userPhone,
+    })
+  }, [user.userFirstName])
 
-  const onSubmit = data => {
-    console.log(data)
-  }
+  useEffect(() => {
+    resetAddress({
+      street: user.userStreet,
+      num: user.userNum,
+      dpto: user.userDpto,
+      province: user.userProvince,
+      city: user.userCity,
+      zipCode: user.userZipCode,
+    })
+  }, [user.userStreet])
+  
 
   return (
     <div className="user-perfil">
       <div className="user__section">
         <div className="user__title">Datos de contacto</div>
         <div className="user__section-content">
-          <form 
+          <form
             className="user-perfil__form perfil"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmitPerfil(onSubmitPerfil)}
           >
             <InputText
-              useForm={form}
+              useForm={formPerfil}
               labelText="Nombre"
               name="firstName"
               required
             />
             <InputText
-              useForm={form}
+              useForm={formPerfil}
               labelText="Apellido"
               name="lastName"
               required
             />
-            <InputText
-              useForm={form}
-              labelText="DNI"
-              name="dni"
-              required
+            <InputText 
+              useForm={formPerfil} 
+              labelText="DNI" 
+              name="DNI" 
+              required 
             />
             <InputText
-              useForm={form}
+              useForm={formPerfil}
               labelText="Telefono/Celular"
               name="phone"
               required
             />
-            <InputText
-              useForm={form}
-              labelText="Email"
-              name="email"
-              required
-            />
+            <div className="user-perfil__title">
+              <span className="user-perfil__email">
+                Email:
+              </span>
+              <span>
+                {user.userEmail}
+              </span>
+            </div>
             <div className="user-perfil__actions">
-              <Button>Cancelar</Button>
-              <Button primary>Guardar</Button>
+              <Button
+                onClick={() => resetPerfil()}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit"
+                primary
+              >
+                Guardar
+              </Button>
             </div>
           </form>
         </div>
@@ -70,47 +152,58 @@ const UserPerfil = () => {
       <div className="user__section">
         <div className="user__title">Dirección</div>
         <div className="user__section-content">
-          <form className="user-perfil__form address">
+          <form 
+            className="user-perfil__form address"
+            onSubmit={handleSubmitAddress(onSubmitAddress)}
+          >
             <InputText
-              useForm={form}
+              useForm={formAddress}
               labelText="Calle"
               name="street"
               required
             />
-            <InputText
-              useForm={form}
-              labelText="Número"
-              name="num"
-              required
+            <InputText 
+              useForm={formAddress} 
+              labelText="Número" 
+              name="num" 
+              required 
             />
             <InputText
-              useForm={form}
+              useForm={formAddress}
               labelText="Piso o Dpto"
               name="dpto"
               required
             />
             <InputText
-              useForm={form}
+              useForm={formAddress}
               labelText="Provincia"
               name="province"
               required
             />
-            <InputText
-              useForm={form}
-              labelText="Ciudad"
-              name="city"
-              required
+            <InputText 
+              useForm={formAddress} 
+              labelText="Ciudad" 
+              name="city" 
+              required 
             />
             <InputText
-              useForm={form}
+              useForm={formAddress}
               labelText="Código Postal"
               name="zipCode"
               required
-              // showError
             />
             <div className="user-perfil__actions">
-              <Button>Cancelar</Button>
-              <Button primary>Guardar</Button>
+              <Button
+                onClick={() => resetAddress()}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit"
+                primary
+              >
+                Guardar
+              </Button>
             </div>
           </form>
         </div>
@@ -119,29 +212,40 @@ const UserPerfil = () => {
       <div className="user__section">
         <div className="user__title">Dirección</div>
         <div className="user__section-content">
-          <form className="user-perfil__form password">
+          <form 
+            className="user-perfil__form password"
+            onSubmit={handleSubmitPassword(onSubmitPassword)}
+          >
             <InputText
-              useForm={form}
+              useForm={formPassword}
               labelText="Nueva contraseña"
               name="newPassword"
               type="password"
               required
             />
             <InputText
-              useForm={form}
+              useForm={formPassword}
               labelText="Confirmar contraseña"
               name="confirmNewPassword"
               type="password"
               required
             />
             <div className="user-perfil__actions">
-              <Button>Cancelar</Button>
-              <Button primary>Guardar</Button>
+              <Button
+                onClick={() => resetPassword()}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit"
+                primary
+              >
+                Guardar
+              </Button>
             </div>
           </form>
         </div>
       </div>
-      
     </div>
   );
 };

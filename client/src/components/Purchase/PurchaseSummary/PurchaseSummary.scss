@@ -12,8 +12,7 @@
   &.active {
     .purchase-summary__drop-down-menu {
       margin-top: 10px;
-      max-height: 100vh;
-      overflow-y: auto;
+      max-height: 50vh;
     }
 
     .purchase-summary__drop-down-btn {
@@ -35,6 +34,8 @@
   border: solid 2px $color-violet;
   border-radius: 5px;
   color: $color-violet;
+  user-select: none;
+  cursor: pointer;
   
   svg {
     margin-left: 5px;
@@ -53,6 +54,8 @@
   max-height: 0;
   overflow: hidden;
   transition: .3s;
+  display: flex;
+  flex-direction: column;
   
   @include mqDesktop {
     max-height: 100vh;
@@ -60,6 +63,10 @@
   }
 }
 
+.purchase-summary__drop-down-list {
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
 .purchase-summary__row {
   line-height: 30px;

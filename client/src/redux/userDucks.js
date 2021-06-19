@@ -13,12 +13,23 @@ const SET_WISH_LIST = 'SET_WISH_LIST'
 const SET_WISH_LIST_LOADING = 'SET_WISH_LIST_LOADING'
 const UPDATE_WISH_LIST = 'UPDATE_WISH_LIST'
 const SET_BILL = 'SET_BILL'
+const SET_PURCHASE_PROCESS_STEP = 'SET_PURCHASE_PROCESS_STEP'
+const UPDATE_PERFIL = 'UPDATE_PERFIL'
+const UPDATE_ADDRESS = 'UPDATE_ADDRESS'
 
 // initialState
 const initialState = {
   userFirstName: '',
   userLastName: '',
   userEmail: '',
+  userDNI: '',
+  userPhone: '',
+  userStreet: '',
+  userDpto: '',
+  userProvince: '',
+  userCity: '',
+  userZipCode: '',
+  userNum: '',
   userId: '',
   userRole: 'user',
   loggedIn: false,
@@ -32,6 +43,7 @@ const initialState = {
   subTotal: 0,
   discount: 0,
   total: 0,
+  purchaseProcessStep : 0,
 }
 
 
@@ -44,6 +56,14 @@ export default (state = initialState, { type, payload}) => {
         userFirstName: payload.firstName,
         userLastName: payload.lastName,
         userEmail: payload.email,
+        userDNI: payload.DNI || '',
+        userPhone: payload.phone || '',
+        userStreet: payload.address?.street || '',
+        userDpto: payload.address?.dpto || '',
+        userProvince: payload.address?.province || '',
+        userCity: payload.address?.city || '',
+        userZipCode: payload.address?.zipCode || '',
+        userNum: payload.address?.num || '',
         userId: payload._id,
         userRole: payload.role,
         loggedIn: true,
@@ -106,6 +126,29 @@ export default (state = initialState, { type, payload}) => {
         subTotal: payload.subTotal,
         discount: payload.discount,
         total: payload.total,
+      }
+    case SET_PURCHASE_PROCESS_STEP :
+      return {
+        ...state,
+        purchaseProcessStep: payload,
+      }
+    case UPDATE_PERFIL :
+      return {
+        ...state,
+        userFirstName: payload.firstName,
+        userLastName: payload.lastName,
+        userDNI: payload.DNI,
+        userPhone: payload.phone,
+      }
+    case UPDATE_ADDRESS :
+      return {
+        ...state,
+        userStreet: payload.street,
+        userDpto: payload.dpto,
+        userProvince: payload.province,
+        userCity: payload.city,
+        userZipCode: payload.zipCode,
+        userNum: payload.num,
       }
     
     default:
@@ -349,5 +392,76 @@ export const getToken = () => (dispatch) => {
         type:'SET_TOKEN',
         payload: data.body.accessToken
       })
+    })
+}
+
+export const setAuthorizationHeader = () => (dispatch, getState) => {
+  const { accessToken, interceptorAxios } = getState().user
+
+  axios.interceptors.request.eject(interceptorAxios)
+  if(accessToken) {
+    const interceptor = axios.interceptors.request.use(config => {
+      config.headers.Authorization = `Bearer ${accessToken}`
+      console.log(config)
+      return config
+    })
+    dispatch({
+      type: 'SET_INTERCEPTOR',
+      payload: interceptor
+    })
+  }else {
+    // const interceptor = axios.interceptors.request.use(config => {
+    //   config.headers.Authorization = ""
+    //   console.log('config')
+    //   return config
+    // })
+    // dispatch({
+    //   type: 'SET_INTERCEPTOR',
+    //   payload: interceptor
+    // })
+  }
+}
+
+export const updatePerfil = (data) => (dispatch) => {
+
+  axios.put('/api/users', data)
+    .then(({ data }) => {
+      console.log(data.body)
+      dispatch({
+        type: 'UPDATE_PERFIL',
+        payload : {
+          firstName: data.body.firstName,
+          lastName: data.body.lastName,
+          DNI: data.body.DNI,
+          phone: data.body.phone,
+        }
+      })
+    })
+}
+
+export const updateAddress = (data) => (dispatch) => {
+
+  axios.put('/api/users', { address : data})
+    .then(({ data }) => {
+      console.log(data.body)
+      dispatch({
+        type: 'UPDATE_ADDRESS',
+        payload : {
+          street: data.body.address.street,
+          dpto: data.body.address.dpto,
+          province: data.body.address.province,
+          city: data.body.address.city,
+          zipCode: data.body.address.zipCode,
+          num: data.body.address.num,
+        }
+      })
+    })
+}
+
+export const updatePassword = (data) => (dispatch) => {
+
+  axios.put('/api/users', { password : data})
+    .then(({ data }) => {
+      console.log('termino')
     })
 }

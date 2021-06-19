@@ -1,23 +1,34 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import './ProductPurchase.scss'
 
 import ButtonRemove from '../../ButtonRemove'
 
-import notebook from '../../../assets/notebook.png'
+import { toMoney } from '../../../utils/toMoney'
+import { updateItemFromCart } from '../../../redux/userDucks'
 
-const ProductPurchase = () => {
+const ProductPurchase = ({ id, image, title, sku, quantity, priceUnid, priceTotal }) => {
+  const dispatch = useDispatch()
+  const { cartUpdateLoading } = useSelector(state => state.user)
+
+  const updateProductFromCart = (value) => {
+    if(!cartUpdateLoading) {
+      dispatch(updateItemFromCart(id, value))
+    }
+  }
+
   return (
     <div className="product-purchase">
       <div className="product-purchase__image">
-        <img src={notebook} alt=""/>
+        <img src={image} alt={title}/>
       </div>
       <div className="product-purchase__description">
         <div className="product-purchase__title">
-          ASUS 255 G7 ATHLON 3150U 8GB 1TB 15.6"
+          {title}
         </div>
         <div className="product-purchase__cod">
-            SKU: 2004271186157P
+          {`SKU: ${sku}`}
         </div>
       </div>
 
@@ -27,9 +38,21 @@ const ProductPurchase = () => {
             Cantidad
           </div>
           <div className="product-purchase__row-item">
-            <button className="product-purchase__quantity">-</button>
-            <span className="product-purchase__quantity">5</span>
-            <button className="product-purchase__quantity">+</button>
+            <button 
+              onClick={() => updateProductFromCart(quantity - 1)}
+              className="product-purchase__quantity"
+            >
+              -
+            </button>
+            <span className="product-purchase__quantity">
+              {quantity}
+            </span>
+            <button 
+              onClick={() => updateProductFromCart(quantity + 1)}
+              className="product-purchase__quantity"
+            >
+              +
+            </button>
           </div>
         </div>
         
@@ -38,7 +61,7 @@ const ProductPurchase = () => {
             Precio unidad:
           </div>
           <div className="product-purchase__row-item">
-            $ 90.000
+            {toMoney(priceUnid)}
           </div>
         </div>
 
@@ -50,13 +73,15 @@ const ProductPurchase = () => {
           </div>
           <div className="product-purchase__row-item">
             <span className="product-purchase__price-total">
-              $ 90.000
+              {toMoney(priceTotal)}
             </span>
           </div>
         </div>
 
       </div>
-      <ButtonRemove/>
+      <ButtonRemove
+        onClick={() => updateProductFromCart(0)}
+      />
     </div>
   )
 }

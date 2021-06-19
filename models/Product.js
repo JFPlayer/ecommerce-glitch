@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2')
 const generateSKU = require('../utils/generateSKU');
 
 const productSchema = new Schema({
@@ -41,17 +42,24 @@ const productSchema = new Schema({
     max:5,
     default:0
   }],
-  img: [{
+  images: [{
     URL: String,
     key: String,
   }],
   description: {
     type: String,
   },
-  technicalDetails: [{
+  specs: [{
     title: String,
     content: String,
   }],
+  salesQuantity: {
+    type: Number
+  },
+  exposurePer: {
+    type: Number,
+    default: 1,
+  }
 }, {
   timestamps: true,
   versionKey: false,
@@ -61,5 +69,7 @@ productSchema.pre('save', async function(next) {
   if(!this.sku) this.sku = generateSKU()
   next()
 })
+
+productSchema.plugin(mongoosePaginate)
 
 module.exports = model('Product', productSchema )

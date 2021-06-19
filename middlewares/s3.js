@@ -14,7 +14,7 @@ exports.uploadFile = (req, res, next) => {
   if(!req.file) return response.error(res, 400)
 
   const file = req.file.originalname.split('.');
-  const fileExt = file[file.length - 1];
+  const fileExt = file[file.length - 1].toLowerCase();
 
   if(req.file.size > 1024*1024 || !['jpg','jpeg','png'].some(ext => ext === fileExt)) return response.error(res, 400)
   

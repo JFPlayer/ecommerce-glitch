@@ -12,7 +12,7 @@ const categorySchema = new Schema({
       ref: 'Subcategory'
     }
   ],
-  img: {
+  image: {
     URL: String,
     key: String,
   }

@@ -1,19 +1,34 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './PurchaseCart.scss'
 
 import ProductPurchase from '../ProductPurchase'
 import PurchaseActions from '../PurchaseActions'
 
+import { toMoney } from '../../../utils/toMoney'
+
 const PurchaseCart = () => {
+  const { cart, subTotal, discount, total } = useSelector(state => state.user)
+
   return (
     <div className="purchase-cart">
       <div className="purchase-cart__list">
-        <ProductPurchase/>
-        <ProductPurchase/>
-        <ProductPurchase/>
-        <ProductPurchase/>
+        {cart.map(({ quantity, productId }) => 
+          <ProductPurchase
+            key={productId._id}
+            id={productId._id}
+            image={productId.images[0].URL}
+            title={productId.title}
+            sku={productId.sku}
+            quantity={quantity}
+            priceUnid={productId.price}
+            priceTotal={productId.discount ? 
+              ((100 - productId.discount) / 100) * productId.price 
+              : 
+              productId.price}
+          />
+        )}
 
         <div className="purchase-cart__summary">
           <div className="purchase-cart__summary-container">
@@ -22,15 +37,15 @@ const PurchaseCart = () => {
                 Subtotal
               </div>
               <div className="purchase-cart__row-item">
-                $ 90.000
+                {toMoney(subTotal)}
               </div>
             </div>
             <div className="purchase-cart__row">
               <div className="purchase-cart__row-item">
-                Envio
+                Descuento
               </div>
               <div className="purchase-cart__row-item">
-                $ 0
+                {`- ${toMoney(discount)}`}
               </div>
             </div>
             <div className="purchase-cart__row total">
@@ -41,7 +56,7 @@ const PurchaseCart = () => {
               </div>
               <div className="purchase-cart__row-item">
                 <span className="purchase-cart__total">
-                  $ 90.000
+                  {toMoney(total)}
                 </span>
               </div>
             </div>

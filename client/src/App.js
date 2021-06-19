@@ -14,12 +14,11 @@ import User from './containers/User'
 import Register from './containers/Register'
 
 import { getCategories } from './redux/categoriesDucks'
-import { whoAmI, getToken, calculateBill } from './redux/userDucks'
-import axios from 'axios'
+import { whoAmI, getToken, calculateBill, setAuthorizationHeader } from './redux/userDucks'
 
 const App = () => {
   const dispatch = useDispatch()
-  const { loggedIn, intervalId, accessToken, interceptorAxios, cart } = useSelector(state => state.user)
+  const { loggedIn, intervalId, accessToken, cart } = useSelector(state => state.user)
   
   useEffect(() => {
     dispatch(getCategories())
@@ -43,29 +42,7 @@ const App = () => {
   }, [loggedIn])
   
   useEffect(() => {
-    axios.interceptors.request.eject(interceptorAxios)
-    if(accessToken) {
-      const interceptor = axios.interceptors.request.use(config => {
-        config.headers.Authorization = `Bearer ${accessToken}`
-        console.log(config)
-        return config
-      })
-      dispatch({
-        type: 'SET_INTERCEPTOR',
-        payload: interceptor
-      })
-    }else {
-      const interceptor = axios.interceptors.request.use(config => {
-        config.headers.Authorization = ""
-        console.log(config)
-        return config
-      })
-      dispatch({
-        type: 'SET_INTERCEPTOR',
-        payload: interceptor
-      })
-    }
-    
+    dispatch(setAuthorizationHeader())
   }, [accessToken])
 
   useEffect(() => {
@@ -82,7 +59,9 @@ const App = () => {
           <Route exact path="/subcategories/:id" render={() => <Catalog type="subcategory"/>} />
           <Route exact path="/products/:productId" component={Product} />
           <Route exact path="/purchase-process" render={() => loggedIn ? <Purchase/> : <Redirect to="/"/>} />
-          <Route path="/user" render={() => loggedIn ? <User/> : <Redirect to="/"/>}/>
+          {/* <Route exact path="/purchase-process" render={() => <Purchase/>} /> */}
+          {/* <Route path="/user" render={() => loggedIn ? <User/> : <Redirect to="/"/>}/> */}
+          <Route path="/user" render={() => <User/>}/>
           {/* <Route component={NotFound} /> */}
         </Switch>
       </Layout>

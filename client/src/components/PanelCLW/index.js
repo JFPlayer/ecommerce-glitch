@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
 
 import './PanelCLW.scss'
 import { FaHeart } from 'react-icons/fa'
@@ -21,6 +22,8 @@ const PanelCLW = ({ toClose }) => {
 
   const { register, handleSubmit, watch, reset } = useForm()
   const form = {register, watch}
+
+  const history = useHistory()
 
   const addToCart = data => {
     const productsIdToWishList = Object.keys(data).filter((key) => !data[key])
@@ -109,6 +112,7 @@ const PanelCLW = ({ toClose }) => {
               </Button>
               <Button 
                 primary
+                onClick={() => history.push('/purchase-process')}
               >
                 Ir al carrito
               </Button>

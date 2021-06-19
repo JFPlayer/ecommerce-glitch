@@ -20,6 +20,18 @@
   }
 }
 
+.user-perfil__title {
+  line-height: 36px;
+  color: $color-gray10;
+  font-size: $fsize-medium;
+}
+
+.user-perfil__email {
+  color: $color-green;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
 .user-perfil__form.address {
   
   @include mqTablet {

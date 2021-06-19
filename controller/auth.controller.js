@@ -17,24 +17,24 @@ exports.signUp = async (req, res) => {
     firstName,
     lastName,
     email,
-    password
+    password: await User.encryptPassword(password)
   })
   try {
     const savedUser = await newUser.save();
-    console.log(savedUser._id)
 
     const accessToken = jwt.sign({id: savedUser._id}, config.jwtAccessTokenSecret, { expiresIn: '11m' })
     const refreshToken = jwt.sign({id: savedUser._id}, config.jwtRefreshTokenSecret, { expiresIn: '7d' })
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      path: '/api/auth/refreshtoken',
+      path: '/',
       maxAge: 60*60*24*7*1000 // 7d
     })
 
-    delete savedUser.password;
+    const { password: userPassword, ...data } = savedUser._doc
 
-    response.success(res, 201, { _id: savedUser._id, email: savedUser.email, accessToken })
+
+    response.success(res, 201, { ...data, accessToken})
   } catch (error) {
     response.error(res, 503)
   }
@@ -42,15 +42,21 @@ exports.signUp = async (req, res) => {
 
 exports.signIn = async (req, res) => {
   const { email, password } = req.body;
+
+  console.log(req.body)
   
   if(!email || !password) return response.error(res, 400)
   
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
+      .populate({ path: 'cart wishList', populate: { path: 'products.productId productId' } })
     
     if(!user) return response.error(res, 400, 'Email or password incorrect')
     
     const isMatch = await user.isValidPassword(password);
+    
+    console.log('isMatch')
+    console.log(isMatch)
     
     if(!isMatch) return response.error(res, 400, 'Email or password incorrect')
     
@@ -59,18 +65,13 @@ exports.signIn = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      path: '/api/auth/refreshtoken',
+      path: '/',
       maxAge: 60*60*24*7*1000 // 7d
     })
-    const data = {
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: user.role,
-      accessToken,
-    }
-    response.success(res, 201, data)
+
+    const { password : userPassword, ...data } = user._doc
+    
+    response.success(res, 201, { ...data, accessToken})
   } catch (error) {
     response.error(res, 503)
   }
@@ -79,7 +80,7 @@ exports.signIn = async (req, res) => {
 exports.signOut = (req, res) => {
   try {
     res.clearCookie('refreshToken', {
-      path: '/api/auth/refreshtoken'
+      path: '/'
     })
     response.success(res, 200)
   } catch (error) {
@@ -96,7 +97,7 @@ exports.refreshToken = (req, res) => {
       if(error) return response.error(res, 400);
 
       const accessToken = jwt.sign({id: user.id}, config.jwtAccessTokenSecret, { expiresIn: '11m' })
-
+      
       response.success(res, 200, { accessToken })
     })
   } catch (error) {
@@ -104,11 +105,23 @@ exports.refreshToken = (req, res) => {
   }
 }
 
-exports.whoAmI = async (req, res) => {
+exports.whoAmI = (req, res) => {
+  const rfToken = req.cookies.refreshToken;
+  
+  if(!rfToken) return response.error(res, 400);
+  
   try {
-    const userFound = await User.findById(req.userId, { password: 0 });
-    if(!userFound) return response.error(res, 404);
-    response.success(res, 200, userFound);
+    jwt.verify(rfToken, config.jwtRefreshTokenSecret, async (error, user) => {
+      if(error) return response.error(res, 400);
+      
+      const userFound = await User.findById(user.id)
+        .select('-password')
+        .populate({ path: 'cart wishList', populate: { path: 'products.productId productId' } })
+      if(!userFound) return response.error(res, 404);
+
+      const accessToken = jwt.sign({id: user.id}, config.jwtAccessTokenSecret, { expiresIn: '11m' })
+      response.success(res, 200, { ...userFound._doc, accessToken})
+    })
   } catch (error) {
     response.error(res, 500)
   }

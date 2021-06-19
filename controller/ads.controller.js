@@ -4,12 +4,12 @@ const response = require('../utils/response');
 const deleteFilesS3 = require('../utils/deleteFilesS3');
 
 exports.createBanner = async (req, res) => {
-  const { title, img } = req.body;
-  if(!title || !img || !img.URL) return response.error(res, 400);
+  const { URL, key } = req.body;
+  if(!URL || !key) return response.error(res, 400);
 
   const newBanner = new Banner({
-    title,
-    img,
+    URL,
+    key,
   })
 
   try {
@@ -23,7 +23,6 @@ exports.createBanner = async (req, res) => {
 exports.getBanners = async (req, res) => {
   try {
     const banners = await Banner.find();
-    console.log('entro')
     response.success(res, 200, banners)
   } catch (error) {
     response.error(res, 503)
@@ -35,9 +34,9 @@ exports.deleteBannerById = (req, res) => {
   try {
     Banner.findByIdAndRemove(req.params.bannerId, async (error, doc) => {
       if(error || !doc) return response.error(res, 400);
-      if(doc.img.key) await deleteFilesS3([doc.img.key]);
+      if(doc.key) await deleteFilesS3([doc.key]);
       const data = {
-        banner: doc.title,
+        banner: doc._id,
         message: 'Banner deleted successfully'
       }
       response.success(res, 200, data);

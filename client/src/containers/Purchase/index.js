@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 import './Purchase.scss'
 
@@ -17,12 +18,12 @@ const steps = [
 ]
 
 const Purchase = () => {
-  const [currentStep, setCurrentStep] = useState(1)
+  const { purchaseProcessStep } = useSelector(state => state.user)
 
   return (
     <PurchaseLayout>
-      {steps[currentStep] || steps[0]}
-      {currentStep !== 0 && currentStep < steps.length && <PurchaseSummary/>}
+      {steps[purchaseProcessStep] || steps[0]}
+      {purchaseProcessStep !== 0 && purchaseProcessStep < steps.length && <PurchaseSummary/>}
     </PurchaseLayout>
   )
 }

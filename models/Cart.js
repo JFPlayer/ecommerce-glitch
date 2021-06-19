@@ -6,13 +6,9 @@ const cartSchema = new Schema({
     ref: 'User'
   },
   products: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Product'
+    productId: { type: Schema.Types.ObjectId, ref:'Product' },
+    quantity: { type: Number, default: 1 },
   }],
-  status: {
-    type: String,
-    default:'pending'
-  }
 },{
   timestamps: true,
   versionKey: false,

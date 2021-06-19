@@ -9,6 +9,7 @@ exports.verifyToken = (req, res, next) => {
     if(!bearerHeader) return response.error(res, 401);
 
     const token = bearerHeader.split(' ')[1];
+
     
     jwt.verify(token, config.jwtAccessTokenSecret, (error, user) => {
       if(error) return response.error(res, 401);

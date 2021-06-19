@@ -10,6 +10,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  DNI: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -19,11 +23,16 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  phone: String,
+  phone: {
+    type: String
+  },
   address: {
     city: String,
-    streetAddress: String,
-    ZIPCode: Number,
+    province: String,
+    street: String,
+    num: String,
+    dpto: String,
+    zipCode: String,
     geolocation: {
       lat: Number,
       long: Number,
@@ -46,10 +55,14 @@ const userSchema = new Schema({
   versionKey: false,
 })
 
-userSchema.pre('save', async function(next){
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-})
+// userSchema.pre('save', async function(next){
+//   this.password = await bcrypt.hash(this.password, 10);
+//   next();
+// })
+
+userSchema.statics.encryptPassword = async (password) => {
+  return await bcrypt.hash(password, 10)
+};
 
 userSchema.methods.isValidPassword = async function(password){
   return await bcrypt.compare(password, this.password)

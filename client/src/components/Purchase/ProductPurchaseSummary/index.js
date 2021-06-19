@@ -2,17 +2,17 @@ import React from 'react'
 
 import './ProductPurchaseSummary.scss'
 
-import notebook from '../../../assets/notebook.png'
+import { toMoney } from '../../../utils/toMoney'
 
-const ProductPurchaseSummary = () => {
+const ProductPurchaseSummary = ({ title, image, quantity, price }) => {
   return (
     <div className="product-purchase-summary">
       <div className="product-purchase-summary__image">
-        <img src={notebook} alt=""/>
+        <img src={image} alt=""/>
       </div>
       <div className="product-purchase-summary__description">
         <div className="product-purchase-summary__title">
-          ASUS 255 G7 ATHLON 3150U 8GB 1TB 15.6"
+          {title}
         </div>
         <div className="product-purchase-summary__section">
           <p className="pps-item left">
@@ -21,9 +21,9 @@ const ProductPurchaseSummary = () => {
             Precio unidad
           </p>
           <p className="pps-item right">
-            2
+            {quantity}
             <br/>
-            $ 90.000
+            {toMoney(price)}
           </p>
         </div>
       </div>

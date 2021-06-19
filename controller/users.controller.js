@@ -5,7 +5,7 @@ const response = require('../utils/response');
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().select('-password');
     response.success(res, 200, users);
   } catch (error) {
     response.error(res, 503);
@@ -13,63 +13,58 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
+  
   if(!req.body) return response.error(res, 400);
+  
+  if(req.body.password) {
+    req.body.password = await User.encryptPassword(req.body.password)
+  }
 
-  //si se hace una actualizacion del cart
-  if(req.body.cart && req.body.cart.length > 0) {
-    //filtramos elementos repetidos
-    req.body.cart = new Set(req.body.cart)
-
+  if(req.body.cart) {
+    req.body.cart = req.body.cart.filter(product => product.quantity) // filtramos los que tengan 0 cantidad o null, undefined, etc
     const cartFound = await Cart.findOne({ userId: req.userId });
 
-    if(!cartFound) { // si el usuario no tiene un cart
-      // creamos un cart
+    if(!cartFound) {// si el usuario NO tiene un cart
       const newCart = new Cart({
         userId: req.userId,
-        products: [...req.body.cart],
+        products: req.body.cart,
       })
-
-      const savedCart = await newCart.save();
-      // lo relacionamos al usuario
-      req.body.cart = savedCart._id;
       
+      const savedCart = await newCart.save();
+      req.body.cart = savedCart._id
+
     }else { // si el usuario SI tiene un cart
       // actualizamos el cart
-      const updatedCart = await Cart.findOneAndUpdate({ userId: req.userId }, { products: [ ...req.body.cart ] })
-        
+      const updatedCart = await Cart.findOneAndUpdate({ userId: req.userId }, { products: req.body.cart })
       req.body.cart = updatedCart._id;
     }
   }
-  //lo mismo para wishList
-  if(req.body.wishList && req.body.wishList.length > 0) {
-    //filtramos elementos repetidos
-    req.body.wishList = new Set(req.body.wishList)
 
+  if(req.body.wishList ) {
+    req.body.wishList = [...new Set(req.body.wishList)]
     const wishListFound = await WishList.findOne({ userId: req.userId });
 
-    if(!wishListFound) { 
-
+    if(!wishListFound) {
       const newWishList = new WishList({
         userId: req.userId,
-        products: [...req.body.wishList],
+        productId: req.body.wishList
       })
-
       const savedWishList = await newWishList.save();
-
-      req.body.wishList = savedWishList._id;
+      req.body.wishList = savedWishList._id
       
-    }else { 
-
-      const updatedWishList = await WishList.findOneAndUpdate({ userId: req.userId }, { products: [ ...req.body.wishList ] })
-        
+    }else {
+      const updatedWishList = await WishList.findOneAndUpdate({ userId: req.userId }, { productId: req.body.wishList })
       req.body.wishList = updatedWishList._id;
     }
   }
-  
+
   try {
-    const userUpdated = await User.findByIdAndUpdate(req.userId, req.body, { new: true }).select('-password')
+    const userUpdated = await User.findByIdAndUpdate(req.userId, req.body, { new: true })
+      .select('-password')
+      .populate({ path: 'cart wishList', populate: { path: 'products.productId productId' } })
     response.success(res, 201, userUpdated)
   } catch (error) {
+    console.log(error)
     response.error(res, 503)
   }
 }

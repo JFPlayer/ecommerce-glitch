@@ -24,7 +24,7 @@ exports.getCategoryById = async (req, res) => {
 }
 
 exports.createCategory = async (req, res) => {
-  const { title, subcategories, img } = req.body;
+  const { title } = req.body;
 
   if(!title) return response.error(res, 400)
 
@@ -35,7 +35,6 @@ exports.createCategory = async (req, res) => {
   const newCategory = new Category({
     title,
     // subcategories: subcategoriesFound.map(subcategory => subcategory._id),
-    img,
   })
 
   try {
@@ -47,6 +46,7 @@ exports.createCategory = async (req, res) => {
 }
 
 exports.updateCategoryById = (req, res) => {
+  console.log(req.body)
   if(!req.params.categoryId || !req.body) return response.error(res, 400)
 
   try {
@@ -67,7 +67,7 @@ exports.deleteCategoryById = (req, res) => {
   try {
     Category.findByIdAndRemove(req.params.categoryId, async(error, doc) => {
       if(error || !doc) return response.error(res, 400)
-      if(doc.img.key) await deleteFilesS3([doc.img.key])
+      if(doc.image.key) await deleteFilesS3([doc.image.key])
       const subcategoriesDeleted = doc.subcategories.map(subcategoryId => Subcategory.deleteOne({_id: subcategoryId}))
       Promise.all(subcategoriesDeleted)
         .then(() => {

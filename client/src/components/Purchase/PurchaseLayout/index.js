@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import './PurchaseLayout.scss'
 import Logo from '../../../assets/logo-gray.svg'
@@ -6,6 +7,8 @@ import Logo from '../../../assets/logo-gray.svg'
 import PurchaseSteps from '../PurchaseSteps'
 
 const PurchaseLayout = ({ children }) => {
+  const { purchaseProcessStep } = useSelector(state => state.user)
+
   return (
     <div className="purchase-process__body">
       <div className="purchase-process__container">
@@ -15,7 +18,7 @@ const PurchaseLayout = ({ children }) => {
           </div>
           <div className="purchase-process__header-steps">
             <PurchaseSteps
-              stepActive={2}
+              stepActive={purchaseProcessStep}
             />
           </div>
         </div>

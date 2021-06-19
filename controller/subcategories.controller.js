@@ -55,7 +55,6 @@ exports.createSubcategory = async (req, res) => {
     category: categoryFound._id
     // products: productsFound.map(product => product._id),
   })
-
   
   try {
     const savedSubcategory = await newSubcategory.save();

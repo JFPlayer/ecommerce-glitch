@@ -5,10 +5,15 @@ const wishListSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  products: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Product'
-  }],
+  productId : [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Product'
+    }
+  ],
+  // products: [{
+  //   productId: { type: Schema.Types.ObjectId, ref:'Product' }
+  // }],
 },{
   timestamps: true,
   versionKey: false,
