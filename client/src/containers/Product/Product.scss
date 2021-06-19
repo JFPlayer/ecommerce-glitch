@@ -66,6 +66,11 @@
   width: max-content;
   font-weight: bold;
   padding: 0 5px;
+  
+  &.out {
+    background-color: $color-red;
+    color: $color-white;
+  }
 }
 
 .product-preview {
@@ -86,25 +91,27 @@
 }
 
 .product__price-off {
-  font-size: $fsize-medium;
+  font-size: $fsize-xlarge;
 }
 
 .product__price-normal {
   text-decoration: line-through;
+  white-space: nowrap;
   color: $color-gray30;
   margin-right: 5px;
 }
 
 .product__price-discount {
   display: inline-block;
-  line-height: 20px;
+  line-height: 26px;
   background-color: $color-pink;
   font-weight: bold;
   padding: 0 5px;
 }
 
 .product__price-total {
-  font-size: $fsize-xlarge;
+  font-size: $fsize-xxlarge;
+  font-weight: bold;
   white-space: nowrap;
 }
 
@@ -113,7 +120,7 @@
 .product__action {
   // border:solid 2px blue;
   position: fixed;
-  z-index: 1000;
+  z-index: 500;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -133,6 +140,11 @@
   border-radius: 0;
   flex-basis: 40px;
   background-color: $color-gray30 !important;
+  
+  &.active {
+    background-color: $color-red !important;
+  }
+
   @include mqDesktop {
     border-radius: 5px 0 0 5px;
   }

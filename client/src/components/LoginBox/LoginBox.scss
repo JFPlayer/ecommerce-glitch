@@ -85,7 +85,7 @@
 
 .login__credentials {
 
-  :nth-child(2) {
+  > :nth-child(2) {
     margin-top: 15px;
   }
 }

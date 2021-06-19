@@ -1,50 +1,50 @@
-import React from 'react'
+import React from "react";
 
-import './ImageUserProducts.scss'
-import { FaTrashAlt } from 'react-icons/fa'
-import { TiDelete } from 'react-icons/ti'
+import "./ImageUserProducts.scss";
+import { FaTrashAlt } from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 
-import Button from '../../Button'
+import Button from "../../Button";
 
-import banner from '../../../assets/banner1.png'
-
-const ImageUserProducts = () => {
+const ImageUserProducts = ({ src, onClick, onClickDelete }) => {
   return (
     <div className="image-up">
-      <img src={banner} alt=""/>
-      <button className="image-up__btn-main">
-        Principal
+      <img src={src} alt="" />
+      <button 
+        className="image-up__btn-main"
+        onClick={onClick}
+      >
+        <span>
+          Principal
+        </span>
       </button>
-      <button className="image-up__btn-remove">
-        <TiDelete/>
+      <button 
+        className="image-up__btn-remove"
+        onClick={onClickDelete}
+      >
+        <TiDelete />
       </button>
     </div>
-  )
-}
+  );
+};
 
-export const ImageUserProductsNew = () => {
+export const ImageUserProductsNew = ({ name, onChange }) => {
   return (
     <div className="image-up new">
       <label className="new-image__box">
-        Nueva<br/>Imagen
-        <input 
-          // {...register('bannerImage')}
+        Nueva
+        <br />
+        Imagen
+        <input
           className="input-file__input"
           type="file"
+          name={name}
           accept=".png, .jpeg, .jpg"
+          onChange={onChange}
         />
       </label>
-      {/* <div className="new-image__container">
-        <img src={banner} alt=""/>
-        <button className="image-up__btn-main">
-          Principal
-        </button>
-        <button className="image-up__btn-remove">
-          <TiDelete/>
-        </button>
-      </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default ImageUserProducts
+export default ImageUserProducts;

@@ -2,6 +2,19 @@
 
 .filter-box {
   border-top: solid 1px $color-gray10;
+
+  &.open {
+
+    .filter-box__title {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    .filter-box__content {
+      max-height: 150px;
+    }
+  }
 }
 
 .filter-box__title {
@@ -24,16 +37,6 @@
   max-height: 0;
   transition:  .3s;
   overflow-y: scroll;
-}
-
-.filter-box.open .filter-box__title {
-  svg {
-    transform: rotate(180deg);
-  }
-}
-.filter-box.open .filter-box__content {
-  max-height: 150px;
-  // margin-bottom: 15px;
 }
 
 .filter-box__item {

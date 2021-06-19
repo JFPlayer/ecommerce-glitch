@@ -1,55 +1,47 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 import './UserDetailList.scss'
 import { TiDelete }from 'react-icons/ti'
 import { HiOutlineSave }from 'react-icons/hi'
 
-const specs = {
-  ['Marca']: 'Asus',
-  ['Modelo']: 'X512s',
-  ['Peso']: '1.4',
-}
-
-const UserDetailList = () => {
-  const [list, setList] = useState({...specs})
-  const [row, setRow] = useState({ name: '', value: '' })
+const UserDetailList = ({ specs= [] , setSpecs, className='' }) => {
+  const [newItem, setNewItem] = useState({ title: '', content: '' })
 
   const handleChange = event => {
-    setRow({ ...row, [event.target.name]: event.target.value })
+    setNewItem({ ...newItem, [event.target.name]: event.target.value })
   }
 
   const handleClick = () => {
-    // console.log(row)
-    setList({ [row.name]: row.value, ...list })
-    setRow({ name: '', value: '' })
+    setSpecs([...specs, newItem])
+    setNewItem({ title: '', content: '' })
   }
 
-  const handleDelete = field => {
-    const { [field]: deleted, ...newList } = list
-    setList(newList)
+  const handleDelete = index => {
+    setSpecs([...specs.slice(0, index), ...specs.slice(index + 1)])
   }
 
   return (
-    <div className="user-dl">
+    <div className={`user-dl ${className}`}>
       <span className="user-dl__title">
         Especificaciones
       </span>
       <div className="user-dl__list">
         <div className="user-dl__row">
           <div className="user-dl__row-item left">
-            <input type="text"
-              name="name" 
+            <input 
+              type="text"
+              name="title" 
               placeholder="Titulo..."
-              value={row.name} 
+              value={newItem.title} 
               onChange={handleChange}
             />
           </div>
           <div className="user-dl__row-item right">
             <input 
               type="text" 
-              name="value" 
+              name="content" 
               placeholder="Contenido..."
-              value={row.value} 
+              value={newItem.content} 
               onChange={handleChange}
             />
           </div>
@@ -58,15 +50,15 @@ const UserDetailList = () => {
           </button>
         </div>
         
-        {Object.entries(list).map(([name, value]) => (
-          <div className="user-dl__row" key={name}>
+        {specs.map(({ title, content }, index) => (
+          <div className="user-dl__row" key={title}>
             <div className="user-dl__row-item left">
-              {name}
+              {title}
             </div>
             <div className="user-dl__row-item right">
-              {value}
+              {content}
             </div>
-            <button className="user-dl__row-btn" onClick={() => handleDelete(name)}>
+            <button className="user-dl__row-btn" onClick={() => handleDelete(index)}>
               <TiDelete/>
             </button>
           </div>

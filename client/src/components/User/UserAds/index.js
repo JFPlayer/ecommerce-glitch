@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
-// import axios from '../../../utils/axiosInstance'
+import { useSelector, useDispatch } from 'react-redux'
 
 import './UserAds.scss'
 
 import BannerUserAds from '../BannerUserAds'
 import { BannerUserAdsNew } from '../BannerUserAds'
 
+const MAX_BANNERS = 5
+
 const UserAds = () => {
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/api/ads/banners')
-  //     .then((response) => console.log(response.data))
-  //     .catch(() => console.log('asdasd'))
-  // }, [])
+  const { categories } = useSelector(state => state.categories)
+  const { banners } = useSelector(state => state.global)
 
   return (
     <div className="user-ads">
@@ -23,11 +21,17 @@ const UserAds = () => {
         </div>
         <div className="user__section-content">
           <div className="user-ads__list">
-            <BannerUserAdsNew placeholder="Nuevo Slider"/>
-            <BannerUserAds/>
-            <BannerUserAds/>
-            <BannerUserAds/>
-            <BannerUserAds/>
+            {banners.length < MAX_BANNERS &&
+              <BannerUserAdsNew placeholder="Nuevo Slider"/>
+            }
+            {banners.map(banner => 
+              <BannerUserAds
+                key={banner._id}
+                id={banner._id}
+                type="slider"
+                src={banner.URL}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -38,11 +42,23 @@ const UserAds = () => {
         </div>
         <div className="user__section-content">
           <div className="user-ads__list">
-            <BannerUserAdsNew placeholder="Nuevo Banner"/>
-            <BannerUserAds/>
-            <BannerUserAds/>
-            <BannerUserAds/>
-            <BannerUserAds/>
+            {categories.map(category => 
+              category.image ? 
+                <BannerUserAds
+                  key={category._id}
+                  id={category._id}
+                  type="category"
+                  src={category.image.URL}
+                  title={category.title}
+                />
+              :
+                <BannerUserAdsNew
+                  key={category._id}
+                  url={`/api/categories/${category._id}`}
+                  id={category._id}
+                  placeholder={category.title}
+                />
+            )}
           </div>
         </div>
       </div>

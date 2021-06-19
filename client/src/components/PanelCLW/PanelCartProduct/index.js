@@ -1,40 +1,68 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './PanelCartProduct.scss'
 
-import image from '../../../assets/notebook.png'
-
 import ButtonRemove from '../../ButtonRemove'
 
-const PanelCartProduct = () => {
+import { toMoney } from '../../../utils/toMoney'
+
+import { updateItemFromCart } from '../../../redux/userDucks'
+
+const PanelCartProduct = ({ product }) => {
+  const dispatch = useDispatch()
+  const { cartUpdateLoading } = useSelector(state => state.user)
+
+  const updateProductFromCart = (value) => {
+    if(!cartUpdateLoading) {
+      dispatch(updateItemFromCart(product._id, value))
+    }
+  }
+  
+
   return (
     <div className="panel-cart-product">
       
       <div className="panel-cart-product__count">
-        <button>+</button>
-        <span>2</span>
-        <button>-</button>
+        <button
+          onClick={() => updateProductFromCart(product.quantity + 1)}
+        >
+          +
+        </button>
+        <span>
+          {product.quantity}
+        </span>
+        <button
+          onClick={() => updateProductFromCart(product.quantity - 1)}
+        >
+          -
+        </button>
       </div>
 
-      <Link to='' className="panel-cart-product__description">
+      <Link 
+        to={`/products/${product._id}`}
+        className="panel-cart-product__description"
+      >
         <div className="panel-cart-product__image">
-          <img src={image} alt="imagen"/>
+          <img src={product.images[0].URL} alt={product.title}/>
         </div>
 
         <div className="panel-cart-product__info">
           <span>
-          ASUS 255 G7 ATHLON 3150U 8GB 1TB 15.6"
+          {product.title}
           <br/>
-          $85.499
+          {toMoney(product.price)}
           <br/>
-          Descuento 15%
+          {product.discount ? `Descuento ${product.discount}%` : ''}
           </span>
         </div>
       </Link>
 
       <div className="panel-cart-product__remove">
-        <ButtonRemove/>
+        <ButtonRemove
+          onClick={() => updateProductFromCart(0)}
+        />
       </div>
       
     </div>

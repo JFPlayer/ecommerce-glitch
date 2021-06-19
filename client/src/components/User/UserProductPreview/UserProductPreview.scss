@@ -21,7 +21,6 @@
 }
 
 .user-pp__images {
-  border: solid 1px red;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -59,16 +58,16 @@
 }
 
 .user-pp__image-thumbs {
-  border: solid 1px blue;
-  padding: 15px;
+  // padding: 15px;
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   
   @include mqTablet {
     grid-template-columns: 100%;
     width: 80px;
     padding: 0;
+    height: max-content;
   }
 }
 
@@ -84,27 +83,30 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 15px;
 
-  :nth-child(1) {
+  .input-title {
     grid-column: 1 / -1;
   }
 
-  :nth-child(2),
-  :nth-child(3),
-  :nth-child(7),
-  :nth-child(8) {
+  .input-brand,
+  .input-sku,
+  .user-pp__select {
     grid-column: span 3;
   }
-
-  :nth-child(4),
-  :nth-child(5),
-  :nth-child(6) {
+  
+  .input-price,
+  .input-discount,
+  .input-stock {
     grid-column: span 2;
   }
-
-  :nth-child(9),
-  :nth-child(10) {
+  
+  .input-description,
+  .box-details {
     grid-column: 1 / -1;
     height: 120px;
+  }
+  
+  .input-exposurePer {
+    grid-column: span 3;
   }
 }
 

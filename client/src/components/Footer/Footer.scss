@@ -46,6 +46,7 @@
 .footer__main-container {
   margin: 0 auto;
   padding: 15px;
+  padding-bottom: 45px;
 
   @include mqTablet {
     max-width: 800px;

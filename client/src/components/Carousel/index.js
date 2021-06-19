@@ -1,12 +1,12 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, Autoplay} from 'swiper';
+// import SwiperCore, { Navigation, Autoplay} from 'swiper';
 
 import './Carousel.scss'
 
 import ProductCarousel from '../ProductCarousel'
 
-const Carousel = () => {
+const Carousel = ({ products }) => {
   return (
     <Swiper
       className="carousel__container"
@@ -14,8 +14,9 @@ const Carousel = () => {
       spaceBetween={15}
       loop
       autoplay={{
-        "delay": 3500,
-        "disableOnInteraction": false
+        "delay": 5000,
+        "disableOnInteraction": false,
+        "pauseOnMouseEnter": true,
       }}
       navigation={true}
       breakpoints={{
@@ -29,27 +30,14 @@ const Carousel = () => {
         }
       }}
     >
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
-      <SwiperSlide>
-        <ProductCarousel/>
-      </SwiperSlide>
+      {products.map(product => 
+        <SwiperSlide
+          key={product._id}
+          className="carousel-swiper"
+        >
+          <ProductCarousel product={{...product}}/>
+        </SwiperSlide>
+      )}
     </Swiper>
   )
 }

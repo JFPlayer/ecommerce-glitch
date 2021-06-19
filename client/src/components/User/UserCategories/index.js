@@ -7,7 +7,7 @@ import { TiDelete } from 'react-icons/ti'
 
 import Button from '../../Button'
 
-import { getCategories, newCategory, deleteCategory, newSubcategory, deleteSubcategory } from '../../../redux/categoriesDucks'
+import { createCategory, deleteCategory, createSubcategory, deleteSubcategory } from '../../../redux/categoriesDucks'
 
 const UserCategories = () => {
   const [inputCategory, setInputCategory] = useState("")
@@ -16,43 +16,39 @@ const UserCategories = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector(state => state.categories)
 
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [categorySelected, setCategorySelected] = useState(null)
   
-  // useEffect(() => {
-  //   dispatch(getCategories())
-  // }, [])
 
-  const handleNewCategory = (event) => {
+  const handleCreateCategory = (event) => {
     event.preventDefault()
-
     const isRepeated = categories.some(({title}) => title === inputCategory )
     if(isRepeated) {
       console.log('ya existe la categoria ', inputCategory)
     }else {
-      dispatch(newCategory(inputCategory))
+      dispatch(createCategory(inputCategory))
     }
     setInputCategory('')
   }
   
-  const handleNewSubcategory = (event) => {
+  const handleCreateSubcategory = (event) => {
     event.preventDefault()
 
-    const isRepeated = categories[selectedCategory].subcategories.some(({title}) => title === inputSubcategory )
+    const isRepeated = categories[categorySelected].subcategories.some(({title}) => title === inputSubcategory )
     if(isRepeated) {
       console.log('ya existe la subcategoria ', inputSubcategory)
     }else {
-      dispatch(newSubcategory(selectedCategory, inputSubcategory))
+      dispatch(createSubcategory(categorySelected, inputSubcategory))
     }
     setInputSubcategory('')
   }
 
   const handleDeleteCategory = (categoryIndex, categoryId) => () => {
     dispatch(deleteCategory(categoryIndex, categoryId))
-    setSelectedCategory(null)
+    setCategorySelected(null)
   }
 
   const handleDeleteSubcategory = (subcategoryIndex, subcategoryId) => () => {
-    dispatch(deleteSubcategory(selectedCategory, subcategoryIndex, subcategoryId))
+    dispatch(deleteSubcategory(categorySelected, subcategoryIndex, subcategoryId))
   }
 
   return (
@@ -71,7 +67,7 @@ const UserCategories = () => {
 
                 <form 
                   className="user-categories__row"
-                  onSubmit={handleNewCategory}
+                  onSubmit={handleCreateCategory}
                 >
                   <input 
                     type="text"
@@ -88,7 +84,7 @@ const UserCategories = () => {
                 </form>
                 {categories.map(({ title, _id }, index) => 
                   <div className="user-categories__row" key={_id}>
-                    <div className="user-categories__row-title" onClick={() => setSelectedCategory(index)}>
+                    <div className="user-categories__row-title" onClick={() => setCategorySelected(index)}>
                       {title}
                     </div>
                     <Button 
@@ -104,19 +100,19 @@ const UserCategories = () => {
 
             <div className="user-categories__section">
               <div className="user-categories__title">
-                {selectedCategory === null ?
+                {categorySelected === null ?
                   'Subcategorias'
                 :
-                  categories[selectedCategory].title
+                  categories[categorySelected].title
                 }
               </div>
               <div className="user-categories__list">
 
-                {selectedCategory !== null ? 
+                {categorySelected !== null ? 
                   <>
                   <form 
                     className="user-categories__row"
-                    onSubmit={handleNewSubcategory}
+                    onSubmit={handleCreateSubcategory}
                   >
                     <input 
                       type="text" 
@@ -131,7 +127,7 @@ const UserCategories = () => {
                       <HiOutlineSave/>
                     </Button>
                   </form>
-                  {categories[selectedCategory].subcategories.map(({ title, _id }, index) => 
+                  {categories[categorySelected].subcategories.map(({ title, _id }, index) => 
                     <div className="user-categories__row" key={_id}>
                       <div className="user-categories__row-title">
                         {title}

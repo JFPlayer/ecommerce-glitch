@@ -10,8 +10,8 @@
 }
 
 .panel-wl-product__check{
-  width: 30px;
-  margin: 0 5px;
+  // width: 30px;
+  margin: 0 10px;
 }
 
 .panel-wl-product__description {
@@ -19,11 +19,11 @@
   overflow-x: hidden;
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .panel-wl-product__image {
   background-color: $color-gray10;
-  margin-right: 10px;
   width: 80px;
   height: 80px;
   img {

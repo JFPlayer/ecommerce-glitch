@@ -1,6 +1,7 @@
 @import '../../sass/variables';
 
 .nav-history {
+  height: 50px;
   
 }
 
@@ -11,9 +12,6 @@
 
   font-size: $fsize-small;
 
-  > *:last-child {
-    display: none;
-  }
   
   a {
     color: $color-gray10;
@@ -25,10 +23,14 @@
     vertical-align: text-bottom;
     margin: 0 10px;
   }
-
+  
   @include mqDesktop {
     width: 90%;
     padding: 0;
     max-width: 1200px;
   }
+}
+
+.nav-history__item {
+  display: inline-block;
 }

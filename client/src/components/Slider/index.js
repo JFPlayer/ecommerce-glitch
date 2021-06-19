@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, {Pagination, Navigation, Autoplay, EffectFade} from 'swiper';
+// import SwiperCore, {Pagination, Navigation, Autoplay, EffectFade, Zoom} from 'swiper';
 
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -8,16 +9,17 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/effect-fade/effect-fade.scss';
 import './Slider.scss'
 
-import banner1 from '../../assets/banner1.png'
-import banner2 from '../../assets/banner2.jpg'
-import banner3 from '../../assets/banner3.jpg'
-import banner4 from '../../assets/banner4.png'
+// import banner1 from '../../assets/banner1.png'
+// import banner2 from '../../assets/banner2.jpg'
+// import banner3 from '../../assets/banner3.jpg'
+// import banner4 from '../../assets/banner4.png'
 
-const banners = [banner1,banner2,banner3,banner4,]
+// const banners = [banner1,banner2,banner3,banner4,]
 
-SwiperCore.use([Pagination, Navigation, Autoplay, EffectFade]);
+// SwiperCore.use([Pagination, Navigation, Autoplay, EffectFade, Zoom]);
 
 const Slider = () => {
+  const { banners } = useSelector(state => state.global)
 
   // const [swiper, setSwiper] = useState({})
 
@@ -29,8 +31,10 @@ const Slider = () => {
         loop
         autoplay={{
           "delay": 3500,
-          "disableOnInteraction": false
+          "disableOnInteraction": false,
+          "pauseOnMouseEnter": true,
         }}
+        zoom={true}
         pagination={{clickable: true}}
         navigation={true}
         // onSlideChange={() => console.log('slide change')}
@@ -39,9 +43,9 @@ const Slider = () => {
         // onTransitionEnd={() => console.log('End')}
         effect="fade"
       >
-        {banners.map((banner, index) => (
-          <SwiperSlide key={index}>
-            <img src={banner} alt=""/>
+        {banners.map((banner) => (
+          <SwiperSlide key={banner._id}>
+            <img src={banner.URL} alt={banner._id}/>
           </SwiperSlide>
         ))}
       </Swiper>

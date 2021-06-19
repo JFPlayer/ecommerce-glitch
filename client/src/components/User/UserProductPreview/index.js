@@ -1,85 +1,99 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
 
 import './UserProductPreview.scss'
-import { AiFillStar } from 'react-icons/ai'
+import { AiFillStar, AiOutlineConsoleSql } from 'react-icons/ai'
 
 import InputText from '../../InputText'
 import ImageUserProducts, { ImageUserProductsNew } from '../ImageUserProducts'
 import Button from '../../Button'
 import UserDetailList from '../UserDetailList'
 
-import banner from '../../../assets/banner1.png'
+import imageDefault from '../../../assets/image-default.jpg'
+import banner1 from '../../../assets/banner1.png'
+import banner2 from '../../../assets/banner2.jpg'
+import banner3 from '../../../assets/banner3.jpg'
+import banner4 from '../../../assets/banner4.png'
 
-const categories = [
-  {
-    title: 'Celulares',
-    cod: '123154',
-    subcategories: [
-      {
-      title: 'Celularesy Smartphones',
-      cod: '5778'
-      },
-      {
-      title: 'SmartWatch',
-      cod: '65678'
-      },
-      {
-      title: 'Cargadores',
-      cod: '65678'
-      },
-    ]
-  },
-  {
-    title: 'Consolas y Videojuegos',
-    cod: '345',
-    subcategories: [
-      {
-      title: 'Playstation 4',
-      cod: '278'
-      },
-      {
-      title: 'Playstation 5',
-      cod: '354'
-      },
-      {
-      title: 'Xbox',
-      cod: '471'
-      },
-    ]
-  },
-  {
-    title: 'Informatica',
-    cod: '645',
-    subcategories: [
-      {
-      title: 'Notebook',
-      cod: '123'
-      },
-      {
-      title: 'Tablets',
-      cod: '682'
-      },
-      {
-      title: 'Teclados',
-      cod: '417'
-      },
-    ]
-  },
-]
+import { createProduct, updateProduct } from '../../../redux/productsDucks'
+
+const MAX_IMAGES = 5
 
 const UserProductPreview = () => {
-  const { handleSubmit, register, watch, formState: {errors} } = useForm()
+  const { handleSubmit, register, watch, formState: {errors}, reset , setValue} = useForm()
   const form = {register, watch, errors}
 
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const dispatch = useDispatch()
+  const { categories } = useSelector(state => state.categories)
+  const { onEdit } = useSelector(state => state.products)
 
-  const onSubmit = data => {
-    console.log(data)
+  const [subcategoryList, setSubcategoryList] = useState([])
+  const [imageSelected, setImageSelected] = useState('')
+  const [specs, setSpecs] = useState([])
+  
+  const [newImages, setNewImages] = useState([])
+  const [thumbs, setThumbs] = useState([])
+
+  // const imagenes = [...thumbs.map(image => image.URL), ...newImages.map(file => file.URL)]
+
+  useEffect(() => {
+    if(categories) {
+      // axios.get('/api/products/60c2b385d67c170a2a4198c6')
+      //   .then(({ data: {body} }) => {
+      //     const categoryFound = categories.find(category => category._id === body.category)
+      //     setSubcategoryList(categoryFound?.subcategories)
+      //     reset(body)
+      //     setSpecs(body.specs)
+      //     setThumbs(body.images)
+      //     setValue('category', body.category)
+      //     setValue('subcategory', body.subcategory)
+      //   })
+    }
+  }, [categories])
+
+  const onSubmit = (data) => {
+    // console.log(data, specs)
+    if(onEdit) {
+      dispatch(updateProduct('60c2b385d67c170a2a4198c6', thumbs, newImages.map(({file}) => file), {...data, specs: specs}))
+    }else {
+      dispatch(createProduct(newImages.map(({file}) => file), {...data, specs: specs}))
+    }
+    reset({})
+    setSpecs([])
+    setThumbs([])
+    newImages.forEach(({ file }) => URL.revokeObjectURL(file))
+    setNewImages([])
+    setImageSelected('')
   }
 
-  const handleChangeSelect = (event) => {
-    setSelectedCategory(event.target.selectedIndex - 1)
+  const handleSelectChange = (event) => {
+    const categoryFound = categories.find(category => category._id === event.target.value)
+    categoryFound ? setSubcategoryList(categoryFound.subcategories) : setSubcategoryList([])
+  }
+
+  const handleInputThumbChange = event => {
+    if (!event.target.files[0]) return;
+
+    const urlCreated = URL.createObjectURL(event.target.files[0])
+
+    setImageSelected(urlCreated)
+
+    setNewImages([...newImages, {
+      file: event.target.files[0],
+      URL: urlCreated
+    }])
+  }
+
+  const handleDeleteImage = (imageURL) => () => {
+    setThumbs(thumbs.filter(image => image.URL !== imageURL))
+    setNewImages(newImages.filter(file => {
+      if(file.URL !== imageURL) return true
+      setImageSelected('')
+      URL.revokeObjectURL(imageURL)
+      return;
+    }))
   }
   
   return (
@@ -94,83 +108,133 @@ const UserProductPreview = () => {
 
               <div className="user-pp__image-preview-container">
                 <div className="user-pp__image-preview">
-                    <img src={banner} alt=""/>
+                  <img src={imageSelected || imageDefault} alt=""/>
                 </div>
 
               </div>
 
               <div className="user-pp__image-thumbs">
-                <div className="user-pp__image-thumbs-item">
-                  <ImageUserProductsNew
-                    useForm={form}
-                  />
-                </div>
-                {[...new Array(5)].map((_, index) => (
+                {(newImages.length + thumbs.length) < MAX_IMAGES &&
+                  <div className="user-pp__image-thumbs-item">
+                    <ImageUserProductsNew
+                      onChange={handleInputThumbChange}
+                      name="image"
+                    />
+                  </div>
+                }
+                {[...thumbs.map(image => image.URL), ...newImages.map(file => file.URL)].map((URL, index) => (
                   <div className="user-pp__image-thumbs-item" key={index}>
-                    <ImageUserProducts/>
+                    <ImageUserProducts 
+                      src={URL}
+                      onClick={() => setImageSelected(URL)}
+                      onClickDelete={handleDeleteImage(URL, index)}
+                    />
                   </div>
                 ))}
               </div>
 
             </div>
 
-            <form className="user-pp__form" onSubmit={handleSubmit(onSubmit)}>
+            <form 
+              className="user-pp__form"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="user-pp__form-fields">
                 <InputText
+                  className="input-title"
                   useForm={form}
                   name="title"
                   labelText="Titulo"
+                  required
                 />
                 <InputText
+                  className="input-brand"
                   useForm={form}
                   name="brand"
                   labelText="Marca"
+                  required
                 />
                 <InputText
+                  className="input-sku"
                   useForm={form}
                   name="sku"
                   labelText="SKU"
                 />
                 <InputText
+                  className="input-price"
                   useForm={form}
                   name="price"
                   labelText="Precio"
-                />
+                  required
+                  />
                 <InputText
+                  className="input-discount"
                   useForm={form}
                   name="discount"
                   labelText="Descuento"
                 />
                 <InputText
+                  className="input-stock"
                   useForm={form}
                   name="stock"
                   labelText="Stock"
+                  required
                 />
 
                 <div className="user-pp__select">
-                  <select name="orderBy" onChange={handleChangeSelect}>
+                  <select 
+                    {...register('category', { required: true })}
+                    onChange={handleSelectChange}
+                    >
                     <option value=''>Categoria</option>
-                    {categories.map(({ title, cod }) => (
-                      <option value={cod} key={title}>{title}</option>
+                    {categories.map(({ title, _id }) => (
+                      <option 
+                      value={_id} 
+                      key={_id}
+                      >
+                        {title}
+                      </option>
                     ))}
                   </select>
                 </div>
                 <div className="user-pp__select">
-                  <select name="orderBy">
+                  <select 
+                    {...register('subcategory', { required: true })}
+                    >
                     <option value=''>Subcategoria</option>
-                    {categories[selectedCategory]?.subcategories.map(({ title, cod }) => (
-                      <option value={cod} key={title}>{title}</option>
+                    {subcategoryList?.map(({ title, _id }) => (
+                      <option 
+                      value={_id} 
+                      key={_id}
+                      >
+                        {title}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <InputText
+                  className="input-description"
                   type="textarea"
                   useForm={form}
                   name="description"
                   labelText="Descripción"
                 />
-                <UserDetailList/>
+
+                <UserDetailList 
+                  className="box-details"
+                  specs={specs} 
+                  setSpecs={setSpecs}
+                />
+
+                <InputText
+                  className="input-exposurePer"
+                  useForm={form}
+                  name="exposurePer"
+                  labelText="Exposición (1 - 10)"
+                  required
+                />
+
               </div>
               <div className="user-pp__rating">
                 <div className="user-pp__rating-title">
@@ -186,11 +250,12 @@ const UserProductPreview = () => {
                 </span>
               </div>
               <div className="user-pp__form-actions">
-                <Button>
+                <Button
+                >
                   Cancelar
                 </Button>
                 <Button
-                  type="sumbit"
+                  type="submit"
                   primary
                 >
                   Guardar

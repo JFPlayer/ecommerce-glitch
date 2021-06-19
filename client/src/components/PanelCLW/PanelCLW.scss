@@ -22,7 +22,7 @@
 }
 
 .panel-clw__header {
-  
+  border-bottom: solid 1px rgba(255,255,255,.1);
 }
 
 .panel-clw__tabs {
@@ -81,17 +81,14 @@
 
 .panel-footer__actions {
   display: flex;
+  gap: 10px;
+  padding: 0 10px;
 
-  > * {
-    width: auto;
-    margin: 10px;
+  > :nth-child(1) {
+    flex-basis: 120px;
   }
-
-  :nth-child(1) {
+  > :nth-child(2) {
     flex-grow: 1;
-  }
-  :nth-child(2) {
-    flex-grow: 3;
   }
 }
 

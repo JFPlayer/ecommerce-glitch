@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
 import './LoginBox.scss'
 import { MdClose } from 'react-icons/md'
@@ -14,24 +16,29 @@ import UserNav from '../User/UserNav'
 
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 
+import { signIn } from '../../redux/userDucks'
+
 const LoginBox = ({ toClose, positionX }) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm()
   const useFormObject = { register, errors, watch }
 
-  const [isLogin, setIsLogin] = useState(true)
+  const dispatch = useDispatch()
+  const { loggedIn } = useSelector(state => state.user)
 
+  const history = useHistory()
+  
   const isDesktop = useMediaQuery("(min-width: 800px)")
 
   const onSubmit = data => {
-    console.log(data)
+    dispatch(signIn(data))
   }
 
   return (
     <div 
-      className={`login ${isLogin ? 'is-login' : ''}`}
+      className={`login ${loggedIn ? 'is-login' : ''}`}
       onClick={e => e.stopPropagation()}
-      // style={{left: (isDesktop || isLogin) ? positionX : '', transform: 'translateX(-50%)'}}
-      style={(isDesktop || isLogin) ? {left: positionX, transform: 'translateX(-50%)'} : {}}
+      // style={{left: (isDesktop || loggedIn) ? positionX : '', transform: 'translateX(-50%)'}}
+      style={(isDesktop || loggedIn) ? {left: positionX, transform: 'translateX(-50%)'} : {}}
     >
       <div className="login__btn-close" onClick={toClose}>
         <MdClose/>
@@ -39,8 +46,8 @@ const LoginBox = ({ toClose, positionX }) => {
       
       <div className="login__container">
 
-        {isLogin ? 
-          <UserNav typeUser="admin"/>
+        {loggedIn ? 
+          <UserNav/>
         :
           <>
             <div className="login__logo-glitch">
@@ -87,13 +94,14 @@ const LoginBox = ({ toClose, positionX }) => {
               <p className="login__info">
                 ¿Eres nuevo? Registrate
               </p>
-              <Button>
+              <Button
+                onClick={() => history.push('/register')}
+              >
                 Crear una cuenta
               </Button>
             </div>
           </>
         }
-
 
       </div>
     </div>

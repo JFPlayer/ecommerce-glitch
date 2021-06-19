@@ -13,7 +13,7 @@ const UserProducts = () => {
       <UserProductPreview/>
 
       <div className="user-product__catalog">
-        <CatalogContent/>
+        <CatalogContent type="preview-edit"/>
       </div>
     </div>
   )

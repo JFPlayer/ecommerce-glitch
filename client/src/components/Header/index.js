@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 import "./Header.scss";
 import { IoIosArrowDown } from "react-icons/io";
@@ -13,7 +14,7 @@ import Logo from "../../assets/logo.svg";
 import LogoSmall from "../../assets/logo-small.svg";
 
 
-import { getCenter } from '../../utils'
+import { getCenter } from '../../utils/getCenter'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 import CategoryMenu from "../CategoryMenu";
@@ -25,6 +26,8 @@ const Header = () => {
   const isDesktop = useMediaQuery("(min-width: 800px)")
 
   const refLoginTitle = useRef()
+
+  const { loggedIn, userFirstName, userLastName } = useSelector(state => state.user)
 
   const [slideOutOpen, setSlideOutOpen] = useState('');
   const [positionXLogin, setPositionXLogin] = useState(0)
@@ -49,7 +52,7 @@ const Header = () => {
               <MdClose className="btn"/>
             }
             <span className="txt">
-              Categorias
+              categorias
               <IoIosArrowDown/>
             </span>
           </div>
@@ -73,7 +76,7 @@ const Header = () => {
           >
             <BiUser className="btn"/>
             <span className="txt">
-              Iniciar sesión
+              {loggedIn ? `Hola ${userFirstName}` : 'Iniciar sesión'}
               <BiUser />
             </span>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './CategoryMenu.scss'
 import { IoIosArrowForward } from 'react-icons/io'
@@ -151,17 +152,24 @@ const initialState = [
   },
 ]
 
-const CategoryMenu = () => {
+const CategoryMenu = ({ toClose }) => {
   const [selectedCategory, setSelectedCategory] = useState(null)
 
+  const { categories } = useSelector(state => state.categories)
+
+  const handleClick = event => {
+    event.stopPropagation()
+    if(event.target.nodeName === 'A') toClose()
+  }
+
   return (
-    <div className="category-menu" onClick={e => e.stopPropagation()}>
+    <div className="category-menu" onClick={handleClick}>
       <nav className="category-menu__container">
 
         <ul className="category-menu__list-container">
-          {initialState.map((category, index) => (
+          {categories.map((category, index) => (
             <li
-              key={category.title}
+              key={category._id}
               className="category-menu__list-item"
               onClick={() => {setSelectedCategory(index)}}
             >
@@ -173,15 +181,15 @@ const CategoryMenu = () => {
         {selectedCategory !== null && 
           <div className="category-menu__list-container subcategory">
             <Link 
-              to={initialState[selectedCategory].url} 
+              to={`/categories/${categories[selectedCategory]._id}`} 
               className="category-menu__list-item"
             >
-              Ver todo {initialState[selectedCategory].title}
+              Ver todo {categories[selectedCategory].title}
             </Link>
-            {initialState[selectedCategory].subcategories.map(subcategory => (
+            {categories[selectedCategory].subcategories.map(subcategory => (
               <Link
-                key={subcategory.title}
-                to={subcategory.url}
+                key={subcategory._id}
+                to={`/subcategories/${subcategory._id}`}
                 className="category-menu__list-item"
               >
                 {subcategory.title}
@@ -191,24 +199,24 @@ const CategoryMenu = () => {
           </div>
         }
 
-        {initialState.map(category => (
+        {categories.map(category => (
           <div 
             className="category-menu__list-container--desktop"
-            key={category.title}
+            key={category._id}
           >
             
             <Link
               className="category-menu__list-item--desktop title"
-              to={category.url}
+              to={`/categories/${category._id}`}
             >
               {category.title}
             </Link>
 
             {category.subcategories.map(subcategory => (
               <Link
-                key={subcategory.title}
+                key={subcategory._id}
                 className="category-menu__list-item--desktop"
-                to={subcategory.url}
+                to={`/subcategories/${subcategory._id}`}
               >
                 {subcategory.title}
               </Link>

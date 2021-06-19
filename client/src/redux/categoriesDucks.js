@@ -1,25 +1,29 @@
 import axios from 'axios'
 
+import { uploadImages } from '../utils/uploadImages'
+
 // action types
 const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
 const GET_CATEGORIES_ERROR = 'GET_CATEGORIES_ERROR'
 const GET_CATEGORIES_LOADING = 'GET_CATEGORIES_LOADING'
 
-const NEW_CATEGORY_SUCCESS = 'NEW_CATEGORY_SUCCESS'
-const NEW_CATEGORY_ERROR = 'NEW_CATEGORY_ERROR'
-const NEW_CATEGORY_LOADING = 'NEW_CATEGORY_LOADING'
+const CREATE_CATEGORY_SUCCESS = 'CREATE_CATEGORY_SUCCESS'
+const CREATE_CATEGORY_ERROR = 'CREATE_CATEGORY_ERROR'
+const CREATE_CATEGORY_LOADING = 'CREATE_CATEGORY_LOADING'
 
 const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS'
 const DELETE_CATEGORY_ERROR = 'DELETE_CATEGORY_ERROR'
 const DELETE_CATEGORY_LOADING = 'DELETE_CATEGORY_LOADING'
 
-const NEW_SUBCATEGORY_SUCCESS = 'NEW_SUBCATEGORY_SUCCESS'
-const NEW_SUBCATEGORY_ERROR = 'NEW_SUBCATEGORY_ERROR'
-const NEW_SUBCATEGORY_LOADING = 'NEW_SUBCATEGORY_LOADING'
+const CREATE_SUBCATEGORY_SUCCESS = 'CREATE_SUBCATEGORY_SUCCESS'
+const CREATE_SUBCATEGORY_ERROR = 'CREATE_SUBCATEGORY_ERROR'
+const CREATE_SUBCATEGORY_LOADING = 'CREATE_SUBCATEGORY_LOADING'
 
 const DELETE_SUBCATEGORY_SUCCESS = 'DELETE_SUBCATEGORY_SUCCESS'
 const DELETE_SUBCATEGORY_ERROR = 'DELETE_SUBCATEGORY_ERROR'
 const DELETE_SUBCATEGORY_LOADING = 'DELETE_SUBCATEGORY_LOADING'
+
+const UPDATE_CATEGORIES = 'UPDATE_CATEGORIES'
 
 // initialState
 const initialState = {
@@ -28,14 +32,14 @@ const initialState = {
   getCategoriesError: false,
   getCategoriesLoading: false,
 
-  newCategoryError: false,
-  newCategoryLoading: false,
+  createCategoryError: false,
+  createCategoryLoading: false,
 
   deleteCategoryError: false,
   deleteCategoryLoading: false,
 
-  newSubcategoryError: false,
-  newSubcategoryLoading: false,
+  createSubcategoryError: false,
+  createSubcategoryLoading: false,
   
   deleteSubcategoryError: false,
   deleteSubcategoryLoading: false,
@@ -65,22 +69,22 @@ export default (state = initialState, { type, payload}) => {
         ...state,
         getCategoriesLoading: true
       }
-    case NEW_CATEGORY_SUCCESS :
+    case CREATE_CATEGORY_SUCCESS :
       return {
         ...state,
         categories: [...state.categories, payload],
-        newCategoryLoading: false,
+        createCategoryLoading: false,
       }
-    case NEW_CATEGORY_ERROR :
+    case CREATE_CATEGORY_ERROR :
       return {
         ...state,
-        newCategoryError: payload,
-        newCategoryLoading: false,
+        createCategoryError: payload,
+        createCategoryLoading: false,
       }
-    case NEW_CATEGORY_LOADING :
+    case CREATE_CATEGORY_LOADING :
       return {
         ...state,
-        newCategoryLoading: true
+        createCategoryLoading: true
       }
     case DELETE_CATEGORY_SUCCESS :
       return {
@@ -99,24 +103,24 @@ export default (state = initialState, { type, payload}) => {
         ...state,
         deleteCategoryLoading: true,
       }
-    case NEW_SUBCATEGORY_SUCCESS :
+    case CREATE_SUBCATEGORY_SUCCESS :
       return {
         ...state,
         categories: state.categories.map((category, index) => {
           return index === payload.categoryIndex ? {...category, subcategories: [...category.subcategories, payload.subcategory]} : category
         }),
-        newSubcategoryLoading: false,
+        createSubcategoryLoading: false,
       }
-    case NEW_SUBCATEGORY_ERROR :
+    case CREATE_SUBCATEGORY_ERROR :
       return {
         ...state,
-        newSubcategoryError: payload,
-        newSubcategoryLoading: false,
+        createSubcategoryError: payload,
+        createSubcategoryLoading: false,
       }
-    case NEW_SUBCATEGORY_LOADING :
+    case CREATE_SUBCATEGORY_LOADING :
       return {
         ...state,
-        newSubcategoryLoading: true,
+        createSubcategoryLoading: true,
       }
     case DELETE_SUBCATEGORY_SUCCESS :
       return {
@@ -139,6 +143,11 @@ export default (state = initialState, { type, payload}) => {
       return {
         ...state,
         deleteSubcategoryLoading: true,
+      }
+    case UPDATE_CATEGORIES :
+      return {
+        ...state,
+        categories: payload,
       }
 
     default:
@@ -165,9 +174,9 @@ export const getCategories = () => (dispatch) => {
       }))
 }
 
-export const newCategory = (title) => (dispatch) => {
+export const createCategory = (title) => (dispatch) => {
   dispatch({
-    type: 'NEW_CATEGORY_LOADING',
+    type: 'CREATE_CATEGORY_LOADING',
   })
 
   axios.post('/api/categories', { title: title })
@@ -175,14 +184,14 @@ export const newCategory = (title) => (dispatch) => {
       console.log(response.data)
       if(!response.data.error){
         dispatch({
-          type: 'NEW_CATEGORY_SUCCESS',
+          type: 'CREATE_CATEGORY_SUCCESS',
           payload: response.data.body,
         })
       }
 
       })
       .catch((error) => dispatch({
-        type: 'NEW_CATEGORY_ERROR',
+        type: 'CREATE_CATEGORY_ERROR',
         payload: error,
       }))
 }
@@ -207,9 +216,9 @@ export const deleteCategory = (categoryIndex, categoryId) => (dispatch) => {
     }))
 }
 
-export const newSubcategory = (categoryIndex, title) => (dispatch, getState) => {
+export const createSubcategory = (categoryIndex, title) => (dispatch, getState) => {
   dispatch({
-    type: 'NEW_SUBCATEGORY_LOADING'
+    type: 'CREATE_SUBCATEGORY_LOADING'
   })
   
   const selectedCategory = getState().categories.categories[categoryIndex]
@@ -218,13 +227,13 @@ export const newSubcategory = (categoryIndex, title) => (dispatch, getState) => 
     .then(response => {
       if(!response.data.error) {
         dispatch({
-          type: 'NEW_SUBCATEGORY_SUCCESS',
+          type: 'CREATE_SUBCATEGORY_SUCCESS',
           payload: { categoryIndex, subcategory: response.data.body }
         })
       }
     })
     .catch(error => dispatch({
-      type: 'NEW_SUBCATEGORY_ERROR',
+      type: 'CREATE_SUBCATEGORY_ERROR',
       payload: error,
     }))
 }
@@ -246,7 +255,42 @@ export const deleteSubcategory = (categoryIndex, subcategoryIndex, subcategoryId
     .catch(error => dispatch({
       type: 'DELETE_SUBCATEGORY_ERROR',
       payload: error
-    }))
+    }))  
+}
+
+export const createBanner = (file, categoryId) => async (dispatch, getState) => {
+  const { categories } = getState().categories
   
+  const images = await uploadImages([file])
+
+  axios.put(`/api/categories/${categoryId}`, { image: images[0] })
+    .then(({data}) => {
+      const updatedCategories = categories.map(category => {
+        if(category._id !== categoryId) return category
+        return data.body
+      })
+      dispatch({
+        type: 'UPDATE_CATEGORIES',
+        payload: updatedCategories
+      })
+    })
+  }
   
+  export const deleteBanner = (categoryId) => (dispatch, getState) => {
+    const { categories } = getState().categories
+
+    axios.put(`/api/categories/${categoryId}`, { image: null })
+    .then(({ data }) => {
+      const updatedCategories = categories.map(category => {
+        if(category._id !== categoryId) return category
+        return {
+          ...category,
+          image: null
+        }
+      })
+      dispatch({
+        type: 'UPDATE_CATEGORIES',
+        payload: updatedCategories
+      })
+    })
 }

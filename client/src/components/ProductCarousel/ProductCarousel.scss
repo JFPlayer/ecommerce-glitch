@@ -1,8 +1,8 @@
 @import '../../sass/variables';
 
 .product-carousel {
-  width: calc((100vw - 45px)/ 2);
   position: relative;
+  // width: calc((100vw - 45px)/ 2);
   // padding-bottom: 10px;
   
   &::before, 
@@ -23,8 +23,6 @@
   &::after {
     width: calc( 100% - 4px );
     height: calc( 100% - 4px );
-    // width: 100%;
-    // height: 100%;
     top: 2px;
     left: 2px;
     background-color: $color-gray80;
@@ -34,14 +32,14 @@
   &:hover:before{
     background-image: linear-gradient(to top, $color-violet, $color-pink);
   }
-  @include mqTablet {
-    width: calc((100vw - 60px)/ 3);
-  }
+  // @include mqTablet {
+  //   width: calc((100vw - 60px)/ 3);
+  // }
   
-  @include mqDesktop {
-    width: calc((90vw - 60px) / 5);
-    max-width: calc((1200px - 60px) / 5);
-  }
+  // @include mqDesktop {
+  //   width: calc((90vw - 60px) / 5);
+  //   max-width: calc((1200px - 60px) / 5);
+  // }
 }
 
 .product-carousel-content {
@@ -51,7 +49,7 @@
   width: calc( 100% - 4px );
   height: calc( 100% - 4px );
   padding: 5px;
-
+  cursor: pointer;
 }
 
 .product-carousel__image {
@@ -85,19 +83,19 @@
   padding: 5px;
 }
 
-.product-carousel__image-favorite {
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  color: $color-red;
+// .product-carousel__image-favorite {
+//   top: 0;
+//   right: 0;
+//   width: 40px;
+//   height: 40px;
+//   color: $color-red;
 
-  svg {
-    padding: 6px;
-    width: 100%;
-    height: 100%;
-  }
-}
+//   svg {
+//     padding: 6px;
+//     width: 100%;
+//     height: 100%;
+//   }
+// }
 
 .product-carousel__title {
   height: calc(2.5 * 1.7rem);

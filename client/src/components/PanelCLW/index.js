@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
 
 import './PanelCLW.scss'
 import { FaHeart } from 'react-icons/fa'
@@ -8,21 +10,45 @@ import PanelCartProduct from './PanelCartProduct'
 import PanelWishListProduct from './PanelWishListProduct'
 import Button from '../Button'
 
+import { updateWishListCart } from '../../redux/userDucks'
+import { toMoney } from '../../utils/toMoney'
+
 const PanelCLW = ({ toClose }) => {
   const [isSelectedCart, setIsSelectedCart] = useState(true)
+
+  const dispatch = useDispatch()
+  const {cart, wishList, subTotal, discount, total} = useSelector(state => state.user)
+
+  const { register, handleSubmit, watch, reset } = useForm()
+  const form = {register, watch}
+
+  const addToCart = data => {
+    const productsIdToWishList = Object.keys(data).filter((key) => !data[key])
+    const productsIdToCart = []
+    wishList.forEach((product) => {
+      if(!productsIdToWishList.includes(product._id)) {
+        productsIdToCart.push(product._id)
+      }
+    })
+    
+    if(productsIdToCart.length) {
+      dispatch(updateWishListCart(productsIdToWishList, productsIdToCart))
+    }
+    reset()
+  }
 
   return (
     <div className="panel-clw" onClick={e => e.stopPropagation()}>
 
       <div className="panel-clw__header">
         <div className="panel-clw__tabs">
-          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(true)}>
-            <FaHeart/>
-            Favoritos
-          </button>
-          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(false)} >
+          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(true)} >
             <RiShoppingCartFill/>
             Carrito
+          </button>
+          <button className="panel-clw__tabs-btn" onClick={() => setIsSelectedCart(false)}>
+            <FaHeart/>
+            Favoritos
           </button>
         </div>
         <div className={`panel-clw__tabs-line ${!isSelectedCart ? 'right' : ''}`}></div>
@@ -31,14 +57,21 @@ const PanelCLW = ({ toClose }) => {
       <div className="panel-clw__body">
         {isSelectedCart ?
           <>
-            {[...new Array(7)].map(() => (
-              <PanelCartProduct/>
-            ))}
+            {cart.map(({ quantity, productId }) => 
+              <PanelCartProduct
+                key={productId._id}
+                product={{quantity, ...productId}}
+              />
+            )}
           </>
         :
           <>
-            {[...new Array(7)].map(() => (
-              <PanelWishListProduct/>
+            {wishList.map((product) => (
+              <PanelWishListProduct
+                key={product._id}
+                product={product}
+                useForm={form}
+              />
             ))}
           </>
         }
@@ -50,29 +83,52 @@ const PanelCLW = ({ toClose }) => {
             <div className="panel-footer__summary">
               <div className="panel-footer__summary-row">
                 <span>Subtotal</span>
-                <span>$ 80.500</span>
+                <span>
+                  {toMoney(subTotal)}
+                </span>
               </div>
               <div className="panel-footer__summary-row">
                 <span>Descuento</span>
-                <span>- $ 5.500</span>
+                <span>
+                  {`- ${toMoney(discount)}`}
+                </span>
               </div>
               <div className="panel-footer__summary-row">
                 <span>Total</span>
-                <span>$ 75.000</span>
+                <span>
+                  {toMoney(total)}
+                </span>
               </div>
             </div>
 
             <div className="panel-footer__actions">
-              <Button onClick={toClose} >Cerrar</Button>
-              <Button primary>Ir al carrito</Button>
+              <Button 
+                onClick={toClose}
+              >
+                Cerrar
+              </Button>
+              <Button 
+                primary
+              >
+                Ir al carrito
+              </Button>
             </div>
           </>
 
         :
 
           <div className="panel-footer__actions">
-            <Button onClick={toClose} >Cerrar</Button>
-            <Button primary>Agregar al carrito</Button>
+            <Button 
+              onClick={toClose}
+            >
+              Cerrar
+            </Button>
+            <Button
+              onClick={handleSubmit(addToCart)}
+              primary
+            >
+              Agregar al carrito
+            </Button>
           </div>
         }
       </div>

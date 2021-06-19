@@ -1,33 +1,57 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import './ProductCarousel.scss'
 import { FaHeart } from 'react-icons/fa'
 
 import notebook from '../../assets/notebook.png'
 
-const ProductCarousel = () => {
+import { toMoney } from '../../utils/toMoney'
+
+import { setSelectedProduct } from '../../redux/productsDucks'
+
+const ProductCarousel = ({ product }) => {
+  const history = useHistory()
+
+  const dispatch = useDispatch()
+
+  const goToProduct = () => {
+    dispatch(setSelectedProduct(product))
+    history.push(`/products/${product._id}`)
+  }
+
   return (
     <div className="product-carousel">
-      <div className="product-carousel-content">
+      <div 
+        className="product-carousel-content"
+        onClick={goToProduct}
+      >
         <div className="product-carousel__image">
-          <img src={notebook} alt="" className=""/>
-          <button className="product-carousel__image-favorite">
+          <img src={product.images[0].URL} alt="" className=""/>
+          {/* <button className="product-carousel__image-favorite">
             <FaHeart/>
-          </button>
+          </button> */}
         </div>
 
-        <div className="product-carousel__image-price-off">
-          15% OFF
-        </div>
+        {product.discount &&
+          <div className="product-carousel__image-price-off">
+            {`${product.discount}% OFF`}
+          </div>
+        }
 
         <div className="product-carousel__title">
           <div className="product-carousel__title-content">
-            Hp 255 G7 Athlon 3150U 8Gb 1Tb 15.6"
+            {product.title}
           </div>
         </div>
         <div className="product-carousel__price-section">
-          <div className="product-carousel__price-off">$ 90.500</div>
-          <div className="product-carousel__price">$ 85.500</div>
+          <div className="product-carousel__price-off">
+            {toMoney(((100 - product.discount) / 100) * product.price)}
+          </div>
+          <div className="product-carousel__price">
+            {toMoney(product.price)}
+          </div>
         </div>
 
       </div>

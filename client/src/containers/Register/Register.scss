@@ -1,0 +1,76 @@
+@import '../../sass/variables';
+
+.register {
+  position: fixed;
+  z-index: 1500;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  
+  display: flex;
+  align-items: center;
+  background-color: $color-gray80;
+
+}
+
+.register__container {
+  width: 70%;
+  max-width: 400px;
+  margin: auto;
+  // padding: 30px;
+  // border: solid 2px $color-black;
+  
+}
+
+.register__title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: $color-gray10;
+  margin-bottom: 15px;
+  position: relative;
+  width: max-content;
+  
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    z-index: -1;
+    bottom: -2px;
+    left: 0;
+    height: 4px;
+    background-image: linear-gradient(to right, $color-pink, $color-blue);
+  }
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register__actions {
+  display: flex;
+  gap: 30px;
+}
+
+.register__btn {
+  margin-top: 15px;
+}
+
+.register__sign-in {
+  text-align: center;
+  padding: 15px;
+  color: $color-gray10;
+  font-size: $fsize-medium;
+  
+  a {
+    margin-left: 5px;
+    color: $color-green
+  }
+  
+  @include mqTablet {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

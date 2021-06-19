@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 import './FilterBox.scss'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -8,14 +7,8 @@ import Checkbox from '../Checkbox'
 
 const marcas = ['samsung', 'xiaomi', 'apple', 'motorola', 'lg', 'alcatel']
 
-const FilterBox = ({ children, title }) => {
+const FilterBox = ({ children, title, useForm, items }) => {
   const [isOpen, setIsOpen] = useState(false)
-
-  const { register, handleSubmit, watch } = useForm()
-  const form = {
-    register,
-    watch
-  }
 
   return (
     <div className={`filter-box ${isOpen ? 'open' : ''}`}>
@@ -26,19 +19,20 @@ const FilterBox = ({ children, title }) => {
       </div>
 
       <div className='filter-box__content'>
-        {!children ? 
-          marcas.map(item => (
+        {/* {!children ? 
+          items.map(item => (
             <div className="filter-box__item" key={item}>
               <Checkbox
-                useForm={form}
+                useForm={useForm}
                 labelText={item}
-                name={item}
+                name={`${title}-${item}`}
               />
             </div>
           ))
         :
           (children)
-        }
+        } */}
+        {children}
       </div>
     </div>
   )

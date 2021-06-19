@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './Home.scss'
 import { FaCreditCard, FaTruck } from 'react-icons/fa'
@@ -15,7 +16,23 @@ import categories4 from '../../assets/categories_4.png'
 import Slider from '../../components/Slider'
 import ProductListHome from '../../components/ProductListHome'
 
+import { getBanners } from '../../redux/globalDucks'
+import { getProductsHotSale, getProductsBestSeller, getProductsSuggested } from '../../redux/productsDucks'
+
 const Home = () => {
+  const dispatch = useDispatch()
+  const { banners } = useSelector(state => state.global)
+  const { productsHotSale, productsBestSeller, productsSuggested } = useSelector(state => state.products)
+
+  useEffect(() => {
+    if(!banners.length) dispatch(getBanners())
+    
+    if(!productsHotSale.length) dispatch(getProductsHotSale())
+    if(!productsBestSeller.length) dispatch(getProductsBestSeller())
+    if(!productsSuggested.length) dispatch(getProductsSuggested())
+
+  }, [])
+
   return (
     <>
       <Slider />
@@ -116,9 +133,17 @@ const Home = () => {
         </div>
       </div>
 
-      <ProductListHome/>
-      <ProductListHome title="lo mas vendido"/>
-      <ProductListHome title="recomendado"/>
+      <ProductListHome
+        products={productsHotSale}
+      />
+      <ProductListHome 
+        products={productsBestSeller}
+        title="lo mas vendido"
+      />
+      <ProductListHome 
+        products={productsSuggested}
+        title="recomendado"
+      />
 
     </>
   )
