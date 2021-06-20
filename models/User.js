@@ -11,8 +11,7 @@ const userSchema = new Schema({
     required: true,
   },
   DNI: {
-    type: String,
-    required: true,
+    type: String
   },
   email: {
     type: String,

@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const app = express();
+const path = require('path');
 
 const productsRoutes = require('./routes/api/products.routes');
 const filesRoutes = require('./routes/api/files.routes');
@@ -23,7 +24,10 @@ app.use('/api/auth', authRoutes)
 app.use('/api/ads', adsRoutes)
 app.use('/api/users', usersRoutes)
 
-app.use("/", express.static("./client/dist"));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 module.exports = app;

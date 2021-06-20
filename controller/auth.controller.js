@@ -36,6 +36,7 @@ exports.signUp = async (req, res) => {
 
     response.success(res, 201, { ...data, accessToken})
   } catch (error) {
+    console.error(error)
     response.error(res, 503)
   }
 }

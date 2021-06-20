@@ -58,10 +58,8 @@ const App = () => {
           <Route exact path="/categories/:id" render={() => <Catalog type="category"/>} />
           <Route exact path="/subcategories/:id" render={() => <Catalog type="subcategory"/>} />
           <Route exact path="/products/:productId" component={Product} />
-          {/* <Route exact path="/purchase-process" render={() => loggedIn ? <Purchase/> : <Redirect to="/"/>} /> */}
-          <Route exact path="/purchase-process" render={() => <Purchase/>} />
-          {/* <Route path="/user" render={() => loggedIn ? <User/> : <Redirect to="/"/>}/> */}
-          <Route path="/user" render={() => <User/>}/>
+          <Route exact path="/purchase-process" render={() => loggedIn ? <Purchase/> : <Redirect to="/"/>} />
+          <Route path="/user" render={() => loggedIn ? <User/> : <Redirect to="/"/>}/>
           {/* <Route component={NotFound} /> */}
         </Switch>
       </Layout>
