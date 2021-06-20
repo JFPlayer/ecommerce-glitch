@@ -20,7 +20,8 @@ const User = () => {
         <Route exact path="/user" component={UserPerfil}/>
         <Route exact path="/user/history" component={UserHistory}/>
         <Route exact path="/user/ads" render={() => userRole === 'admin' ? <UserAds/> : <Redirect to="/"/>}/>
-        <Route exact path="/user/products" render={() => userRole === 'admin' ? <UserProducts/> : <Redirect to="/"/>}/>
+        <Route exact path="/user/products" render={() => <UserProducts/>}/>
+        {/* <Route exact path="/user/products" render={() => userRole === 'admin' ? <UserProducts/> : <Redirect to="/"/>}/> */}
         <Route exact path="/user/categories" render={() => userRole === 'admin' ? <UserCategories/> : <Redirect to="/"/>}/>
         <Route component={() => <Redirect to="/"/>}/>
       </Switch>

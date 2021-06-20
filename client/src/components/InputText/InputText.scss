@@ -3,27 +3,37 @@
 .input-text {
   width: 100%;
   margin-top: 10px;
+
+  &.light {
+
+    .input-text__container {
+      border: solid 2px $color-gray30;
+    }
+    .input-text__label {
+      color: $color-violet;
+      background-color: $color-white;
+    }
+    .input-text__field {
+      color: $color-gray80;
+    }
+  }
+
+  &.error {
+
+    .input-text__container {
+      border: solid 2px $color-red !important;
+    }
+  }
 }
 
 .input-text__container {
   height: 36px;
   position: relative;
-  // background-color: $color-gray80;
   border: solid 2px $color-gray10;
 
   &.textarea {
     height: 100%;
   }
-}
-
-.input-text.input-text.light
-.input-text__container {
-  border: solid 2px $color-gray30;
-}
-
-.input-text.error
-.input-text__container {
-  border: solid 2px $color-red;
 }
 
 .input-text__label {
@@ -37,16 +47,6 @@
   margin-left: 3px;
   top: 16px;
   transform: translateY(-50%);
-
-  &.textarea {
-
-  }
-}
-
-.input-text.light
-.input-text__label {
-  color: $color-violet;
-  background-color: $color-white;
 }
 
 .input-text__field {
@@ -63,12 +63,6 @@
     border: none;
     font-family: 'Play';
   }
-}
-
-.input-text.light
-.input-text__field {
-  color: $color-gray80;
-  
 }
 
 .input-text__error {

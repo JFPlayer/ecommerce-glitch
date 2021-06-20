@@ -16,6 +16,9 @@ const SET_BILL = 'SET_BILL'
 const SET_PURCHASE_PROCESS_STEP = 'SET_PURCHASE_PROCESS_STEP'
 const UPDATE_PERFIL = 'UPDATE_PERFIL'
 const UPDATE_ADDRESS = 'UPDATE_ADDRESS'
+const SET_PURCHASE_PERFIL = 'SET_PURCHASE_PERFIL'
+const SET_PURCHASE_ADDRESS = 'SET_PURCHASE_ADDRESS'
+const SET_PURCHASE_PAY = 'SET_PURCHASE_PAY'
 
 // initialState
 const initialState = {
@@ -44,6 +47,9 @@ const initialState = {
   discount: 0,
   total: 0,
   purchaseProcessStep : 0,
+  purchasePerfil: {},
+  purchaseAddress: {},
+  purchasePay: '',
 }
 
 
@@ -149,6 +155,21 @@ export default (state = initialState, { type, payload}) => {
         userCity: payload.city,
         userZipCode: payload.zipCode,
         userNum: payload.num,
+      }
+    case SET_PURCHASE_PERFIL :
+      return {
+        ...state,
+        purchasePerfil: payload
+      }
+    case SET_PURCHASE_ADDRESS :
+      return {
+        ...state,
+        purchaseAddress: payload
+      }
+    case SET_PURCHASE_PAY :
+      return {
+        ...state,
+        purchasePay: payload
       }
     
     default:
@@ -371,15 +392,15 @@ export const whoAmI = () => (dispatch) => {
   axios.get('/api/auth/whoami')
   .then(({ data }) => {
     // hacer peticion a refreshToken cada 10min
-    console.log('whoamI')
-    console.log(data.body)
+    // console.log('whoamI')
+    // console.log(data.body)
     dispatch(setUser(data.body))
     
     dispatch(setCart(data.body.cart.products))
     dispatch(setWishList(data.body.wishList.productId))
   })
   .catch(error => {
-    console.log('error en whoAmI', error)
+    // console.log('error en whoAmI', error)
   })
 }
 
@@ -402,7 +423,7 @@ export const setAuthorizationHeader = () => (dispatch, getState) => {
   if(accessToken) {
     const interceptor = axios.interceptors.request.use(config => {
       config.headers.Authorization = `Bearer ${accessToken}`
-      console.log(config)
+      // console.log(config)
       return config
     })
     dispatch({
@@ -426,7 +447,7 @@ export const updatePerfil = (data) => (dispatch) => {
 
   axios.put('/api/users', data)
     .then(({ data }) => {
-      console.log(data.body)
+      // console.log(data.body)
       dispatch({
         type: 'UPDATE_PERFIL',
         payload : {
@@ -443,7 +464,7 @@ export const updateAddress = (data) => (dispatch) => {
 
   axios.put('/api/users', { address : data})
     .then(({ data }) => {
-      console.log(data.body)
+      // console.log(data.body)
       dispatch({
         type: 'UPDATE_ADDRESS',
         payload : {
@@ -462,6 +483,30 @@ export const updatePassword = (data) => (dispatch) => {
 
   axios.put('/api/users', { password : data})
     .then(({ data }) => {
-      console.log('termino')
+      // console.log('termino')
     })
+}
+
+export const setPurchasePerfil = (userPerfil) => (dispatch) => {
+  
+  dispatch({
+    type: 'SET_PURCHASE_PERFIL',
+    payload: userPerfil
+  })
+}
+
+export const setPurchaseAddress = (userAddress) => (dispatch) => {
+  
+  dispatch({
+    type: 'SET_PURCHASE_ADDRESS',
+    payload: userAddress
+  })
+}
+
+export const setPurchasePay = (userPay) => (dispatch) => {
+
+  dispatch({
+    type: 'SET_PURCHASE_PAY',
+    payload: userPay
+  })
 }

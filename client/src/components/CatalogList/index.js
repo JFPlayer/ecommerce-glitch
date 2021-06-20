@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 import './CatalogList.scss'
 
@@ -11,9 +12,15 @@ const CatalogList = () => {
   const dispatch = useDispatch()
   const { products, limit, page, orderBy, paginate, populate, category, subcategory, filterByBrand } = useSelector(state => state.products)
 
+  const location = useLocation()
+
   useEffect(() => {
-    if(category || subcategory) {
+    if(location.pathname === '/user/products') {
       dispatch(getProductsCatalog())
+    }else {
+      if(category || subcategory) {
+        dispatch(getProductsCatalog())
+      }
     }
   }, [limit,page, orderBy, category, subcategory, filterByBrand, paginate, populate])
 

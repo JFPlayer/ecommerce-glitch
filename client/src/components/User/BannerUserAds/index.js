@@ -6,8 +6,6 @@ import './BannerUserAds.scss'
 import { BiCloudUpload } from 'react-icons/bi'
 import { TiDelete } from 'react-icons/ti'
 
-import banner from '../../../assets/banner1.png'
-
 import { createBanner, deleteBanner } from '../../../redux/categoriesDucks'
 import { createSlider, deleteSlider } from '../../../redux/globalDucks'
 
@@ -24,7 +22,7 @@ const BannerUserAds = ({ src, title, id, type }) => {
   
   return (
     <div className="banner-ua">
-      <img src={src || banner} alt=""/>
+      <img src={src} alt={title}/>
       {title && 
         <div className="banner-ua__title">
           {title}

@@ -23,5 +23,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/ads', adsRoutes)
 app.use('/api/users', usersRoutes)
 
+app.use("/", express.static("./client/dist"));
+
 
 module.exports = app;

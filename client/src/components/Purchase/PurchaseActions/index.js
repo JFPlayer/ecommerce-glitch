@@ -1,29 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import './PurchaseActions.scss'
 import { IoIosArrowBack } from 'react-icons/io'
 
 import Button from '../../../components/Button'
 
-const PurchaseActions = ({ className }) => {
-  const purchaseProcessStep = useSelector(state => state.user.purchaseProcessStep)
+const PurchaseActions = ({ className, goToStep, action }) => {
   const dispatch = useDispatch()
 
   const changeStep = () => {
-    if(purchaseProcessStep < 3)
-    dispatch({
-      type: 'SET_PURCHASE_PROCESS_STEP',
-      payload: purchaseProcessStep + 1
-    })
+    if(goToStep) {
+      dispatch({
+        type: 'SET_PURCHASE_PROCESS_STEP',
+        payload: goToStep
+      })
+    }
   }
 
   return (
     <div className={`purchase__actions ${className}`}>
       <Button
         primary
-        onClick={changeStep}
+        onClick={() => action ? action() : changeStep()}
       >
         Continuar con la compra
       </Button>

@@ -3,9 +3,6 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import './ProductCarousel.scss'
-import { FaHeart } from 'react-icons/fa'
-
-import notebook from '../../assets/notebook.png'
 
 import { toMoney } from '../../utils/toMoney'
 

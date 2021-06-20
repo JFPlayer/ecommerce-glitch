@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
 
 import './UserProductPreview.scss'
-import { AiFillStar, AiOutlineConsoleSql } from 'react-icons/ai'
+import { AiFillStar } from 'react-icons/ai'
 
 import InputText from '../../InputText'
 import ImageUserProducts, { ImageUserProductsNew } from '../ImageUserProducts'
@@ -12,12 +11,8 @@ import Button from '../../Button'
 import UserDetailList from '../UserDetailList'
 
 import imageDefault from '../../../assets/image-default.jpg'
-import banner1 from '../../../assets/banner1.png'
-import banner2 from '../../../assets/banner2.jpg'
-import banner3 from '../../../assets/banner3.jpg'
-import banner4 from '../../../assets/banner4.png'
 
-import { createProduct, updateProduct } from '../../../redux/productsDucks'
+import { createProduct, updateProduct, setSelectedProduct, setEditState } from '../../../redux/productsDucks'
 
 const MAX_IMAGES = 5
 
@@ -27,7 +22,7 @@ const UserProductPreview = () => {
 
   const dispatch = useDispatch()
   const { categories } = useSelector(state => state.categories)
-  const { onEdit } = useSelector(state => state.products)
+  const { onEdit, selectedProduct } = useSelector(state => state.products)
 
   const [subcategoryList, setSubcategoryList] = useState([])
   const [imageSelected, setImageSelected] = useState('')
@@ -39,19 +34,25 @@ const UserProductPreview = () => {
   // const imagenes = [...thumbs.map(image => image.URL), ...newImages.map(file => file.URL)]
 
   useEffect(() => {
-    if(categories) {
-      // axios.get('/api/products/60c2b385d67c170a2a4198c6')
-      //   .then(({ data: {body} }) => {
-      //     const categoryFound = categories.find(category => category._id === body.category)
-      //     setSubcategoryList(categoryFound?.subcategories)
-      //     reset(body)
-      //     setSpecs(body.specs)
-      //     setThumbs(body.images)
-      //     setValue('category', body.category)
-      //     setValue('subcategory', body.subcategory)
-      //   })
-    }
-  }, [categories])
+    if(selectedProduct.title) {
+      const categoryFound = categories.find(category => category._id === selectedProduct.category._id)
+      setSubcategoryList(categoryFound.subcategories)
+      setThumbs(selectedProduct.images)
+      setSpecs(selectedProduct.specs)
+      reset({
+        title: selectedProduct.title,
+        brand: selectedProduct.brand,
+        sku: selectedProduct.sku,
+        price: selectedProduct.price,
+        discount: selectedProduct.discount,
+        stock: selectedProduct.stock,
+        description: selectedProduct.description,
+        exposurePer: selectedProduct.exposurePer,
+        category: selectedProduct.category._id,
+        subcategory: selectedProduct.subcategory._id,
+      })
+  }
+  }, [selectedProduct])
 
   const onSubmit = (data) => {
     // console.log(data, specs)
@@ -60,6 +61,10 @@ const UserProductPreview = () => {
     }else {
       dispatch(createProduct(newImages.map(({file}) => file), {...data, specs: specs}))
     }
+    cleanValues()
+  }
+  
+  const cleanValues = () => {
     reset({})
     setSpecs([])
     setThumbs([])
@@ -94,6 +99,12 @@ const UserProductPreview = () => {
       URL.revokeObjectURL(imageURL)
       return;
     }))
+  }
+
+  const cancelEdit = () => {
+    dispatch(setSelectedProduct({}))
+    dispatch(setEditState(false))
+    cleanValues()
   }
   
   return (
@@ -251,6 +262,7 @@ const UserProductPreview = () => {
               </div>
               <div className="user-pp__form-actions">
                 <Button
+                  onClick={cancelEdit}
                 >
                   Cancelar
                 </Button>

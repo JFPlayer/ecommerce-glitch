@@ -1,24 +1,29 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import './ProductCatalog.scss'
-import { FaHeart } from 'react-icons/fa'
 import { AiFillStar } from 'react-icons/ai'
 
-import notebook from '../../assets/notebook.png'
 
 import { toMoney } from '../../utils/toMoney'
-import { setSelectedProduct } from '../../redux/productsDucks'
+import { setSelectedProduct, setEditState } from '../../redux/productsDucks'
 
 const ProductCatalog = ({ product }) => {
   const history = useHistory()
+  const location = useLocation()
 
   const dispatch = useDispatch()
 
   const handleClick = () => {
     dispatch(setSelectedProduct(product))
     history.push(`/products/${product._id}`)
+  }
+
+  const editProduct = (event) => {
+    event.stopPropagation()
+    dispatch(setSelectedProduct(product))
+    dispatch(setEditState(true))
   }
 
   return (
@@ -32,9 +37,14 @@ const ProductCatalog = ({ product }) => {
               {`${product.discount}% OFF`}
             </div>
           }
-          {/* <div className="product-catalog__favorite">
-            <FaHeart/>
-          </div> */}
+          {location.pathname === '/user/products' && 
+            <div 
+              onClick={editProduct}
+              className="product-catalog__edit"
+            >
+              Editar
+            </div>
+          }
         </div>
 
         <div className="product-catalog__description">

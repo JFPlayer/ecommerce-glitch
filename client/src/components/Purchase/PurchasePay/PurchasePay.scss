@@ -35,3 +35,17 @@
     margin-left: 10px;
   }
 }
+
+.purchase-pay__btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: $fsize-medium;
+  
+
+  button {
+    width: 100px;
+  }
+}

@@ -5,6 +5,8 @@ import { uploadImages } from "../utils/uploadImages";
 // action types
 const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
 
+const SET_EDIT = "SET_EDIT";
+
 const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 const CREATE_PRODUCT_ERROR = "CREATE_PRODUCT_ERROR";
 const CREATE_PRODUCT_LOADING = "CREATE_PRODUCT_LOADING";
@@ -58,6 +60,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         selectedProduct: payload,
+      };
+    case SET_EDIT:
+      return {
+        ...state,
+        onEdit: payload,
       };
     case GET_PRODUCTS:
       return {
@@ -128,6 +135,13 @@ export default (state = initialState, { type, payload }) => {
 };
 
 //actions
+export const setEditState = (onEdit) => {
+  return {
+    type:'SET_EDIT',
+    payload: onEdit
+  }
+}
+
 export const setSelectedProduct = (product) => (dispatch) => {
   dispatch({
     type: "SET_NAVIGATION",

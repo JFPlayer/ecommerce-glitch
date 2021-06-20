@@ -64,7 +64,9 @@ const PurchaseCart = () => {
         </div>
       </div>
       <div className="purchase-cart__actions">
-        <PurchaseActions/>
+        <PurchaseActions
+          goToStep={1}
+        />
       </div>
     </div>
   )
