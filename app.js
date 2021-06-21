@@ -7,7 +7,7 @@ const path = require('path');
 const filesRoutes = require('./routes/api/files.routes');
 const productsRoutes = require('./routes/api/products.routes');
 const categoriesRoutes = require('./routes/api/categories.routes');
-const otro = require('./routes/api/otro.routes');
+const subcat = require('./routes/api/subcat.routes');
 const authRoutes = require('./routes/api/auth.routes');
 const adsRoutes = require('./routes/api/ads.routes');
 const usersRoutes = require('./routes/api/users.routes');
@@ -22,7 +22,7 @@ app.use('/api/categories', categoriesRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/ads', adsRoutes)
 app.use('/api/users', usersRoutes)
-app.use('/api/subcategories', otro)
+app.use('/api/subcategories', subcat)
 
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
