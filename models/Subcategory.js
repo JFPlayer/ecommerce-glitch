@@ -5,12 +5,6 @@ const subcategorySchema = new Schema({
     type: String,
     required: true,
   },
-  // products: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Product'
-  //   }
-  // ],
   category: {
     type: Schema.Types.ObjectId,
     ref: 'Category'
