@@ -74,11 +74,13 @@ exports.deleteSubcategoryById = async (req, res) => {
 
     const subcategoryDeleted = await Subcategory.findByIdAndDelete(req.params.subcategoryId).populate('category')
 
+    if(!subcategoryDeleted) return response.error(res, 404)
+    
     const dataToUpdateCategory = {
-      subcategories: subcategoryDeleted.category.subcategories.filter((subcategoryId) => subcategoryId !== subcategoryDeleted._id)
+      subcategories: subcategoryDeleted._doc.category.subcategories.filter((subcategoryId) => subcategoryId != subcategoryDeleted._id + "")
     }
 
-    const cat = await Category.findByIdAndUpdate(subcategoryDeleted.category._id, dataToUpdateCategory)
+    await Category.findByIdAndUpdate(subcategoryDeleted.category._id, dataToUpdateCategory)
 
     const data = {
       subcategory: subcategoryDeleted.title,

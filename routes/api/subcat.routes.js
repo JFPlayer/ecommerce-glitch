@@ -6,11 +6,11 @@ const router = Router();
 
 router.route('/')
   .get(controller.getSubcategories)
-  .post(verifyToken, checkRole('admin'), controller.createSubcategory)
+  .post(controller.createSubcategory)
 
 router.route('/:subcategoryId')
   .get(controller.getSubcategoryById)
-  .put(verifyToken, checkRole('admin'), controller.updateSubcategoryById)
-  .delete(verifyToken, checkRole('admin'), controller.deleteSubcategoryById)
+  .put(controller.updateSubcategoryById)
+  .delete(controller.deleteSubcategoryById)
 
 module.exports = router;
