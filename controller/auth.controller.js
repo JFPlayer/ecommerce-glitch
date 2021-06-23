@@ -33,10 +33,8 @@ exports.signUp = async (req, res) => {
 
     const { password: userPassword, ...data } = savedUser._doc
 
-
     response.success(res, 201, { ...data, accessToken})
   } catch (error) {
-    console.error(error)
     response.error(res, 503)
   }
 }
@@ -44,8 +42,6 @@ exports.signUp = async (req, res) => {
 exports.signIn = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(req.body)
-  
   if(!email || !password) return response.error(res, 400)
   
   try {
@@ -55,9 +51,6 @@ exports.signIn = async (req, res) => {
     if(!user) return response.error(res, 400, 'Email or password incorrect')
     
     const isMatch = await user.isValidPassword(password);
-    
-    console.log('isMatch')
-    console.log(isMatch)
     
     if(!isMatch) return response.error(res, 400, 'Email or password incorrect')
     

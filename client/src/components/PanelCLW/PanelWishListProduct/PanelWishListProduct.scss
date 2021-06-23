@@ -16,7 +16,7 @@
 
 .panel-wl-product__description {
   flex-grow: 1;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -27,7 +27,8 @@
   width: 80px;
   height: 80px;
   img {
-    width: 80px;
+    max-width: 80px;
+    min-width: 80px;
     height: 80px;
     object-fit: contain;
   }
@@ -36,6 +37,7 @@
 .panel-wl-product__info {
   font-size: $fsize-medium;
   color: $color-gray10;
+  text-transform: uppercase;
 }
 
 .panel-wl-product__remove {

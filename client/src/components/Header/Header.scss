@@ -34,8 +34,8 @@
   > * {
     order: 4;
   }
-  :nth-child(2),
-  :nth-child(3) {
+  > :nth-child(2),
+  > :nth-child(3) {
     order: 0;
   }
   
@@ -99,6 +99,7 @@
   display: flex;
   align-items: center;
   user-select: none;
+  position: relative;
 
   span {
     margin-right: 5px;
@@ -113,8 +114,31 @@
   @include mqDesktop {
     
     svg {
-      transform: scale(.66);
+      transform: scale(.9);
     }
+  }
+}
+
+.header__cart-count {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  border-radius: 100%;
+  background-color: $color-violet;
+  bottom: 25px;
+  right: -5px;
+  border: solid 2px $color-gray80;
+  
+  div {
+    color: $color-white;
+    font-size: $fsize-large;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: normal;
+  }
+  
+  @include mqTablet {
+    bottom: 30px;
   }
 }
 
@@ -157,4 +181,14 @@
       top: 0;
     }
   }
+}
+
+.shake {
+  animation: shake .25s 2 ;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  50% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
 }

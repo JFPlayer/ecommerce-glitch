@@ -9,7 +9,6 @@ exports.getProducts = async (req, res) => {
 
   for(const key in queries) {
     if(queries[key]) {
-      // query[key] = Array.isArray(queries[key]) ? new RegExp(queries[key].join('|'), 'i') : queries[key]
       query[key] = Array.isArray(queries[key]) ? new RegExp(queries[key].filter(value => value).join('|'), 'i') : queries[key]
     }
   }
@@ -36,9 +35,6 @@ exports.getProducts = async (req, res) => {
 
   
   try{
-    console.log(query)
-    console.log(options)
-    // const products = await Product.paginate({}, { pagination: false, select: 'brand'});
     const products = await Product.paginate(query, options);
     response.success(res, 200, products)
   } catch(error) {
@@ -100,13 +96,16 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProductById = async (req, res) => {
   if(!req.params.productId || !req.body) return response.error(res, 400);
-
+  
   const { images } = req.body
 
   try {
     //eliminar las imagenes que no se incluyen en la actualizacion
     if(images && images.length) {
       const productFound = await Product.findById(req.params.productId)
+      
+      if(!productFound) return response.error(res, 404)
+
       const keysDeprecatedImages = productFound.images.reduce((acc, { key }) => {
         if(!images.some(imageFromClient => imageFromClient.key === key)) return [...acc, key]
         return acc

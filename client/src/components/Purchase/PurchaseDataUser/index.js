@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux"
 
@@ -14,6 +14,9 @@ import { updatePerfil, updateAddress, setPurchasePerfil, setPurchaseAddress } fr
 const PurchaseDataUser = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
+
+  const [savedPerfil, setSavedPerfil] = useState(false)
+  const [savedAddress, setSavedAddress] = useState(false)
 
   const {
     register: registerPerfil,
@@ -64,20 +67,30 @@ const PurchaseDataUser = () => {
   }, [user.userStreet])
 
   const onSubmitPerfil = (data) => {
-    const { save, ...perfil } = data
-    if(save) {
+    const { savePerfil, ...perfil } = data
+    if(savePerfil) {
       dispatch(updatePerfil(perfil))
     }
     dispatch(setPurchasePerfil(perfil))
+    setSavedPerfil(true)
   };
   
+  const handleChangePerfil = () => {
+    if(savedPerfil) setSavedPerfil(false)
+  }
+  
   const onSubmitAddress = (data) => {
-    const { save, ...address } = data
-    if(save) {
+    const { saveAddress, ...address } = data
+    if(saveAddress) {
       dispatch(updateAddress(address))
     }
     dispatch(setPurchaseAddress(address))
+    setSavedAddress(true)
   };
+
+  const handleChangeAddress = () => {
+    if(savedAddress) setSavedAddress(false)
+  }
 
   return (
     <>
@@ -87,6 +100,7 @@ const PurchaseDataUser = () => {
           <div className="purchase-du__email">{user.userEmail}</div>
           <form
             onSubmit={handleSubmitPerfil(onSubmitPerfil)}
+            onChange={handleChangePerfil}
             className="purchase-du__info-personal"
           >
             <InputText
@@ -121,11 +135,11 @@ const PurchaseDataUser = () => {
               className="purchase-du__checkbox"
               light
               useForm={formPerfil}
-              name="save"
+              name="savePerfil"
               labelText="Guardar estos datos en mi perfil"
             />
             <div className="purchase-du__btn">
-              {user.purchasePerfil.firstName &&
+              {savedPerfil &&
                 <span>
                   Guardado
                 </span>
@@ -144,6 +158,7 @@ const PurchaseDataUser = () => {
           <form
             onSubmit={handleSubmitAddress(onSubmitAddress)}
             className="purchase-du__info-address"
+            onChange={handleChangeAddress}
           >
             <InputText
               useForm={formAddress}
@@ -191,11 +206,11 @@ const PurchaseDataUser = () => {
               className="purchase-du__checkbox"
               light
               useForm={formAddress}
-              name="save"
+              name="saveAddress"
               labelText="Guardar esta dirección en mi perfil"
             />
             <div className="purchase-du__btn">
-              {user.purchaseAddress.street &&
+              {savedAddress &&
                 <span>
                   Guardado
                 </span>
@@ -212,7 +227,8 @@ const PurchaseDataUser = () => {
       </div>
 
       <PurchaseActions 
-        goToStep={(user.purchasePerfil.firstName && user.purchaseAddress.street) ? 2 : ''}
+        active={savedPerfil && savedAddress}
+        goToStep="2"
         className="purchase-du__actions"
       />
     </>

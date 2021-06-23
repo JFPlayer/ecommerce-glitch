@@ -7,11 +7,11 @@ import { IoIosArrowBack } from 'react-icons/io'
 
 import Button from '../../../components/Button'
 
-const PurchaseActions = ({ className, goToStep, action }) => {
+const PurchaseActions = ({ className, goToStep, active, action }) => {
   const dispatch = useDispatch()
 
   const changeStep = () => {
-    if(goToStep) {
+    if(active) {
       dispatch({
         type: 'SET_PURCHASE_PROCESS_STEP',
         payload: goToStep
@@ -22,6 +22,7 @@ const PurchaseActions = ({ className, goToStep, action }) => {
   return (
     <div className={`purchase__actions ${className}`}>
       <Button
+        disabled={!active}
         primary
         onClick={() => action ? action() : changeStep()}
       >

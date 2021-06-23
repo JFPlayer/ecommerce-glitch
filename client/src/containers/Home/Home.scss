@@ -122,6 +122,7 @@
 .home__categories-item-title {
   color: $color-gray10;
   text-align: center;
+  text-transform: capitalize;
   line-height: 30px;
 }
 
@@ -182,10 +183,3 @@
   }
 }
 
-.home__hot-sale-count-down-value {
-  vertical-align: middle;
-  margin-left: 10px;
-  font-size: $fsize-xlarge;
-  font-weight: bold;
-  color: $color-gray80;
-}

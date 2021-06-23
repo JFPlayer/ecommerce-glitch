@@ -69,15 +69,15 @@ const Footer = () => {
               </span>
 
               <div className="footer__social-icon">
-                <a href="">
+                <a href="/">
                   <FaInstagram/>
                   <span className="footer__social-link">@glitch</span>
                 </a>
-                <a href="">
+                <a href="/">
                   <AiOutlineFacebook/>
                   <span className="footer__social-link">Glitch</span>
                 </a>
-                <a href="">
+                <a href="/">
                   <AiOutlineYoutube/>
                   <span className="footer__social-link">Glitch</span>
                 </a>

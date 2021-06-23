@@ -44,7 +44,7 @@ exports.createSubcategory = async (req, res) => {
       subcategories: [...categoryFound.subcategories, savedSubcategory._id]
     }
 
-    const cat = await Category.findByIdAndUpdate(categoryId, dataToUpdateCategory)
+    await Category.findByIdAndUpdate(categoryId, dataToUpdateCategory)
 
     response.success(res, 201, savedSubcategory)
   } catch (error) {

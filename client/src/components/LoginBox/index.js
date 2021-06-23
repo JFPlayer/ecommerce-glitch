@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+// import FacebookLogin from 'react-facebook-login'
 
 import './LoginBox.scss'
 import { MdClose } from 'react-icons/md'
@@ -32,6 +33,29 @@ const LoginBox = ({ toClose, positionX }) => {
   const onSubmit = data => {
     dispatch(signIn(data))
   }
+
+  // const facebookLogin = () => {
+  //   if(!window.FB) return;
+
+  //   window.FB.getLoginStatus(response => {
+  //     if(response.status === 'connected'){
+  //       console.log(response)
+  //     }else {
+  //       console.log('iniciar')
+  //       window.FB.login(facebookLoginHandler, { scope: 'public_profile,email' })
+  //     }
+  //   })
+  // }
+
+  // const facebookLoginHandler = response => {
+  //   console.log(response)
+
+  //   if(response.status === 'connected') {
+  //     window.FB.api('/me?fields=id,name,email,picture', userData => {
+  //       console.log(userData)
+  //     })
+  //   }
+  // }
 
   return (
     <div 
@@ -84,7 +108,12 @@ const LoginBox = ({ toClose, positionX }) => {
                 <Button primary logo="google">
                   <LogoGoogle/>
                 </Button>
-                <Button primary logo="facebook">
+                
+                <Button 
+                  
+                  primary 
+                  logo="facebook"
+                >
                   <LogoFacebook/>
                 </Button>
               </div>

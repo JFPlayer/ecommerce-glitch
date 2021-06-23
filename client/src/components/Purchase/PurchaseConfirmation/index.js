@@ -67,7 +67,10 @@ const PurchaseConfirmation = () => {
         </div>
       </div>
 
-      <PurchaseActions className="purchase-du__actions"/>
+      <PurchaseActions 
+        active={true}
+        className="purchase-du__actions"
+      />
     </>
   )
 }

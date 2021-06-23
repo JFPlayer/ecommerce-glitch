@@ -46,7 +46,6 @@ exports.createCategory = async (req, res) => {
 }
 
 exports.updateCategoryById = (req, res) => {
-  console.log(req.body)
   if(!req.params.categoryId || !req.body) return response.error(res, 400)
 
   try {
@@ -71,7 +70,6 @@ exports.deleteCategoryById = (req, res) => {
       const subcategoriesDeleted = doc.subcategories.map(subcategoryId => Subcategory.deleteOne({_id: subcategoryId}))
       Promise.all(subcategoriesDeleted)
         .then(() => {
-
           const data = {
             category: doc.title,
             message: 'Category deleted successfully'

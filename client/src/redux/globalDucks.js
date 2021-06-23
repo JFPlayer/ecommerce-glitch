@@ -5,8 +5,11 @@ import { uploadImages } from '../utils/uploadImages'
 const SET_NAVIGATION = 'SET_NAVIGATION'
 
 const SET_BRANDS = 'SET_BRANDS'
+const SET_BRANDS_ERROR = 'SET_BRANDS_ERROR'
 
 const SET_BANNERS = 'SET_BANNERS'
+const GET_BANNERS_ERROR = 'GET_BANNERS_ERROR'
+const GET_BANNERS_LOADING = 'GET_BANNERS_LOADING'
 
 const NEW_BANNER = 'NEW_BANNER'
 
@@ -16,7 +19,10 @@ const UPDATE_BANNERS = 'UPDATE_BANNERS'
 const initialState = {
   historyNav: [],
   brands: {},
+  setBrandsError: null,
   banners: [],
+  getBannersError: null,
+  getBannersLoading: false,
 }
 
 
@@ -33,10 +39,27 @@ export default (state = initialState, { type, payload}) => {
         ...state,
         brands: payload
       }
+    case SET_BRANDS_ERROR :
+      return {
+        ...state,
+        setBrandsError: payload
+      }
     case SET_BANNERS :
       return {
         ...state,
-        banners: payload
+        banners: payload,
+        getBannersLoading: false,
+      }
+    case GET_BANNERS_ERROR :
+      return {
+        ...state,
+        getBannersError: payload,
+        getBannersLoading: false,
+      }
+    case GET_BANNERS_LOADING :
+      return {
+        ...state,
+        getBannersLoading: true,
       }
     case NEW_BANNER :
       return {
@@ -73,13 +96,19 @@ export const getBrands = () => async (dispatch, getState) => {
       type: 'SET_BRANDS',
       payload: brands,
     })
-    
   } catch (error) {
-    console.log(error)
+    dispatch({
+      type: 'SET_BRANDS_ERROR',
+      payload: error,
+    })
   }
 }
 
 export const getBanners = () => (dispatch) => {
+  dispatch({
+    type: 'GET_BANNERS_LOADING',
+  })
+
   axios.get('/api/ads/banners')
     .then(({ data }) => {
       dispatch({
@@ -87,13 +116,16 @@ export const getBanners = () => (dispatch) => {
         payload: data.body,
       })
     })
+    .catch(error => {
+      dispatch({
+        type: 'SET_BANNERS_ERROR',
+        payload: error
+      })
+    })
 }
 
 export const createSlider = (file) => async (dispatch) => {
-  console.log(file)
   const images = await uploadImages([file])
-
-  console.log(images)
 
   axios.post('/api/ads/banners', images[0])
     .then(({ data }) => {

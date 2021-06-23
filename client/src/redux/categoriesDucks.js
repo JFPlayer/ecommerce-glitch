@@ -181,7 +181,6 @@ export const createCategory = (title) => (dispatch) => {
 
   axios.post('/api/categories', { title: title })
     .then((response) => {
-      console.log(response.data)
       if(!response.data.error){
         dispatch({
           type: 'CREATE_CATEGORY_SUCCESS',

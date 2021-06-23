@@ -15,6 +15,7 @@ import categories4 from '../../assets/categories_4.png'
 
 import Slider from '../../components/Slider'
 import ProductListHome from '../../components/ProductListHome'
+import CountDown from '../../components/CountDown'
 
 import { getBanners } from '../../redux/globalDucks'
 import { getProductsHotSale, getProductsBestSeller, getProductsSuggested } from '../../redux/productsDucks'
@@ -126,9 +127,7 @@ const Home = () => {
           </div>
           <div className="home__hot-sale-count-down">
             <BsClockHistory/>
-            <span className="home__hot-sale-count-down-value">
-              2 d 13 : 25 : 40
-            </span>
+            <CountDown date={new Date('Jun 30, 2021 00:00:00').getTime()}/>
           </div>
         </div>
       </div>

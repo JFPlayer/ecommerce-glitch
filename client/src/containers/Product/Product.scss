@@ -37,20 +37,23 @@
 .product__brand {
   font-size: $fsize-xlarge;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .product__title {
   font-size: $fsize-xlarge;
+  text-transform: uppercase;
 }
 
 .product__sku {
   font-size: $fsize-small;
+  text-transform: uppercase;
 }
 
 .product__rating {
   font-size: $fsize-small;
   font-weight: normal;
-
+  
   span {
     white-space: nowrap;
   }
@@ -61,6 +64,7 @@
 }
 
 .product__stock {
+  text-transform: uppercase;
   background-color: $color-green;
   color: $color-black;
   width: max-content;
@@ -215,6 +219,7 @@
   font-size: $fsize-medium;
   font-weight: normal;
   padding: 6px 0;
+  text-transform: uppercase;
   // filter: brightness(1.2);
   // background-color: $color-bg;
   background-color: rgba($color: $color-violet, $alpha: .5);

@@ -18,7 +18,7 @@ const PanelCLW = ({ toClose }) => {
   const [isSelectedCart, setIsSelectedCart] = useState(true)
 
   const dispatch = useDispatch()
-  const {cart, wishList, subTotal, discount, total} = useSelector(state => state.user)
+  const {cart, wishList, subTotal, discount, total, loggedIn} = useSelector(state => state.user)
 
   const { register, handleSubmit, watch, reset } = useForm()
   const form = {register, watch}
@@ -113,6 +113,7 @@ const PanelCLW = ({ toClose }) => {
               <Button 
                 primary
                 onClick={() => history.push('/purchase-process')}
+                disabled={!cart.length}
               >
                 Ir al carrito
               </Button>
@@ -130,6 +131,7 @@ const PanelCLW = ({ toClose }) => {
             <Button
               onClick={handleSubmit(addToCart)}
               primary
+              disabled={!wishList.length}
             >
               Agregar al carrito
             </Button>

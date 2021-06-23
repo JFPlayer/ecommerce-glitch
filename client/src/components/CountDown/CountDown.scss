@@ -1,0 +1,9 @@
+@import '../../sass/variables';
+
+.count-down {
+  vertical-align: middle;
+  margin-left: 10px;
+  font-size: $fsize-xlarge;
+  font-weight: bold;
+  color: $color-gray80;
+}

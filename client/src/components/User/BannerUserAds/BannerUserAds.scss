@@ -94,3 +94,12 @@
     height: 100%;
   }
 }
+
+.banner_ua__loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(100,100,100,.3);
+}

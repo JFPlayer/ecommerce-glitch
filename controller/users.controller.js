@@ -64,7 +64,6 @@ exports.updateUser = async (req, res) => {
       .populate({ path: 'cart wishList', populate: { path: 'products.productId productId' } })
     response.success(res, 201, userUpdated)
   } catch (error) {
-    console.log(error)
     response.error(res, 503)
   }
 }

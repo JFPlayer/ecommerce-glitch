@@ -9,12 +9,12 @@ import { FaHeart } from 'react-icons/fa'
 import ProductPreview from '../../components/ProductPreview'
 import Button from '../../components/Button'
 import NavHistory from '../../components/NavHistory'
+import Spinner from '../../components/Spinner'
 
 import { getProductById } from '../../redux/productsDucks'
 import { addProductWishList, addProductCart } from '../../redux/userDucks'
 
 import { toMoney } from '../../utils/toMoney'
-
 
 const Product = () => {
   const [tabSpecsActive, setTabSpecsActive] = useState(false)
@@ -23,7 +23,7 @@ const Product = () => {
 
   const dispatch = useDispatch()
   const { selectedProduct: product } = useSelector(state => state.products)
-  const { wishList } = useSelector(state => state.user)
+  const { wishList, loggedIn } = useSelector(state => state.user)
 
   useEffect(() => {
     scrollTo(0,0)
@@ -34,13 +34,12 @@ const Product = () => {
   }, [productId])
 
   const addCart = () => {
-    dispatch(addProductCart(product._id))
+    if(loggedIn) dispatch(addProductCart(product._id))
   }
-
+  
   const addWishList = () => {
-    dispatch(addProductWishList(product._id))
+    if(loggedIn) dispatch(addProductWishList(product._id))
   }
-
 
   return (
     <>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import './Purchase.scss'
 
@@ -19,6 +19,16 @@ const steps = [
 
 const Purchase = () => {
   const { purchaseProcessStep } = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: 'SET_PURCHASE_PROCESS_STEP',
+        payload: 0
+      })
+    }
+  }, [])
 
   return (
     <PurchaseLayout>

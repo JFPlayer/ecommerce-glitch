@@ -194,7 +194,6 @@ export const calculateBill = () => (dispatch, getState) => {
 }
 
 export const updateWishListCart = (productsWishList, productsIdCart) => (dispatch, getState) => {
-  // console.log(productsWishList, productsIdCart)
   dispatch({
     type: 'SET_CART_LOADING',
     payload: true
@@ -235,6 +234,9 @@ export const updateWishListCart = (productsWishList, productsIdCart) => (dispatc
       type: 'SET_WISH_LIST_LOADING',
       payload: false
     })
+  })
+  .catch(error => {
+
   })
 }
 
@@ -385,23 +387,22 @@ export const signIn = ({ email, password }) => (dispatch) => {
       dispatch(setCart(data.body.cart.products))
       dispatch(setWishList(data.body.wishList.productId))
     })
+    .catch(error => {
+
+    })
 }
 
 export const whoAmI = () => (dispatch) => {
   
   axios.get('/api/auth/whoami')
-  .then(({ data }) => {
-    // hacer peticion a refreshToken cada 10min
-    // console.log('whoamI')
-    // console.log(data.body)
-    dispatch(setUser(data.body))
-    
-    dispatch(setCart(data.body.cart.products))
-    dispatch(setWishList(data.body.wishList.productId))
-  })
-  .catch(error => {
-    // console.log('error en whoAmI', error)
-  })
+    .then(({ data }) => {
+      dispatch(setUser(data.body))
+      
+      dispatch(setCart(data.body.cart.products))
+      dispatch(setWishList(data.body.wishList.productId))
+    })
+    .catch(error => {
+    })
 }
 
 export const getToken = () => (dispatch) => {
@@ -413,6 +414,9 @@ export const getToken = () => (dispatch) => {
         type:'SET_TOKEN',
         payload: data.body.accessToken
       })
+    })
+    .catch(error => {
+
     })
 }
 
@@ -458,6 +462,9 @@ export const updatePerfil = (data) => (dispatch) => {
         }
       })
     })
+    .catch(error => {
+
+    })
 }
 
 export const updateAddress = (data) => (dispatch) => {
@@ -477,13 +484,16 @@ export const updateAddress = (data) => (dispatch) => {
         }
       })
     })
+    .catch(error => {
+
+    })
 }
 
 export const updatePassword = (data) => (dispatch) => {
 
   axios.put('/api/users', { password : data})
     .then(({ data }) => {
-      // console.log('termino')
+
     })
 }
 

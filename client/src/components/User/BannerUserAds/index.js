@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 
@@ -41,6 +41,8 @@ const BannerUserAds = ({ src, title, id, type }) => {
 export const BannerUserAdsNew = ({ id, placeholder }) => {
   const {handleSubmit, register, watch, setValue} = useForm()
 
+  const [loading, setLoading] = useState(false)
+
   const dispatch = useDispatch()
 
   const onSubmit = data => {
@@ -48,7 +50,8 @@ export const BannerUserAdsNew = ({ id, placeholder }) => {
       dispatch(createBanner(data.banner[0], id)) 
       : 
       dispatch(createSlider(data.banner[0]))
-    setValue('banner', null)
+    // setValue('banner', null)
+    setLoading(true)
   }
   
   return (
@@ -91,6 +94,12 @@ export const BannerUserAdsNew = ({ id, placeholder }) => {
           >
             <BiCloudUpload/>
           </button>
+
+        </div>
+      }
+      
+      {true && 
+        <div className="banner_ua__loading">
 
         </div>
       }

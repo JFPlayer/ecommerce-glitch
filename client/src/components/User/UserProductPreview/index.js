@@ -55,9 +55,8 @@ const UserProductPreview = () => {
   }, [selectedProduct])
 
   const onSubmit = (data) => {
-    // console.log(data, specs)
     if(onEdit) {
-      dispatch(updateProduct('60c2b385d67c170a2a4198c6', thumbs, newImages.map(({file}) => file), {...data, specs: specs}))
+      dispatch(updateProduct(selectedProduct._id, thumbs, newImages.map(({file}) => file), {...data, specs: specs}))
     }else {
       dispatch(createProduct(newImages.map(({file}) => file), {...data, specs: specs}))
     }
@@ -257,7 +256,7 @@ const UserProductPreview = () => {
                   ))}
                 </div>
                 <span className="user-pp__rating-stars-title">
-                  (2 Calificaciones)
+                  (Sin calificaciones)
                 </span>
               </div>
               <div className="user-pp__form-actions">

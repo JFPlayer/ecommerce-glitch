@@ -27,11 +27,21 @@ const Header = () => {
 
   const refLoginTitle = useRef()
 
-  const { loggedIn, userFirstName, userLastName } = useSelector(state => state.user)
+  const { loggedIn, userFirstName, cart } = useSelector(state => state.user)
 
   const [slideOutOpen, setSlideOutOpen] = useState('');
   const [positionXLogin, setPositionXLogin] = useState(0)
   const [onFocusSearchBar, setOnFocusSearchBar] = useState(false)
+  const [shakeCart, setShakeCart] = useState(false)
+
+  useEffect(() => {
+    if(cart.length > 0) {
+      setShakeCart(true)
+      setTimeout(() => {
+        setShakeCart(false)
+      }, 500)
+    }
+  }, [cart])
 
   return (
     <>
@@ -83,9 +93,20 @@ const Header = () => {
 
           <div
             onClick={() => setSlideOutOpen(slideOutOpen ? '' : 'panelclw')}
-            className="header__title"
+            className={`header__title ${shakeCart ? 'shake' : ''}`}
           >
-            <RiShoppingCart2Line />
+            {cart.length ?
+              <>
+                <RiShoppingCartFill />
+                <div className="header__cart-count">
+                  <div>
+                    {cart.reduce((acc, {quantity}) => acc + quantity, 0)}
+                  </div>
+                </div>
+              </>
+            :
+              <RiShoppingCart2Line />
+            }
           </div>
         </nav>
       </header>

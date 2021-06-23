@@ -65,6 +65,7 @@ const PurchaseCart = () => {
       </div>
       <div className="purchase-cart__actions">
         <PurchaseActions
+          active={true}
           goToStep={1}
         />
       </div>

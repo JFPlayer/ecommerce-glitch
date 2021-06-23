@@ -82,8 +82,9 @@ const PurchasePay = () => {
         
       </form>
 
-      <PurchaseActions 
-        goToStep={(purchasePay && watch(purchasePay)) ? 3 : ''}
+      <PurchaseActions
+        active={purchasePay && watch(purchasePay)}
+        goToStep="3"
         className="purchase-du__actions"
       />
     </>

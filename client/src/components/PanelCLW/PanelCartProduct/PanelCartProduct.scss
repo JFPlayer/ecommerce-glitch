@@ -34,7 +34,7 @@
   flex-grow: 1;
   display: flex;
   padding: 5px 0;
-  overflow-x: hidden;
+  overflow: hidden;
   gap: 10px;
 }
 
@@ -45,16 +45,18 @@
 
   img {
     height: 80px;
-    width: 80px;
+    max-width: 80px;
+    min-width: 80px;
     object-fit: contain;
   }
 }
 
 .panel-cart-product__info {
   flex-grow: 1;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   color: $color-gray10;
 
   span {
@@ -65,6 +67,10 @@
     overflow: hidden;
     line-height: $fsize-xlarge;
   }
+}
+
+.panel-cart-product__title {
+  text-transform: uppercase;
 }
 
 .panel-cart-product__remove {

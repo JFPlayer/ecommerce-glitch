@@ -49,11 +49,13 @@ const PanelCartProduct = ({ product }) => {
         </div>
 
         <div className="panel-cart-product__info">
+          <span className="panel-cart-product__title">
+            {product.title}
+          </span>
           <span>
-          {product.title}
-          <br/>
-          {toMoney(product.price)}
-          <br/>
+            {toMoney(product.price)}
+          </span>
+          <span>
           {product.discount ? `Descuento ${product.discount}%` : ''}
           </span>
         </div>
