@@ -76,7 +76,7 @@ const initialState = {
 
   totalProducts: 0,
   totalPages: 0,
-  limit: 5,
+  limit: 12,
   page: 1,
   populate: true,
   paginate: true,

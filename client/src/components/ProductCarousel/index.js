@@ -44,10 +44,14 @@ const ProductCarousel = ({ product }) => {
         </div>
         <div className="product-carousel__price-section">
           <div className="product-carousel__price-off">
-            {toMoney(((100 - product.discount) / 100) * product.price)}
+            {product.discount ? toMoney(product.price) : ''}
           </div>
           <div className="product-carousel__price">
-            {toMoney(product.price)}
+            {product.discount ? 
+              toMoney(((100 - product.discount) / 100) * product.price) 
+            : 
+              toMoney(product.price)
+            }
           </div>
         </div>
 

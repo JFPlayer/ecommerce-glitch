@@ -92,7 +92,7 @@ const Product = () => {
                 {product.discount && 
                   <>
                     <span className="product__price-normal">
-                      {toMoney(product.price * ((100 - product.discount) / 100))}
+                      {toMoney(product.price)}
                     </span>
                     <span className="product__price-discount">
                       {`${product.discount}% OFF`}
@@ -101,7 +101,7 @@ const Product = () => {
                 }
               </div>
               <span className="product__price-total">
-                {toMoney(product.price)}
+                {product.discount ? toMoney(product.price * ((100 - product.discount) / 100)) : toMoney(product.price)}
               </span>
             </div>
 

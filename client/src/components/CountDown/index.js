@@ -37,7 +37,7 @@ const CountDown = ({ date = Date.now() + 1000*60*60*24*2 }) => {
 
   return (
     <span className="count-down">
-      {`${countDown.day} d ${countDown.hour} : ${countDown.minute} : ${countDown.second}`}
+      {`${countDown.day} d ${countDown.hour < 10 ? `0${countDown.hour}` : countDown.hour} : ${countDown.minute < 10 ? `0${countDown.minute}` : countDown.minute} : ${countDown.second < 10 ? `0${countDown.second}` : countDown.second}`}
     </span>
   )
 }
