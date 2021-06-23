@@ -98,11 +98,11 @@ export const BannerUserAdsNew = ({ id, placeholder }) => {
         </div>
       }
       
-      {true && 
+      {/* {loading && 
         <div className="banner_ua__loading">
 
         </div>
-      }
+      } */}
     </form>
   )
 }
