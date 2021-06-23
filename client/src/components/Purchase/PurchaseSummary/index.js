@@ -48,7 +48,7 @@ const PurchaseSummary = () => {
             Descuento
           </div>
           <div className="purchase-summary__row-item">
-            {toMoney(discount)}
+            {"- " + toMoney(discount)}
           </div>
         </div>
         <div className="purchase-summary__row">

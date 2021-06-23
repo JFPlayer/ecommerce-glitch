@@ -73,7 +73,7 @@ const ProductPurchase = ({ id, image, title, sku, quantity, priceUnid, priceTota
           </div>
           <div className="product-purchase__row-item">
             <span className="product-purchase__price-total">
-              {toMoney(priceTotal)}
+              {toMoney(priceTotal * quantity)}
             </span>
           </div>
         </div>
