@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import "./Header.scss";
 import { IoIosArrowDown } from "react-icons/io";
@@ -8,7 +8,6 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import { BiUser } from "react-icons/bi";
 import { RiShoppingCart2Line, RiShoppingCartFill } from "react-icons/ri";
 import { MdClose } from 'react-icons/md'
-
 
 import Logo from "../../assets/logo.svg";
 import LogoSmall from "../../assets/logo-small.svg";
@@ -21,6 +20,9 @@ import CategoryMenu from "../CategoryMenu";
 import LoginBox from "../LoginBox";
 import SearchBar from "../SearchBar";
 import PanelCLW from "../PanelCLW";
+import SearchResult from "../SearchResult";
+
+import { setSlideOutOpen } from '../../redux/globalDucks'
 
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width: 800px)")
@@ -28,8 +30,9 @@ const Header = () => {
   const refLoginTitle = useRef()
 
   const { loggedIn, userFirstName, cart } = useSelector(state => state.user)
+  const { slideOutOpen } = useSelector(state => state.global)
+  const dispatch = useDispatch()
 
-  const [slideOutOpen, setSlideOutOpen] = useState('');
   const [positionXLogin, setPositionXLogin] = useState(0)
   const [onFocusSearchBar, setOnFocusSearchBar] = useState(false)
   const [shakeCart, setShakeCart] = useState(false)
@@ -53,7 +56,7 @@ const Header = () => {
           </Link>
 
           <div
-            onClick={() => setSlideOutOpen(slideOutOpen ? '' : 'category')}
+            onClick={() => dispatch(setSlideOutOpen(slideOutOpen ? '' : 'category'))}
             className="header__title"
           >
             {slideOutOpen !== 'category' ? 
@@ -79,7 +82,7 @@ const Header = () => {
           <div
             ref={refLoginTitle}
             onClick={() => {
-              setSlideOutOpen(slideOutOpen ? '' : 'login-box')
+              dispatch(setSlideOutOpen(slideOutOpen ? '' : 'login-box'))
               setPositionXLogin(getCenter(refLoginTitle).x)
             }}
             className="header__title"
@@ -92,7 +95,7 @@ const Header = () => {
           </div>
 
           <div
-            onClick={() => setSlideOutOpen(slideOutOpen ? '' : 'panelclw')}
+            onClick={() => dispatch(setSlideOutOpen(slideOutOpen ? '' : 'panelclw'))}
             className={`header__title ${shakeCart ? 'shake' : ''}`}
           >
             {cart.length ?
@@ -115,23 +118,28 @@ const Header = () => {
         <div 
           className={`slideout ${slideOutOpen}`}
           onClick={() => {
-            setSlideOutOpen('')
+            dispatch(setSlideOutOpen(''))
           }}
         >
           {slideOutOpen === 'category' && (
             <CategoryMenu
-            toClose={() => setSlideOutOpen('')}
+            toClose={() => dispatch(setSlideOutOpen(''))}
             />
           )}
           {slideOutOpen === 'login-box' && (
             <LoginBox
             positionX={positionXLogin}
-            toClose={() => setSlideOutOpen('')}
+            toClose={() => dispatch(setSlideOutOpen(''))}
             />
           )}
           {slideOutOpen === 'panelclw' && (
             <PanelCLW
-            toClose={() => setSlideOutOpen('')}
+            toClose={() => dispatch(setSlideOutOpen(''))}
+            />
+          )}
+          {slideOutOpen === 'searchResult' && (
+            <SearchResult
+            toClose={() => dispatch(setSlideOutOpen(''))}
             />
           )}
         </div>

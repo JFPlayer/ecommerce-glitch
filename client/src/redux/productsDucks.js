@@ -44,6 +44,9 @@ const SET_PRODUCTS_SUGGESTED = "SET_PRODUCTS_SUGGESTED";
 const GET_PRODUCTS_SUGGESTED_LOADING = "GET_PRODUCTS_SUGGESTED_LOADING";
 const GET_PRODUCTS_SUGGESTED_ERROR = "GET_PRODUCTS_SUGGESTED_ERROR";
 
+const SET_TIMEOUT_ID = "SET_TIMEOUT_ID";
+const SET_SEARCHED_PRODUCTS = "SET_SEARCHED_PRODUCTS";
+
 // initialState
 const initialState = {
   products: [],
@@ -73,6 +76,9 @@ const initialState = {
   getProductError: null,
 
   onEdit: false,
+
+  timeOutId: null,
+  searchedProducts: [],
 
   totalProducts: 0,
   totalPages: 0,
@@ -236,6 +242,16 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         orderBy: payload,
+      };
+    case SET_SEARCHED_PRODUCTS:
+      return {
+        ...state,
+        searchedProducts: payload,
+      };
+    case SET_TIMEOUT_ID:
+      return {
+        ...state,
+        timeOutId: payload,
       };
     default:
       return state;
@@ -427,7 +443,7 @@ export const getProductsBestSeller = () => (dispatch) => {
         payload: error
       })
     })
-  }
+}
   
 export const getProductsSuggested = () => (dispatch) => {
   dispatch({
@@ -447,4 +463,34 @@ export const getProductsSuggested = () => (dispatch) => {
         payload: error
       })
     })
+}
+
+export const getProductsByKeyWord = (keyWord) => (dispatch, getState) => {
+  const { timeOutId } = getState().products
+
+  if(timeOutId) {
+    clearTimeout(timeOutId)
   }
+  
+  const newTimeOutId = setTimeout(() => {
+
+    axios.get(`/api/products?limit=5&paginate=true&populate=true&title=&title=${keyWord}&exposurePer=desc`)
+      .then(({ data }) => {
+        dispatch({
+          type: 'SET_SEARCHED_PRODUCTS',
+          payload: data.body.docs
+        })
+        dispatch({
+          type: 'SET_TIMEOUT_ID',
+          payload: null,
+        })
+      })
+
+  }, 850)
+
+  dispatch({
+    type: 'SET_TIMEOUT_ID',
+    payload: newTimeOutId,
+  })
+
+}

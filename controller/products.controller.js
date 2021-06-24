@@ -33,6 +33,7 @@ exports.getProducts = async (req, res) => {
 
   if(discount) options['sort'] = { discount }
 
+
   
   try{
     const products = await Product.paginate(query, options);

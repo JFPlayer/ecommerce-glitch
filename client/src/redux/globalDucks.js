@@ -15,6 +15,8 @@ const NEW_BANNER = 'NEW_BANNER'
 
 const UPDATE_BANNERS = 'UPDATE_BANNERS'
 
+const SET_SLIDEOUT = 'SET_SLIDEOUT'
+
 // initialState
 const initialState = {
   historyNav: [],
@@ -23,6 +25,7 @@ const initialState = {
   banners: [],
   getBannersError: null,
   getBannersLoading: false,
+  slideOutOpen: '',
 }
 
 
@@ -71,6 +74,11 @@ export default (state = initialState, { type, payload}) => {
         ...state,
         banners: payload
       }
+    case SET_SLIDEOUT :
+      return {
+        ...state,
+        slideOutOpen: payload
+      }
     
     default:
       return state
@@ -78,6 +86,12 @@ export default (state = initialState, { type, payload}) => {
 }
 
 //actions
+export const setSlideOutOpen = (slideOutName) => {
+  return {
+    type: 'SET_SLIDEOUT',
+    payload: slideOutName
+  }
+}
 
 export const getBrands = () => async (dispatch, getState) => {
 

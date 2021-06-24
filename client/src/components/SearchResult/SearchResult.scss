@@ -1,0 +1,31 @@
+@import '../../sass/variables';
+
+.search-result {
+  // height: 200px;
+}
+
+.search-result__list {
+  background-color: $color-gray80;
+  margin: auto;
+
+  @include mqDesktop {
+    width: 50%;
+    max-width: 600px;
+  }
+}
+
+.search-result__row {
+  display: block;
+  font-size: $fsize-medium;
+  color: $color-gray10;
+  padding: 10px 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: $color-violet;
+    
+  }
+}
