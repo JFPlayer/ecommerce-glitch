@@ -41,6 +41,7 @@ const SearchBar = ({ className='', isFocus }) => {
           name="keyWord"
           value={inputValue}
           onChange={handleChange}
+          autoComplete="off"
         />
         <button className="search-bar__btn">
           <BiSearch/>
