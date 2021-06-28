@@ -8,7 +8,7 @@ import { BiSearch } from 'react-icons/bi';
 import { getProductsByKeyWord, setSelectedProduct } from '../../redux/productsDucks'
 import { setSlideOutOpen } from '../../redux/globalDucks'
 
-const SearchBar = ({ className='', isFocus }) => {
+const SearchBar = ({ className='', isFocus }, ref) => {
   const dispatch = useDispatch()
   const { searchedProducts } = useSelector(state => state.products)
 
@@ -37,6 +37,7 @@ const SearchBar = ({ className='', isFocus }) => {
       <form className="search-bar__content" onSubmit={handleSubmit}>
         <input
           className="search-bar__input"
+          ref={ref}
           type="text" 
           name="keyWord"
           value={inputValue}
@@ -51,4 +52,4 @@ const SearchBar = ({ className='', isFocus }) => {
   )
 }
 
-export default SearchBar
+export default React.forwardRef(SearchBar)

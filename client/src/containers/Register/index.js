@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './Register.scss'
 
@@ -17,6 +17,7 @@ const Register = () => {
   const history = useHistory()
 
   const dispatch = useDispatch()
+  const isEmailRepeats = useSelector(state => state.user.repeatedUserEmail)
 
   const onSubmit = data => {
     dispatch(signUp(data))
@@ -52,6 +53,7 @@ const Register = () => {
           <InputText
             labelText="Email"
             name="email"
+            type="email"
             required
             useForm={form}
           />
@@ -62,6 +64,11 @@ const Register = () => {
             required
             useForm={form}
           />
+          {isEmailRepeats && 
+            <div className="register__error">
+              El email ya se encuentra registrado
+            </div>
+          }
           <div className="register__actions">
             <Button
               className="register__btn"

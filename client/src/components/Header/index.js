@@ -27,7 +27,8 @@ import { setSlideOutOpen } from '../../redux/globalDucks'
 const Header = () => {
   const isDesktop = useMediaQuery("(min-width: 800px)")
 
-  const refLoginTitle = useRef()
+  const loginTitleRef = useRef()
+  const inputSearchRef = useRef()
 
   const { loggedIn, userFirstName, cart } = useSelector(state => state.user)
   const { slideOutOpen } = useSelector(state => state.global)
@@ -75,15 +76,22 @@ const Header = () => {
             onBlur={() => setOnFocusSearchBar(false)}
             className='header__search'
           >
-            <SearchBar isFocus={!isDesktop ? onFocusSearchBar : ''}/>
-            <div className="header__search-btn"></div>
+            <SearchBar 
+              isFocus={!isDesktop ? onFocusSearchBar : ''}
+              ref={inputSearchRef}
+            />
+            <div className="header__search-btn"
+              onClick={() => {
+                setTimeout(() => inputSearchRef.current.select(), 50)
+              }}
+            ></div>
           </div>
 
           <div
-            ref={refLoginTitle}
+            ref={loginTitleRef}
             onClick={() => {
               dispatch(setSlideOutOpen(slideOutOpen ? '' : 'login-box'))
-              setPositionXLogin(getCenter(refLoginTitle).x)
+              setPositionXLogin(getCenter(loginTitleRef).x)
             }}
             className="header__title"
           >

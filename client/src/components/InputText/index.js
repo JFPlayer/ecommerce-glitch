@@ -10,7 +10,8 @@ const InputText = ({
   light,
   showError,
   useForm,
-  className
+  className,
+  options = {}
 }) => {
   const [isFocus, setIsFocus] = useState(false);
   
@@ -29,7 +30,7 @@ const InputText = ({
             {labelText}
           </label>
           <textarea
-            {...useForm.register(name, { required: required })}
+            {...useForm.register(name, { required: required, ...options })}
             className="input-text__field textarea"
             id={name}
             type={type}
@@ -56,7 +57,7 @@ const InputText = ({
           {labelText}
         </label>
         <input
-          {...useForm.register(name, { required: required })}
+          {...useForm.register(name, { required: required, ...options })}
           className="input-text__field"
           id={name}
           type={type}

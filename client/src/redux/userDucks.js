@@ -20,6 +20,8 @@ const SET_PURCHASE_PERFIL = 'SET_PURCHASE_PERFIL'
 const SET_PURCHASE_ADDRESS = 'SET_PURCHASE_ADDRESS'
 const SET_PURCHASE_PAY = 'SET_PURCHASE_PAY'
 
+const REPEATED_USER_EMAIL = 'REPEATED_USER_EMAIL'
+
 // initialState
 const initialState = {
   userFirstName: '',
@@ -50,6 +52,7 @@ const initialState = {
   purchasePerfil: {},
   purchaseAddress: {},
   purchasePay: '',
+  repeatedUserEmail: false,
 }
 
 
@@ -170,6 +173,11 @@ export default (state = initialState, { type, payload}) => {
       return {
         ...state,
         purchasePay: payload
+      }
+    case REPEATED_USER_EMAIL :
+      return {
+        ...state,
+        repeatedUserEmail: payload
       }
     
     default:
@@ -366,6 +374,10 @@ export const signUp = (userInfo) => (dispatch) => {
     .then(({ data }) => {
       dispatch(setUser(data.body))
     })
+    .catch(error => dispatch({
+      type: 'REPEATED_USER_EMAIL',
+      payload: true
+    }))
 }
 
 export const signOut = () => (dispatch) => {
