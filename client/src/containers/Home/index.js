@@ -127,7 +127,7 @@ const Home = () => {
           </div>
           <div className="home__hot-sale-count-down">
             <BsClockHistory/>
-            <CountDown date={new Date('Jun 30, 2021 00:00:00').getTime()}/>
+            <CountDown date={new Date('Jul 10, 2021 00:00:00').getTime()}/>
           </div>
         </div>
       </div>
